@@ -16,6 +16,9 @@ A travel health outlook for your exact destination and dates, built from public 
 
 > PreZero describes disease activity at a destination, not personal medical risk. It is not medical advice.
 > Talk to a doctor or travel clinic before you travel.
+---
+<img width="1710" height="982" alt="image" src="https://github.com/user-attachments/assets/962809fb-3b0d-4bdd-8346-b6062cd47438" />
+explore here! -> https://p-rezero.health/
 
 ---
 
