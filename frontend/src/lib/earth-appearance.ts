@@ -1,5 +1,5 @@
 /**
- * BugVoyage's graphic, self-illuminated atlas material.
+ * PreZero's graphic, self-illuminated atlas material.
  * Geographic color is computed in geographic coordinates, so turning the camera
  * never moves gradients or makes a country disappear into an unlit hemisphere.
  */

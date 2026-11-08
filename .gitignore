@@ -49,3 +49,6 @@ __pycache__/
 .idea/
 .vscode/*
 !.vscode/extensions.json
+
+// inspo
+/inspo/

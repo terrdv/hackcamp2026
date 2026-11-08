@@ -1,6 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useRef, useState } from "react";
-import { Bug } from "lucide-react";
 import { GlobeMap, type GlobeHandle, type GlobeOutbreak } from "@/components/GlobeMap";
 import { SearchForm, type SearchValues } from "@/components/SearchForm";
 import { Dashboard } from "@/components/Dashboard";
@@ -10,9 +9,9 @@ import type { DestinationReport } from "@/data/types";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "BugVoyage — Know before you go" },
+      { title: "PreZero — Know before you go" },
       { name: "description", content: "Spin the globe, pick a destination and dates, and see health advisories, seasonal risks and a packing checklist." },
-      { property: "og:title", content: "BugVoyage — Know before you go" },
+      { property: "og:title", content: "PreZero — Know before you go" },
       { property: "og:description", content: "Travel health prep on an interactive 3D globe." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -63,8 +62,8 @@ function Index() {
       <GlobeMap ref={globe} outbreaks={globeOutbreaks} selectedDiseaseId={selectedDiseaseId} selectedDestinationId={search && phase !== "search" ? search.destination.id : null} onSelectDisease={setSelectedDiseaseId} />
       <div className="pointer-events-none absolute inset-0">
         <header className="pointer-events-auto absolute left-4 top-4 flex items-center gap-2 no-print md:left-6 md:top-6">
-          <span className="logo-mark"><Bug className="size-4" /></span>
-          <span className="font-display text-lg font-semibold tracking-tight">BugVoyage</span>
+          <img src="/prezero-mark.svg" alt="" width={34} height={34} />
+          <span className="font-display text-2xl font-semibold tracking-tight" style={{ color: "#F3F0E8" }}>PreZero</span>
         </header>
         <SearchForm onSubmit={go} hidden={phase !== "search"} />
         {search && report && (
