@@ -20,6 +20,8 @@ import { destinations } from "@/data/destinations";
 
 export interface GlobeHandle {
   flyTo: (coords: [number, number], zoom: number, onDone?: () => void) => void;
+  /** Animate from the landing view into the search view: the globe zooms out and settles at the bottom. */
+  enterSearch?: (onDone?: () => void) => void;
   reset: () => void;
 }
 
@@ -34,6 +36,8 @@ interface GlobeMapProps {
   selectedDestinationId?: string | null;
   /** Country drawn as selected while no destination is open (e.g. picked in the search form). */
   highlightedCountryId?: string | null;
+  /** Landing view: globe centred in the viewport, slowly spinning until reset() / flyTo(). */
+  intro?: boolean;
   onSelectDisease?: (diseaseId: string) => void;
   /** A country with data was clicked on the globe. */
   onSelectCountry?: (destinationId: string) => void;
@@ -88,6 +92,14 @@ const LAYERS = countryLayers(MAP_STYLE);
 const easeOut = (t: number) => 1 - (1 - t) * (1 - t);
 
 const WORLD = { center: [10, 20] as [number, number], zoom: 3.5 };
+// Search view: the enlarged clipped canvas plus top padding lower the globe behind the search form. The camera centre is
+// clamped to the canvas, which is why the canvas has to grow for the globe to sit at the bottom of the viewport.
+// Keep the original search framing: the lowered globe should span the bottom,
+// rather than shrinking further as the intro canvas grows.
+const SEARCH = { zoom: WORLD.zoom };
+const SEARCH_CANVAS_RATIO = 2; // 200dvh, matches .globe-search-canvas
+const SEARCH_PADDING_RATIO = 0.9; // of the viewport height
+const SEARCH_TRANSITION_MS = 1200;
 
 // MapLibre paint colors must be hex/rgba (no oklch); these match the --sev-* tokens in styles.css.
 const esc = (v: unknown) =>
@@ -103,6 +115,7 @@ export const GlobeMap = forwardRef<GlobeHandle, GlobeMapProps>(function GlobeMap
     selectedDiseaseId = null,
     selectedDestinationId = null,
     highlightedCountryId = null,
+    intro = false,
     onSelectDisease,
     onSelectCountry,
   },
@@ -122,12 +135,25 @@ export const GlobeMap = forwardRef<GlobeHandle, GlobeMapProps>(function GlobeMap
   dataRef.current = { outbreaks, selectedDiseaseId, selectedDestinationId, highlightId };
   // Selection fade (value 0..1, also scales the pulsing glow) and hover fade, animated with requestAnimationFrame.
   const fade = useRef({ frame: 0, hoverFrame: 0, value: 0, pulse: 1, shownFor: null as string | null });
+  // Landing spin: drift the camera's longitude until the visitor takes over or the search view opens.
+  const spin = useRef({ raf: 0, running: false });
+  function stopSpin() {
+    spin.current.running = false;
+    cancelAnimationFrame(spin.current.raf);
+    spin.current.raf = 0;
+  }
+  const transition = useRef(0);
+  function cancelTransition() {
+    cancelAnimationFrame(transition.current);
+    transition.current = 0;
+  }
 
-  function setSearchZoom(m: import("maplibre-gl").Map, locked: boolean) {
+  // Lock the camera to a zoom level (the landing and search views), or restore free zoom with null.
+  function lockZoom(m: import("maplibre-gl").Map, zoom: number | null) {
     // Camera bounds also cover pinch, double-click and keyboard zoom while
     // leaving drag and touch rotation enabled.
-    m.setMinZoom(locked ? WORLD.zoom : zoomLimits.current.min);
-    m.setMaxZoom(locked ? WORLD.zoom : zoomLimits.current.max);
+    m.setMinZoom(zoom ?? zoomLimits.current.min);
+    m.setMaxZoom(zoom ?? zoomLimits.current.max);
   }
 
   function applyOutbreaks(m: import("maplibre-gl").Map) {
@@ -205,22 +231,69 @@ export const GlobeMap = forwardRef<GlobeHandle, GlobeMapProps>(function GlobeMap
 
   useImperativeHandle(ref, () => ({
     flyTo(coords, zoom, onDone) {
+      stopSpin();
+      cancelTransition();
       const m = map.current;
       let done = false;
       const finish = () => { if (!done) { done = true; onDone?.(); } };
       setTimeout(finish, 3600);
       if (!m) return;
-      setSearchZoom(m, false);
+      lockZoom(m, null);
       container.current?.classList.remove("globe-search-canvas");
       m.resize();
       m.once("moveend", finish);
       m.flyTo({ center: coords, zoom, duration: 3200, curve: 1.6, essential: true, padding: { right: window.innerWidth > 900 ? 420 : 0, left: 0, top: 0, bottom: 0 } });
     },
+    enterSearch(onDone) {
+      stopSpin();
+      cancelTransition();
+      const m = map.current;
+      const settle = () => {
+        container.current?.classList.add("globe-search-canvas");
+        if (container.current) container.current.style.height = "";
+        if (!m) return onDone?.();
+        m.resize();
+        m.jumpTo({ center: WORLD.center, zoom: SEARCH.zoom, padding: searchPadding() });
+        lockZoom(m, SEARCH.zoom);
+        onDone?.();
+      };
+      if (!m || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        settle();
+        return;
+      }
+      // One eased loop grows the canvas and lowers the camera centre together, so the globe slides down and zooms
+      // out into the search framing without a jump at the hand-off.
+      const vh = window.innerHeight;
+      const start = performance.now();
+      lockZoom(m, null);
+      m.stop();
+      const step = () => {
+        const raw = Math.min(1, (performance.now() - start) / SEARCH_TRANSITION_MS);
+        const t = easeOut(raw);
+        const height = vh * (1 + t * (SEARCH_CANVAS_RATIO - 1));
+        if (container.current) container.current.style.height = `${height}px`;
+        m.resize();
+        m.jumpTo({
+          center: WORLD.center,
+          zoom: WORLD.zoom + (SEARCH.zoom - WORLD.zoom) * t,
+          padding: { top: Math.round(vh * SEARCH_PADDING_RATIO * t), bottom: 0, left: 0, right: 0 },
+        });
+        if (raw < 1) {
+          transition.current = requestAnimationFrame(step);
+        } else {
+          transition.current = 0;
+          settle();
+        }
+      };
+      transition.current = requestAnimationFrame(step);
+    },
     reset() {
+      stopSpin();
+      cancelTransition();
       container.current?.classList.add("globe-search-canvas");
       map.current?.resize();
-      map.current?.jumpTo({ ...WORLD, padding: searchPadding() });
-      if (map.current) setSearchZoom(map.current, true);
+      map.current?.jumpTo({ center: WORLD.center, zoom: SEARCH.zoom, padding: searchPadding() });
+      if (map.current) lockZoom(map.current, SEARCH.zoom);
     },
   }));
 
@@ -234,7 +307,8 @@ export const GlobeMap = forwardRef<GlobeHandle, GlobeMapProps>(function GlobeMap
       if (cancelled || !container.current) return;
       maplibregl.setWorkerUrl(workerUrl);
       const colors = markerColors();
-      container.current.classList.add("globe-search-canvas");
+      // The landing uses the full viewport so the globe sits in the middle; the search view lowers it behind the form.
+      if (!intro) container.current.classList.add("globe-search-canvas");
       const m = new maplibregl.Map({
         container: container.current,
         center: WORLD.center,
@@ -294,8 +368,8 @@ export const GlobeMap = forwardRef<GlobeHandle, GlobeMapProps>(function GlobeMap
       });
 
       zoomLimits.current = { min: m.getMinZoom(), max: m.getMaxZoom() };
-      setSearchZoom(m, !dataRef.current.selectedDestinationId);
-      m.setPadding(searchPadding());
+      lockZoom(m, intro ? WORLD.zoom : SEARCH.zoom);
+      m.setPadding(intro ? { top: 0, bottom: 0, left: 0, right: 0 } : searchPadding());
       m.on("load", () => {
         ready.current = true;
         void loadWorld().then((world) => {
@@ -343,12 +417,32 @@ export const GlobeMap = forwardRef<GlobeHandle, GlobeMapProps>(function GlobeMap
         }
         const destination = destinations.find((d) => d.id === dataRef.current.selectedDestinationId);
         if (destination) {
-          setSearchZoom(m, false);
+          lockZoom(m, null);
           container.current?.classList.remove("globe-search-canvas");
           m.resize();
           m.jumpTo({ center: destination.coords, zoom: destination.zoom, padding: { right: window.innerWidth > 900 ? 420 : 0, left: 0, top: 0, bottom: 0 } });
         }
       });
+
+      // Landing: spin the globe slowly, and hand control over as soon as the visitor drags or zooms.
+      if (intro && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        const release = () => stopSpin();
+        m.on("dragstart", release);
+        m.on("zoomstart", release);
+        m.once("load", () => {
+          spin.current.running = true;
+          let last = performance.now();
+          const step = (now: number) => {
+            if (!spin.current.running) return;
+            const dt = Math.min(0.1, (now - last) / 1000);
+            last = now;
+            const centre = m.getCenter();
+            m.setCenter([((centre.lng + 3 * dt + 540) % 360) - 180, centre.lat]);
+            spin.current.raf = requestAnimationFrame(step);
+          };
+          spin.current.raf = requestAnimationFrame(step);
+        });
+      }
 
       m.on("click", "outbreak-dots", (e) => {
         const f = e.features?.[0];
@@ -451,6 +545,8 @@ export const GlobeMap = forwardRef<GlobeHandle, GlobeMapProps>(function GlobeMap
       cancelAnimationFrame(fadeState.hoverFrame);
       if (pulseTimer !== undefined) clearInterval(pulseTimer);
       if (glowTimer !== undefined) clearInterval(glowTimer);
+      stopSpin();
+      cancelTransition();
       ready.current = false;
       map.current?.remove();
       map.current = null;

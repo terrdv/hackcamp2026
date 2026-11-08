@@ -84,7 +84,7 @@ export function SearchForm({
     <div className={`overlay-fade pointer-events-none absolute inset-0 flex flex-col items-center justify-end px-4 pb-10 md:justify-center md:pb-0 ${hidden ? "is-hidden" : ""}`}>
       <div className="search-platform pointer-events-auto w-full max-w-5xl rounded-3xl px-5 py-7 md:px-8 md:py-9">
       <div className="mb-6 text-center">
-        <h1 className="font-display text-4xl font-semibold tracking-tight text-foreground md:text-6xl">Know before you go.</h1>
+        <h1 className="font-display text-4xl font-semibold tracking-tight text-foreground md:text-6xl">Plan your travel safely.</h1>
         <p className="mx-auto mt-3 max-w-xl text-sm text-muted-foreground md:text-base">
           Explore destination-specific disease outbreaks, seasonal health risks, and practical precautions before your trip.
         </p>
