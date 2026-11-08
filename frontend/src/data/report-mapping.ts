@@ -6,6 +6,7 @@
 //   moderate  <- moderate · higher_than_usual · circulating · present
 //   low       <- low · typical · not_reported · some_areas
 //   unknown   <- everything else (unknown, insufficient data, no row). Missing data is never shown as low.
+// Diseases whose level is unknown for the trip are left out of the report entirely (cards, chart, map dots).
 
 import type {
   ActivityLevel,
@@ -107,7 +108,7 @@ const DISEASES: Record<string, { name: string; description: string }> = {
   malaria: {
     name: "Malaria",
     description:
-      "Mosquito-borne parasite. Level reflects whether it is present, from official presence data.",
+      "Mosquito-borne parasite. Level reflects whether WHO estimates any cases in the country (latest year).",
   },
   yellow_fever: {
     name: "Yellow fever",
@@ -240,7 +241,8 @@ export function buildReport(input: ReportInput): DestinationReport {
       source: sourceLabel(t?.source ?? rows.find((r) => r.source)?.source ?? null, t?.metric),
     };
   });
-  const known = new Set(diseases.map((d) => d.id));
+  const shown = diseases.filter((d) => d.activityLevel !== "unknown");
+  const known = new Set(shown.map((d) => d.id));
 
   const timeSeries: TimeSeriesPoint[] = input.monthly
     .filter((m) => m.cases != null && known.has(id(m.disease)))
@@ -275,7 +277,7 @@ export function buildReport(input: ReportInput): DestinationReport {
   return {
     destinationId: input.destinationId,
     surveillanceDate: dates.sort().at(-1) ?? today,
-    diseases,
+    diseases: shown,
     outbreaks,
     timeSeries,
     recommendations: [], // checklist not wired to the pipeline yet

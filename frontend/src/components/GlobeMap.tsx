@@ -3,7 +3,7 @@ import type { Feature, Polygon, MultiPolygon } from "geojson";
 import "maplibre-gl/dist/maplibre-gl.css";
 import workerUrl from "maplibre-gl/dist/maplibre-gl-worker.mjs?url";
 import type { ActivityLevel, OutbreakObservation } from "@/data/types";
-import { countryShapes } from "@/data/countryShapes";
+import { getCountryShape, loadCountryShape } from "@/data/countryShapes";
 import { destinations } from "@/data/destinations";
 
 export interface GlobeHandle {
@@ -125,7 +125,7 @@ export const GlobeMap = forwardRef<GlobeHandle, GlobeMapProps>(function GlobeMap
 
   function applyCountry(m: import("maplibre-gl").Map) {
     const id = dataRef.current.selectedDestinationId;
-    const shape = id ? countryShapes[id] : null;
+    const shape = getCountryShape(id);
     const src = m.getSource("country") as import("maplibre-gl").GeoJSONSource | undefined;
     if (!shape) {
       src?.setData({ type: "FeatureCollection", features: [] });
@@ -331,6 +331,15 @@ export const GlobeMap = forwardRef<GlobeHandle, GlobeMapProps>(function GlobeMap
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [outbreaks, selectedDiseaseId, selectedDestinationId]);
 
+  // Outlines are fetched on demand; draw the selected country once its outline arrives.
+  useEffect(() => {
+    if (!selectedDestinationId) return;
+    void loadCountryShape(selectedDestinationId).then(() => {
+      const m = map.current;
+      if (m && ready.current && dataRef.current.selectedDestinationId === selectedDestinationId) applyCountry(m);
+    });
+  }, [selectedDestinationId]);
+
   return (
     <div className={`globe-bg absolute inset-0 ${selectedDestinationId ? "" : "globe-search"}`}>
       <div ref={container} className="h-full w-full" />
@@ -341,7 +350,6 @@ export const GlobeMap = forwardRef<GlobeHandle, GlobeMapProps>(function GlobeMap
             <span className="flex items-center gap-2"><span className="legend-dot legend-dot-elevated" /> Elevated</span>
             <span className="flex items-center gap-2"><span className="legend-dot legend-dot-moderate" /> Moderate</span>
             <span className="flex items-center gap-2"><span className="legend-dot legend-dot-low" /> Low</span>
-            <span className="flex items-center gap-2"><span className="legend-dot legend-dot-unknown" /> Unknown</span>
           </div>
           <p className="mt-2 text-muted-foreground">Circle size ≈ latest monthly count</p>
         </div>

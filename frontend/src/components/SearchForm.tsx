@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useId, useState } from "react";
 import { Calendar, MapPin, Plane, Search } from "lucide-react";
 import { destinations, validateDates, type Destination } from "@/data/destinations";
+import { highlightParts, searchDestinations } from "@/lib/destination-search";
 
 export interface SearchValues {
   destination: Destination;
@@ -18,15 +19,40 @@ export function SearchForm({ onSubmit, hidden }: { onSubmit: (v: SearchValues) =
   const now = new Date();
   const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
 
-  const matches = destinations.filter((d) => d.name.toLowerCase().includes(query.toLowerCase()));
+  const [active, setActive] = useState(0);
+  const listId = useId();
+  const hits = searchDestinations(destinations, query);
+  const exact = hits[0] && hits[0].score >= 95 ? hits[0].destination : null;
+
+  function choose(d: Destination) {
+    setSelected(d);
+    setQuery(d.name);
+    setOpen(false);
+    setError(null);
+  }
+
+  function onKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
+    if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+      e.preventDefault();
+      if (!open) return setOpen(true);
+      if (hits.length) setActive((i) => (i + (e.key === "ArrowDown" ? 1 : hits.length - 1)) % hits.length);
+    } else if (e.key === "Enter" && open && hits[active]) {
+      e.preventDefault(); // pick the highlighted country instead of submitting the form
+      choose(hits[active].destination);
+    } else if (e.key === "Escape") {
+      setOpen(false);
+    }
+  }
 
   function submit(e: React.FormEvent) {
     e.preventDefault();
-    if (!selected) return setError("Choose a destination from the list.");
+    const dest = selected ?? exact; // a fully typed name counts even if it wasn't clicked
+    if (!dest) return setError("Choose a destination from the list.");
     const err = validateDates(depart, ret);
     if (err) return setError(err);
     setError(null);
-    onSubmit({ destination: selected, depart, ret });
+    if (!selected) choose(dest);
+    onSubmit({ destination: dest, depart, ret });
   }
 
   return (
@@ -47,28 +73,52 @@ export function SearchForm({ onSubmit, hidden }: { onSubmit: (v: SearchValues) =
                 <span className="field-label">Destination</span>
                 <input
                   value={query}
-                  onChange={(e) => { setQuery(e.target.value); setSelected(null); setOpen(true); }}
+                  onChange={(e) => { setQuery(e.target.value); setSelected(null); setActive(0); setOpen(true); }}
                   onFocus={() => setOpen(true)}
-                  onBlur={() => setTimeout(() => setOpen(false), 150)}
-                  placeholder="Where to?"
+                  onBlur={() => setTimeout(() => { setOpen(false); if (!selected && exact) choose(exact); }, 150)}
+                  onKeyDown={onKeyDown}
+                  placeholder="Where to? Type a country"
                   className="field-input"
                   role="combobox"
-                  aria-expanded={open}
+                  aria-expanded={open && query.trim().length > 0}
+                  aria-controls={listId}
+                  aria-autocomplete="list"
+                  aria-activedescendant={open && hits[active] ? `${listId}-${hits[active].destination.id}` : undefined}
                   aria-label="Destination"
+                  autoComplete="off"
+                  spellCheck={false}
                 />
               </span>
             </label>
-            {open && (
-              <ul className="glass-solid absolute z-10 mt-2 w-full overflow-hidden rounded-2xl py-1" role="listbox">
-                {matches.length === 0 && <li className="px-4 py-3 text-sm text-muted-foreground">No mock data for that destination yet</li>}
-                {matches.map((d) => (
-                  <li key={d.id} role="option" aria-selected={selected?.id === d.id}>
-                    <button type="button" onMouseDown={() => { setSelected(d); setQuery(d.name); setOpen(false); }} className="flex w-full items-center justify-between px-4 py-2.5 text-left text-sm hover:bg-secondary">
-                      <span className="font-medium">{d.name}</span>
-                      <span className="text-xs text-muted-foreground">{d.region}</span>
-                    </button>
+            {open && query.trim().length > 0 && (
+              <ul id={listId} className="glass-solid absolute z-10 mt-2 max-h-80 w-full overflow-y-auto rounded-2xl py-1" role="listbox">
+                {hits.length === 0 && (
+                  <li className="px-4 py-3 text-sm text-muted-foreground">
+                    No match for “{query.trim()}”. We list the {destinations.length} countries with current surveillance data.
                   </li>
-                ))}
+                )}
+                {hits.map((h, i) => {
+                  const parts = highlightParts(h.destination.name, query);
+                  return (
+                    <li key={h.destination.id} id={`${listId}-${h.destination.id}`} role="option" aria-selected={i === active}>
+                      <button
+                        type="button"
+                        tabIndex={-1}
+                        onMouseDown={() => choose(h.destination)}
+                        onMouseEnter={() => setActive(i)}
+                        className={`flex w-full items-center justify-between gap-3 px-4 py-2.5 text-left text-sm ${i === active ? "bg-secondary" : ""}`}
+                      >
+                        <span className="min-w-0">
+                          <span className="font-medium">
+                            {parts ? <>{parts[0]}<mark className="bg-transparent text-accent">{parts[1]}</mark>{parts[2]}</> : h.destination.name}
+                          </span>
+                          {h.matchedAlias && <span className="ml-2 text-xs text-muted-foreground">({h.matchedAlias})</span>}
+                        </span>
+                        <span className="shrink-0 text-xs text-muted-foreground">{h.destination.region}</span>
+                      </button>
+                    </li>
+                  );
+                })}
               </ul>
             )}
           </div>

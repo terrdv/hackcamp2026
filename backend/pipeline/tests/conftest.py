@@ -42,17 +42,6 @@ def weekly_frame(iso="AAA", latest=dt.date(2026, 10, 26), years=range(2012, 2026
     return pd.DataFrame(rows)
 
 
-def presence_seed(rows):
-    """rows: list of (disease, iso3, presence, verified)."""
-    from visitwell_pipeline.clean.seeds import SCHEMAS
-    recs = []
-    for d, iso, p, ver in rows:
-        recs.append(dict(disease=d, location_iso3=iso, admin1=None, presence=p, source_name="Test source",
-                         source_url="https://example.org/official", checked_on="2026-10-01",
-                         verified="true" if ver else "false", needs_review="false" if ver else "true", notes=None))
-    return pd.DataFrame(recs, columns=SCHEMAS["presence"])
-
-
 def empty_like_silver():
     return {
         "dengue_monthly": pd.DataFrame(columns=["location_iso3", "admin1", "year", "month", "cases",
@@ -60,15 +49,14 @@ def empty_like_silver():
         "measles_monthly": pd.DataFrame(columns=["location_iso3", "period_start", "cases_12m",
                                                  "incidence_12m_per_million", "population", "pop_year",
                                                  "pop_source", "source"]),
-        "malaria_annual": pd.DataFrame(columns=["location_iso3", "admin1_key", "year", "incidence", "unit",
-                                                "source", "is_latest"]),
+        "malaria_annual": pd.DataFrame(columns=["location_iso3", "admin1", "admin1_key", "year", "incidence",
+                                                "unit", "source", "data_as_of", "is_latest"]),
     }
 
 
 def build_all(cfg, *, flu_monthly=None, flu_weekly=None, dengue_monthly=None, measles_monthly=None,
-              seed_rows=(), alerts=None, as_of=dt.date(2026, 11, 7)):
+              malaria_annual=None, alerts=None, as_of=dt.date(2026, 11, 7)):
     """Run the gold builders on synthetic silver inputs and return destination_outlook."""
-    from visitwell_pipeline.clean.seeds import clean_seed, SCHEMAS
     from visitwell_pipeline.gold.flu_realtime import flu_realtime
     from visitwell_pipeline.gold.measles_status import measles_status
     from visitwell_pipeline.gold.outlook import build_alerts, build_outlook, build_presence
@@ -84,14 +72,11 @@ def build_all(cfg, *, flu_monthly=None, flu_weekly=None, dengue_monthly=None, me
     mm = measles_monthly if measles_monthly is not None else e["measles_monthly"]
     fs = seasonal_profile(fm, "value", "influenza", cfg, cfg["influenza"]["excluded_baseline_years"], locations=dests)
     ds = seasonal_profile(dm.rename(columns={"cases": "value"}), "value", "dengue", cfg, [], locations=dests)
-    seed = clean_seed(presence_seed(list(seed_rows)), "presence", cfg)
-    al = build_alerts(clean_seed(alerts if alerts is not None else pd.DataFrame(columns=SCHEMAS["alerts"]),
-                                 "alerts", cfg), as_of)
+    al = build_alerts(alerts, as_of)
     ms = measles_status(mm, al, cfg, as_of)
-    pres = build_presence(seed, e["malaria_annual"], cfg)
-    yf = clean_seed(pd.DataFrame(columns=SCHEMAS["yellow_fever_entry"]), "yellow_fever_entry", cfg)
+    pres = build_presence(malaria_annual if malaria_annual is not None else e["malaria_annual"], cfg)
     return build_outlook(cfg, flu_seasonal=fs, flu_rt=flu_realtime(fw, cfg, as_of), flu_weekly=fw,
-                         dengue_seasonal=ds, dengue_monthly=dm, measles=ms, presence=pres, alerts=al, yf_entry=yf)
+                         dengue_seasonal=ds, dengue_monthly=dm, measles=ms, presence=pres, alerts=al)
 
 
 @pytest.fixture

@@ -1,4 +1,4 @@
-"""Presence, alerts and the final `destination_outlook` table (the only table the app reads)."""
+"""Presence (from downloaded data), alerts and the final `destination_outlook` table read by the app."""
 from __future__ import annotations
 
 import datetime as dt
@@ -40,57 +40,45 @@ def _date(v):
 
 
 # ---------------------------------------------------------------------------- presence
-def build_presence(seed: pd.DataFrame, malaria: pd.DataFrame, cfg) -> pd.DataFrame:
-    diseases = ["dengue", *cfg["static_presence_diseases"]]
+def build_presence(malaria: pd.DataFrame | None, cfg) -> pd.DataFrame:
+    """Presence from downloaded data only (no hand-written seeds).
+
+    * malaria: WHO estimated incidence, latest year: > 0 -> present, 0 -> not_reported; no estimate -> unknown
+    * yellow fever, hepatitis A, typhoid: no data source yet -> unknown (the app hides unknown cards)
+    """
+    url = cfg["sources"]["malaria_who"].get("url")
+    latest = malaria[malaria.is_latest & malaria.incidence.notna()] if malaria is not None and len(malaria) else None
     rows = []
-    seed = seed if len(seed) else pd.DataFrame(columns=["disease", "location_iso3", "admin1", "admin1_key",
-                                                         "presence", "usable", "verified", "checked_on"])
     for iso in cfg["destinations"]:
-        for d in diseases:
-            s = seed[(seed.disease == d) & (seed.location_iso3 == iso)]
-            nat = s[s.admin1_key.isna()].sort_values("checked_on", na_position="first")
-            usable = nat[nat.usable]
-            base = dict(disease=d, location_iso3=iso, admin1=None, admin1_key=None)
-            if len(usable):
-                r = usable.iloc[-1]
-                rows.append({**base, "presence": r.presence, "verified": bool(r.verified),
-                             "source_name": r.source_name, "source_url": r.source_url, "checked_on": r.checked_on,
-                             "notes": None if r.verified else "UNVERIFIED seed row (pending review)",
-                             "seed_value_unverified": None})
-            else:
-                reason = ("seed row not verified (pending review)" if len(nat) else "no seed row")
-                r = nat.iloc[-1] if len(nat) else None
-                rows.append({**base, "presence": "unknown", "verified": False,
-                             "source_name": None if r is None else r.source_name,
-                             "source_url": None if r is None else r.source_url, "checked_on": None,
-                             "notes": reason, "seed_value_unverified": None if r is None else r.presence})
-            for _, r in s[s.admin1_key.notna() & s.usable].iterrows():
-                rows.append(dict(disease=d, location_iso3=iso, admin1=r.admin1, admin1_key=r.admin1_key,
-                                 presence=r.presence, verified=bool(r.verified), source_name=r.source_name,
-                                 source_url=r.source_url, checked_on=r.checked_on,
-                                 notes=None if r.verified else "UNVERIFIED seed row (pending review)",
-                                 seed_value_unverified=None))
-    p = pd.DataFrame(rows)
-    # malaria: supporting evidence only (never changes presence)
-    p["supporting_incidence"], p["supporting_year"], p["supporting_unit"], p["supporting_source"] = np.nan, None, None, None
-    if len(malaria):
-        lat = malaria[malaria.is_latest]
-        for i, r in p[p.disease == "malaria"].iterrows():
-            m = lat[(lat.location_iso3 == r.location_iso3) &
-                    ((lat.admin1_key == r.admin1_key) if r.admin1_key else lat.admin1_key.isna())]
-            if len(m):
-                m = m.sort_values("year").iloc[-1]
-                p.loc[i, ["supporting_incidence", "supporting_year", "supporting_unit", "supporting_source"]] = \
-                    [m.incidence, int(m.year), m.unit, m.source]
-    return p
+        for d in cfg["static_presence_diseases"]:
+            base = dict(disease=d, location_iso3=iso, admin1=None, admin1_key=None, presence="unknown",
+                        based_on="unknown", incidence=np.nan, incidence_year=None, unit=None, source=None,
+                        source_url=None, data_as_of=None, notes="no data source for this disease yet")
+            if d != "malaria":
+                rows.append(base)
+                continue
+            m = latest[latest.location_iso3 == iso] if latest is not None else None
+            if m is None or m.empty:
+                rows.append({**base, "notes": "no WHO malaria estimate for this country"})
+                continue
+            for r in m.itertuples():
+                a1 = None if _isna(r.admin1) else r.admin1
+                rows.append({**base, "admin1": a1, "admin1_key": admin1_key(a1),
+                             "presence": "present" if r.incidence > 0 else "not_reported",
+                             "based_on": "estimated_incidence", "incidence": float(r.incidence),
+                             "incidence_year": int(r.year), "unit": r.unit, "source": r.source, "source_url": url,
+                             "data_as_of": _date(r.data_as_of), "notes": None})
+    return pd.DataFrame(rows)
 
 
-def build_alerts(seed: pd.DataFrame, as_of: dt.date) -> pd.DataFrame:
+def build_alerts(seed: pd.DataFrame | None, as_of: dt.date) -> pd.DataFrame:
+    """Active official alerts. No alert source is wired in since the seeds were removed, so this is empty
+    unless a caller passes one (kept so the measles `outbreak` override still works when a source is added)."""
     cols = ["disease", "location_iso3", "admin1", "admin1_key", "level", "title", "url", "issued", "expires",
             "verified", "source_url", "checked_on"]
     if seed is None or seed.empty:
         return pd.DataFrame(columns=cols)
-    a = seed[seed.usable].copy()
+    a = seed[seed.usable].copy() if "usable" in seed else seed.copy()
     t = pd.Timestamp(as_of)
     a = a[(a.issued.isna() | (a.issued <= t)) & (a.expires.isna() | (a.expires >= t))]
     return a[cols].reset_index(drop=True)
@@ -99,7 +87,7 @@ def build_alerts(seed: pd.DataFrame, as_of: dt.date) -> pd.DataFrame:
 # ---------------------------------------------------------------------------- outlook
 def build_outlook(cfg, *, flu_seasonal: pd.DataFrame, flu_rt: pd.DataFrame, flu_weekly: pd.DataFrame,
                   dengue_seasonal: pd.DataFrame, dengue_monthly: pd.DataFrame, measles: pd.DataFrame,
-                  presence: pd.DataFrame, alerts: pd.DataFrame, yf_entry: pd.DataFrame) -> pd.DataFrame:
+                  presence: pd.DataFrame, alerts: pd.DataFrame) -> pd.DataFrame:
     cg = cfg["card_groups"]
     rows: list[dict] = []
     min_years = cfg["seasonal"]["min_years"]
@@ -118,10 +106,6 @@ def build_outlook(cfg, *, flu_seasonal: pd.DataFrame, flu_rt: pd.DataFrame, flu_
         return f"Official notice: {top.title}", {"alert_title": top.title, "alert_url": top.url,
                                                  "alert_level": top.level, "alert_issued": top.issued}
 
-    def pres(disease, iso, key=None):
-        p = presence[(presence.disease == disease) & (presence.location_iso3 == iso)]
-        p = p[p.admin1_key == key] if key else p[p.admin1_key.isna()]
-        return None if p.empty else p.iloc[0]
 
     flu_asof = (flu_weekly[flu_weekly.is_valid.astype(bool)].groupby("location_iso3").period_start.max()
                 if len(flu_weekly) else pd.Series(dtype="datetime64[ns]"))
@@ -152,53 +136,33 @@ def build_outlook(cfg, *, flu_seasonal: pd.DataFrame, flu_rt: pd.DataFrame, flu_
                                                  "p90", "n_baseline_years", "is_stale", "age_days",
                                                  "use_seasonal_fallback", "fallback_reason", "computed_on"]}))
 
-        # ---------------- dengue (presence gate, then seasonal)
-        p = pres("dengue", iso)
+        # ---------------- dengue (seasonal pattern straight from the case data)
         an, ad = alert_note("dengue", iso)
-        if p is None or p.presence == "unknown":
-            add(location_iso3=iso, disease="dengue", row_type="presence", level="unknown", based_on="unknown",
-                data_as_of=_date(den_asof.get(iso)), source=den_src, verified=False,
-                notes="; ".join(filter(None, ["presence not confirmed by a verified official source"
-                                              + (f" ({p.notes})" if p is not None and p.notes else ""), an])),
-                details=_json(ad))
-        elif p.presence != "none":
-            ds = dengue_seasonal[(dengue_seasonal.location_iso3 == iso) & dengue_seasonal.admin1.isna()]
-            for _, r in ds.iterrows():
-                ok = r.label in SEASONAL_LEVELS
-                notes = [] if ok else [f"seasonal pattern unavailable ({r.label}); showing presence only"]
-                if p.presence == "some_areas":
-                    notes.append("dengue occurs only in some areas")
-                if not p.verified:
-                    notes.append("presence UNVERIFIED (pending review)")
-                if an:
-                    notes.append(an)
-                add(location_iso3=iso, disease="dengue", row_type="seasonal" if ok else "presence",
-                    month=int(r.month), level=r.label if ok else p.presence,
-                    based_on="seasonal" if ok else "static_presence",
-                    consistency=r.consistency, consistency_score=r.consistency_score, seasonal_index=r.median_index,
-                    data_as_of=_date(den_asof.get(iso)) if ok else _date(p.checked_on),
-                    source=den_src if ok else p.source_name, source_url=p.source_url, verified=bool(p.verified),
-                    notes="; ".join(notes) or None,
-                    details=_json({"n_years": r.n_years, "years_used": r.years_used, "presence": p.presence, **ad}))
-            # admin1 rows (only where an admin1 seasonal profile exists)
-            a1 = dengue_seasonal[(dengue_seasonal.location_iso3 == iso) & dengue_seasonal.admin1.notna()]
-            for name, g in a1.groupby("admin1"):
-                if not g.label.isin(SEASONAL_LEVELS).all():
-                    continue
-                key = admin1_key(name)
-                gate = pres("dengue", iso, key)
-                gate = gate if gate is not None else p
-                if gate.presence in ("none", "unknown"):
-                    continue
-                for _, r in g.iterrows():
-                    add(location_iso3=iso, admin1=name, admin1_key=key, disease="dengue", row_type="seasonal",
-                        month=int(r.month), level=r.label, based_on="seasonal", consistency=r.consistency,
-                        consistency_score=r.consistency_score, seasonal_index=r.median_index,
-                        data_as_of=_date(dengue_monthly[(dengue_monthly.location_iso3 == iso) &
-                                                        (dengue_monthly.admin1 == name)].data_as_of.max()),
-                        source=den_src, source_url=gate.source_url, verified=bool(gate.verified),
-                        notes=None if gate.verified else "presence UNVERIFIED (pending review)",
-                        details=_json({"n_years": r.n_years, "years_used": r.years_used}))
+        ds = dengue_seasonal[(dengue_seasonal.location_iso3 == iso) & dengue_seasonal.admin1.isna()]
+        for _, r in ds.iterrows():
+            ok = r.label in SEASONAL_LEVELS
+            note = None if ok else (f"fewer than {min_years} complete years of data"
+                                    if r.label == "insufficient_data" else "no dengue data")
+            add(location_iso3=iso, disease="dengue", row_type="seasonal", month=int(r.month),
+                level=r.label if ok else "unknown", based_on="seasonal" if ok else "unknown",
+                consistency=r.consistency, consistency_score=r.consistency_score, seasonal_index=r.median_index,
+                data_as_of=_date(den_asof.get(iso)), source=den_src, verified=True,
+                notes="; ".join(filter(None, [note, an])) or None,
+                details=_json({"n_years": r.n_years, "years_used": r.years_used, **ad}))
+        # admin1 rows (only where a complete admin1 seasonal profile exists)
+        a1 = dengue_seasonal[(dengue_seasonal.location_iso3 == iso) & dengue_seasonal.admin1.notna()]
+        for name, g in a1.groupby("admin1"):
+            if not g.label.isin(SEASONAL_LEVELS).all():
+                continue
+            key = admin1_key(name)
+            for _, r in g.iterrows():
+                add(location_iso3=iso, admin1=name, admin1_key=key, disease="dengue", row_type="seasonal",
+                    month=int(r.month), level=r.label, based_on="seasonal", consistency=r.consistency,
+                    consistency_score=r.consistency_score, seasonal_index=r.median_index,
+                    data_as_of=_date(dengue_monthly[(dengue_monthly.location_iso3 == iso) &
+                                                    (dengue_monthly.admin1 == name)].data_as_of.max()),
+                    source=den_src, verified=True,
+                    details=_json({"n_years": r.n_years, "years_used": r.years_used}))
 
         # ---------------- measles (recent activity; alert override already applied)
         m = measles[measles.location_iso3 == iso]
@@ -214,40 +178,19 @@ def build_outlook(cfg, *, flu_seasonal: pd.DataFrame, flu_rt: pd.DataFrame, flu_
             add(location_iso3=iso, disease="measles", row_type="recent_activity", level="unknown",
                 based_on="unknown", notes="no measles data")
 
-        # ---------------- static presence diseases
+        # ---------------- presence diseases (from downloaded data; see build_presence)
         for d in cfg["static_presence_diseases"]:
             an, ad = alert_note(d, iso)
-            prs = presence[(presence.disease == d) & (presence.location_iso3 == iso)]
-            for _, p in prs.iterrows():
-                if p.presence == "none":
-                    continue
-                extra, notes = dict(ad), []
-                if p.presence == "unknown":
-                    notes.append(f"presence not confirmed by a verified official source ({p.notes})")
-                elif not p.verified:
-                    notes.append("presence UNVERIFIED (pending review)")
-                if d == "malaria" and not _isna(p.supporting_incidence):
-                    extra.update(supporting_incidence=p.supporting_incidence, supporting_year=p.supporting_year,
-                                 supporting_unit=p.supporting_unit, supporting_source=p.supporting_source)
-                    notes.append(f"supporting estimate: {p.supporting_incidence:.2f} {p.supporting_unit} "
-                                 f"({p.supporting_year}, {p.supporting_source})")
-                if d == "yellow_fever":
-                    y = yf_entry[(yf_entry.location_iso3 == iso) & yf_entry.usable] if len(yf_entry) else yf_entry
-                    if y is not None and len(y):
-                        y = y.iloc[-1]
-                        extra.update(entry_certificate_required=y.certificate_required, entry_condition=y.condition,
-                                     entry_min_age_years=y.min_age_years, entry_source_url=y.source_url,
-                                     entry_verified=bool(y.verified))
-                    else:
-                        extra.update(entry_certificate_required="unknown")
-                        notes.append("entry requirement: unknown (no verified seed row)")
-                if an:
-                    notes.append(an)
-                known = p.presence != "unknown"
+            for _, p in presence[(presence.disease == d) & (presence.location_iso3 == iso)].iterrows():
+                extra, notes = dict(ad), [None if _isna(p.notes) else p.notes]
+                if not _isna(p.incidence):
+                    extra.update(incidence=p.incidence, incidence_year=p.incidence_year, unit=p.unit)
+                    notes.append(f"WHO estimate: {p.incidence:.3g} {p.unit} ({p.incidence_year})")
+                notes.append(an)
                 add(location_iso3=iso, admin1=p.admin1, admin1_key=p.admin1_key, disease=d, row_type="presence",
-                    month=None, level=p.presence, based_on="static_presence" if known else "unknown",
-                    data_as_of=_date(p.checked_on), source=p.source_name, source_url=p.source_url,
-                    verified=bool(p.verified), notes="; ".join(notes) or None, details=_json(extra))
+                    month=None, level=p.presence, based_on=p.based_on, data_as_of=_date(p.data_as_of),
+                    source=p.source, source_url=p.source_url, verified=p.based_on != "unknown",
+                    notes="; ".join(filter(None, notes)) or None, details=_json(extra))
 
         # ---------------- reminders (no level)
         for rem in cfg["reminders"]:

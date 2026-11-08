@@ -1,5 +1,7 @@
 import datetime as dt
 
+import pandas as pd
+
 from conftest import build_all, monthly_frame, weekly_frame
 from visitwell_pipeline.api import get_outlook, trip_months, use_realtime
 
@@ -8,7 +10,10 @@ TODAY = dt.date(2026, 11, 7)
 
 def outlook(cfg, latest=dt.date(2026, 10, 26)):
     return build_all(cfg, flu_monthly=monthly_frame(), flu_weekly=weekly_frame(latest=latest, latest_pp=0.5),
-                     seed_rows=[("hepatitis_a", "AAA", "present", True)], as_of=TODAY)
+                     malaria_annual=pd.DataFrame([dict(location_iso3="AAA", admin1=None, admin1_key=None, year=2024,
+                                                       incidence=1.5, unit="per 1,000 at risk", source="WHO GHO",
+                                                       data_as_of=pd.Timestamp("2024-12-31"), is_latest=True)]),
+                     as_of=TODAY)
 
 
 def flu_card(res):
@@ -62,8 +67,8 @@ def test_reminders_and_groups(cfg):
     g = res["groups"]
     assert any(c["disease"] == "covid19" and c["level"] is None for c in g["respiratory"])
     assert any(c["based_on"] == "vaccine_reminder" for c in g["measles"])
-    assert any(c["disease"] == "hepatitis_a" and c["level"] == "present" for c in g["food_water"])
-    assert all(c["level"] == "unknown" for c in g["mosquito"])   # no seed rows -> unknown
+    assert any(c["disease"] == "malaria" and c["level"] == "present" for c in g["mosquito"])
+    assert all(c["level"] == "unknown" for c in g["food_water"])   # no data source -> unknown
 
 
 def test_unknown_destination(cfg):

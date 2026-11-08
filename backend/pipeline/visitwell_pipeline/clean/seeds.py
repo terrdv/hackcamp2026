@@ -1,8 +1,8 @@
-"""Seed CSVs (hand-curated from official sources) -> validated silver tables.
+"""Reference CSVs -> validated silver tables.
 
-A seed row is *usable* only if verified=true AND it has a source_url and checked_on date.
-With `seeds.use_unverified: true` unverified rows are also usable, but stay flagged
-verified=false so the app can label them "pending review".
+Only non-health reference data lives here now: map coordinates (`centroids`). Health facts come
+exclusively from downloaded sources; the hand-written presence / vaccine / alert / yellow fever seeds
+were removed. A row is *usable* only if verified=true AND it has a source_url and checked_on date.
 """
 from __future__ import annotations
 
@@ -12,14 +12,8 @@ import pandas as pd
 
 from ..countries import admin1_key, to_iso3
 
-PRESENCE_VALUES = {"none", "some_areas", "present", "widespread", "unknown"}
-YF_VALUES = {"yes", "no", "conditional", "unknown"}
 COMMON = ["source_name", "source_url", "checked_on", "verified", "needs_review", "notes"]
 SCHEMAS = {
-    "presence": ["disease", "location_iso3", "admin1", "presence", *COMMON],
-    "yellow_fever_entry": ["location_iso3", "certificate_required", "condition", "min_age_years", *COMMON],
-    "vaccines": ["disease", "location_iso3", "recommendation", "audience", *COMMON],
-    "alerts": ["disease", "location_iso3", "admin1", "level", "title", "url", "issued", "expires", *COMMON],
     "centroids": ["location_iso3", "admin1", "latitude", "longitude", *COMMON],
 }
 DISEASES = {"influenza", "covid19", "dengue", "malaria", "yellow_fever", "measles", "hepatitis_a", "typhoid"}
@@ -55,15 +49,6 @@ def clean_seed(df: pd.DataFrame, kind: str, cfg) -> pd.DataFrame:
                 issues[i].append(f"unknown disease {v!r}")
     if "admin1" in df:
         df["admin1_key"] = df.admin1.map(admin1_key)
-    if kind == "presence":
-        df["presence"] = df.presence.fillna("unknown").str.strip().str.lower()
-        for i, v in enumerate(df.presence):
-            if v not in PRESENCE_VALUES:
-                issues[i].append(f"invalid presence {v!r}")
-        df.loc[~df.presence.isin(PRESENCE_VALUES), "presence"] = "unknown"
-    if kind == "yellow_fever_entry":
-        df["certificate_required"] = df.certificate_required.fillna("unknown").str.strip().str.lower()
-        df.loc[~df.certificate_required.isin(YF_VALUES), "certificate_required"] = "unknown"
     if kind == "centroids":
         for c, lim in (("latitude", 90), ("longitude", 180)):
             df[c] = pd.to_numeric(df[c], errors="coerce")

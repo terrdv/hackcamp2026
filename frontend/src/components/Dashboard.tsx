@@ -15,10 +15,11 @@ const fmtMonth = (m: string) => new Date(m + "-01T00:00:00").toLocaleDateString(
 const SEV_CLASS: Record<string, string> = { low: "sev-low", moderate: "sev-moderate", elevated: "sev-high", unknown: "sev-unknown" };
 
 function TrendBadge({ trend }: { trend: Trend }) {
+  if (trend === "unknown") return null; // no trend shown rather than "No trend data"
   const Icon = trend === "increasing" ? TrendingUp : trend === "decreasing" ? TrendingDown : Minus;
   return (
     <span className={`trend trend-${trend}`}>
-      <Icon className="size-3.5" /> {trend === "unknown" ? "No trend data" : trend}
+      <Icon className="size-3.5" /> {trend}
     </span>
   );
 }
@@ -223,6 +224,11 @@ export function Dashboard({
 
         {tab === "diseases" && (
           <div role="tabpanel" className="tab-panel">
+            {report.diseases.length === 0 && (
+              <p className="card-soft text-sm text-muted-foreground">
+                No disease has current, comparable data for this destination and these dates. Check official travel health advice before you go.
+              </p>
+            )}
             <div className="grid gap-2">
               {report.diseases.map((x) => (
                 <DiseaseCard key={x.id} d={x} demo={!!report.isDemo} selected={selected?.id === x.id} onSelect={() => onSelectDisease(x.id === selectedDiseaseId ? null : x.id)} />
