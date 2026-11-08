@@ -10,7 +10,7 @@ from .config import load_config
 from .countries import admin1_key
 from .gold.flu_realtime import freshness
 
-SEASONAL_RANK = {"low": 1, "moderate": 2, "peak": 3}
+SEASONAL_RANK = {"low": 1, "moderate": 2, "peak": 3, "high": 3}   # "high" = burden x timing final level
 GROUP_ORDER = ["respiratory", "mosquito", "measles", "food_water"]
 
 

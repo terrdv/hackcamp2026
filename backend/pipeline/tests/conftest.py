@@ -50,12 +50,13 @@ def empty_like_silver():
                                                  "incidence_12m_per_million", "population", "pop_year",
                                                  "pop_source", "source"]),
         "malaria_annual": pd.DataFrame(columns=["location_iso3", "admin1", "admin1_key", "year", "incidence",
-                                                "unit", "source", "data_as_of", "is_latest"]),
+                                                "incidence_low", "incidence_high", "unit", "source", "data_as_of",
+                                                "is_latest"]),
     }
 
 
 def build_all(cfg, *, flu_monthly=None, flu_weekly=None, dengue_monthly=None, measles_monthly=None,
-              malaria_annual=None, alerts=None, as_of=dt.date(2026, 11, 7)):
+              malaria_annual=None, alerts=None, population=None, as_of=dt.date(2026, 11, 7)):
     """Run the gold builders on synthetic silver inputs and return destination_outlook."""
     from visitwell_pipeline.gold.flu_realtime import flu_realtime
     from visitwell_pipeline.gold.measles_status import measles_status
@@ -76,7 +77,12 @@ def build_all(cfg, *, flu_monthly=None, flu_weekly=None, dengue_monthly=None, me
     ms = measles_status(mm, al, cfg, as_of)
     pres = build_presence(malaria_annual if malaria_annual is not None else e["malaria_annual"], cfg)
     return build_outlook(cfg, flu_seasonal=fs, flu_rt=flu_realtime(fw, cfg, as_of), flu_weekly=fw,
-                         dengue_seasonal=ds, dengue_monthly=dm, measles=ms, presence=pres, alerts=al)
+                         dengue_seasonal=ds, dengue_monthly=dm, measles=ms, presence=pres, alerts=al,
+                         population=population)
+
+
+def population_frame(iso="AAA", population=1000.0, years=range(2010, 2026)):
+    return pd.DataFrame([dict(location_iso3=iso, year=y, population=population, source="t") for y in years])
 
 
 @pytest.fixture

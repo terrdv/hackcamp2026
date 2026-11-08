@@ -98,10 +98,41 @@ seasonal:
 
 measles:
   case_column: Measles total
-  high_incidence_per_million: 10    # needs_review: placeholder, not an official cut-off
-  # 12-month incidence > 0 and below `high` -> circulating ; 0 cases -> not_reported
+  # burden tiers for measles live in `burden.measles` below
   max_age_months: 6                 # latest month older than this -> level unknown (last status kept in notes)
   needs_review: true
+
+# Burden (how much): an absolute yearly rate per disease, graded none / low / moderate / high.
+# Timing (when) is the relative seasonal label from `seasonal`; gold/levels.py combine_level() merges the two.
+# Tier rule for every disease: value == 0 -> none (only where `zero_is_none`), value < low_max -> low,
+# low_max <= value <= moderate_max -> moderate, value > moderate_max -> high.
+# ALL cut-offs below are placeholders chosen by the dev team, NOT official thresholds.
+burden:
+  malaria:                          # WHO estimated incidence, latest year
+    unit: cases per 1,000 population at risk
+    zero_is_none: true
+    low_max: 1                      # < 1 -> low
+    moderate_max: 50                # 1-50 -> moderate ; > 50 -> high
+    needs_review: true
+  dengue:                           # average yearly cases per 100,000 (national rows; silver.population)
+    unit: cases per 100,000 per year
+    zero_is_none: false             # dengue has no `none` tier: < 10 (including 0) -> low
+    low_max: 10                     # < 10 -> low
+    moderate_max: 100               # 10-100 -> moderate ; > 100 -> high
+    min_years: 3                    # fewer complete years -> burden unknown
+    max_years: 5                    # average over the most recent <= 5 complete years
+    needs_review: true
+  measles:                          # existing rolling 12-month incidence
+    unit: cases per million (last 12 months)
+    zero_is_none: true              # 0 cases in 12 months -> none
+    low_max: 1                      # < 1 -> low
+    moderate_max: 10                # 1-10 -> moderate ; > 10 -> high
+    needs_review: true
+  influenza:
+    # EXCEPTION: no burden metric. Influenza circulates everywhere, so burden is fixed and the seasonal
+    # timing alone decides the level (peak -> high, moderate -> moderate, low -> low).
+    fixed_tier: moderate
+    needs_review: true
 
 seeds:          # reference data only (no health facts): map coordinates
   use_unverified: false             # false: unverified rows are ignored
@@ -122,13 +153,7 @@ card_groups:
   covid19: respiratory
   dengue: mosquito
   malaria: mosquito
-  yellow_fever: mosquito
   measles: measles
-  hepatitis_a: food_water
-  typhoid: food_water
-
-# presence-type diseases: malaria from WHO estimated incidence; the others have no data source yet (-> unknown)
-static_presence_diseases: [malaria, yellow_fever, hepatitis_a, typhoid]
 
 reminders:     # always shown; wording should be checked against the linked source
   - disease: covid19

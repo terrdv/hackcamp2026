@@ -41,7 +41,7 @@ def test_seasonal_used_when_departing_later(cfg):
     c = flu_card(res)
     assert c["based_on"] == "seasonal"
     assert [m["month"] for m in c["months"]] == [11, 12, 1]
-    assert c["level"] == "peak"                       # December in the trip window
+    assert c["level"] == "high"                       # December (peak) in the trip window; flu burden fixed
 
 
 def test_stale_realtime_falls_back_to_seasonal_with_reason(cfg):
@@ -67,8 +67,8 @@ def test_reminders_and_groups(cfg):
     g = res["groups"]
     assert any(c["disease"] == "covid19" and c["level"] is None for c in g["respiratory"])
     assert any(c["based_on"] == "vaccine_reminder" for c in g["measles"])
-    assert any(c["disease"] == "malaria" and c["level"] == "present" for c in g["mosquito"])
-    assert all(c["level"] == "unknown" for c in g["food_water"])   # no data source -> unknown
+    assert any(c["disease"] == "malaria" and c["level"] == "moderate" for c in g["mosquito"])   # 1.5 per 1,000
+    assert "food_water" not in g                     # yellow fever / hepatitis A / typhoid removed
 
 
 def test_unknown_destination(cfg):

@@ -90,7 +90,7 @@ def run_gold(cfg, sink, silver: dict | None = None, as_of: dt.date | None = None
     presence = build_presence(get("malaria_annual"), cfg)
     outlook = build_outlook(cfg, flu_seasonal=flu_seasonal, flu_rt=rt, flu_weekly=fw,
                             dengue_seasonal=dengue_seasonal, dengue_monthly=dm, measles=measles,
-                            presence=presence, alerts=alerts)
+                            presence=presence, alerts=alerts, population=get("population"))
     outlook["built_on"] = as_of
     cases = monthly_cases(fm, dm, get("measles_monthly"), cfg)
     trend = disease_trend(cases, cfg, as_of)
