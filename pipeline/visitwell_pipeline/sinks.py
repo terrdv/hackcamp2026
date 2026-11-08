@@ -1,0 +1,223 @@
+"""Where pipeline tables are written.
+
+* LocalSink         -> data/<layer>/<name>.parquet (always used, also the input for later steps)
+* DatabricksSqlSink -> Unity Catalog Delta tables via a SQL warehouse (local push; uses .env)
+* SparkSink         -> Unity Catalog Delta tables from inside a Databricks notebook/job
+
+Both Databricks sinks create the catalog / schemas / volume on first use, then write each table
+with CREATE OR REPLACE, so no table has to exist beforehand.
+"""
+from __future__ import annotations
+
+import datetime as dt
+import logging
+import os
+import re
+import tempfile
+from pathlib import Path
+
+import pandas as pd
+
+log = logging.getLogger(__name__)
+
+
+def sanitize_columns(df: pd.DataFrame) -> pd.DataFrame:
+    """Delta column names may not contain spaces or ,;{}()=\\n\\t."""
+    def clean(c):
+        c = re.sub(r"[^0-9A-Za-z_]+", "_", str(c).strip()).strip("_").lower()
+        return c or "col"
+    cols, seen = [], {}
+    for c in df.columns:
+        n = clean(c)
+        if n in seen:
+            seen[n] += 1
+            n = f"{n}_{seen[n]}"
+        else:
+            seen[n] = 0
+        cols.append(n)
+    out = df.copy()
+    out.columns = cols
+    return out
+
+
+def prepare_for_parquet(df: pd.DataFrame, sanitize: bool = True) -> pd.DataFrame:
+    """Make dtypes parquet/Delta friendly (no mixed object columns, no all-null 'void' columns)."""
+    out = sanitize_columns(df) if sanitize else df.copy()
+    for c in out.columns:
+        s = out[c]
+        if s.dtype == object:
+            nn = s.dropna()
+            if nn.empty:
+                out[c] = s.astype("string")
+            elif nn.map(lambda v: isinstance(v, dt.date) and not isinstance(v, dt.datetime)).all():
+                pass  # pyarrow -> date32
+            elif not nn.map(lambda v: isinstance(v, str)).all():
+                out[c] = s.map(lambda v: None if v is None or (isinstance(v, float) and v != v) else str(v)).astype("string")
+    return out
+
+
+class LocalSink:
+    def __init__(self, cfg):
+        self.cfg = cfg
+
+    def write(self, layer: str, name: str, df: pd.DataFrame, comment: str | None = None) -> Path:
+        d = self.cfg.path(layer)
+        d.mkdir(parents=True, exist_ok=True)
+        p = d / f"{name}.parquet"
+        prepare_for_parquet(df, sanitize=False).to_parquet(p, index=False)
+        log.info("local  %-6s %-28s %8d rows -> %s", layer, name, len(df), p)
+        return p
+
+    def read(self, layer: str, name: str) -> pd.DataFrame:
+        return pd.read_parquet(self.cfg.path(layer) / f"{name}.parquet")
+
+    def upload_raw(self, local: Path, rel: str):  # nothing to do locally
+        return None
+
+
+class _UCBase:
+    def __init__(self, cfg):
+        db = cfg["databricks"]
+        self.catalog = db["catalog"]
+        self.schemas = db["schemas"]
+        self.volume = db["volume"]
+        self.volume_root = f"/Volumes/{self.catalog}/{self.schemas['bronze']}/{self.volume}"
+        self._ready = False
+
+    def fqn(self, layer, name):
+        return f"`{self.catalog}`.`{self.schemas[layer]}`.`{name}`"
+
+    def ddl(self):
+        yield f"CREATE CATALOG IF NOT EXISTS `{self.catalog}`"
+        for layer, schema in self.schemas.items():
+            yield (f"CREATE SCHEMA IF NOT EXISTS `{self.catalog}`.`{schema}` "
+                   f"COMMENT 'VisitWell {layer} layer'")
+        yield (f"CREATE VOLUME IF NOT EXISTS `{self.catalog}`.`{self.schemas['bronze']}`.`{self.volume}` "
+               "COMMENT 'VisitWell raw file archive and parquet staging'")
+
+
+class DatabricksSqlSink(_UCBase):
+    """Push from a laptop: parquet -> UC volume (Files API) -> CREATE OR REPLACE TABLE via SQL warehouse."""
+
+    def __init__(self, cfg, env_file: str | Path | None = None):
+        super().__init__(cfg)
+        from dotenv import load_dotenv
+        # pipeline/.env wins, then the repo-root .env shared with the app
+        root = Path(cfg["_root"])
+        for p in ([Path(env_file)] if env_file else []) + [root / ".env", root.parent / ".env"]:
+            if p.exists():
+                load_dotenv(p)
+        for k in ("DATABRICKS_HOST", "DATABRICKS_TOKEN", "DATABRICKS_HTTP_PATH"):
+            if not os.environ.get(k):
+                raise RuntimeError(f"{k} is not set (expected in pipeline/.env or the repo-root .env)")
+        self.host = os.environ["DATABRICKS_HOST"].rstrip("/")
+        if not self.host.startswith("http"):
+            self.host = "https://" + self.host
+        self._conn = None
+        self._ws = None
+
+    @property
+    def ws(self):
+        if self._ws is None:
+            from databricks.sdk import WorkspaceClient
+            self._ws = WorkspaceClient(host=self.host, token=os.environ["DATABRICKS_TOKEN"])
+        return self._ws
+
+    def sql(self, statement: str):
+        from databricks import sql as dbsql
+        if self._conn is None:
+            self._conn = dbsql.connect(server_hostname=self.host.replace("https://", ""),
+                                       http_path=os.environ["DATABRICKS_HTTP_PATH"],
+                                       access_token=os.environ["DATABRICKS_TOKEN"])
+        with self._conn.cursor() as cur:
+            cur.execute(statement)
+            try:
+                return cur.fetchall()
+            except Exception:
+                return None
+
+    def ensure(self):
+        if not self._ready:
+            for s in self.ddl():
+                self.sql(s)
+            self._ready = True
+
+    def _upload(self, local: Path, remote: str):
+        with open(local, "rb") as fh:
+            self.ws.files.upload(remote, fh, overwrite=True)
+
+    def write(self, layer: str, name: str, df: pd.DataFrame, comment: str | None = None):
+        self.ensure()
+        remote = f"{self.volume_root}/_staging/{layer}/{name}.parquet"
+        with tempfile.TemporaryDirectory() as tmp:
+            p = Path(tmp) / f"{name}.parquet"
+            prepare_for_parquet(df).to_parquet(p, index=False)
+            self._upload(p, remote)
+        self.sql(f"CREATE OR REPLACE TABLE {self.fqn(layer, name)} AS "
+                 f"SELECT * FROM read_files('{remote}', format => 'parquet')")
+        if comment:
+            self.sql(f"COMMENT ON TABLE {self.fqn(layer, name)} IS '{comment.replace(chr(39), '')}'")
+        log.info("delta  %-6s %-28s %8d rows -> %s", layer, name, len(df), self.fqn(layer, name))
+
+    def upload_raw(self, local: Path, rel: str):
+        self.ensure()
+        remote = f"{self.volume_root}/raw/{rel}"
+        self._upload(local, remote)
+        log.info("volume raw %s -> %s", local.name, remote)
+        return remote
+
+    def close(self):
+        if self._conn is not None:
+            self._conn.close()
+            self._conn = None
+
+
+class SparkSink(_UCBase):
+    """Inside Databricks: pandas -> parquet on the (FUSE-mounted) volume -> spark saveAsTable."""
+
+    def __init__(self, cfg, spark):
+        super().__init__(cfg)
+        self.spark = spark
+
+    def ensure(self):
+        if not self._ready:
+            for s in self.ddl():
+                self.spark.sql(s)
+            self._ready = True
+
+    def write(self, layer: str, name: str, df: pd.DataFrame, comment: str | None = None):
+        self.ensure()
+        path = Path(f"{self.volume_root}/_staging/{layer}/{name}.parquet")
+        path.parent.mkdir(parents=True, exist_ok=True)
+        prepare_for_parquet(df).to_parquet(path, index=False)
+        (self.spark.read.parquet(str(path)).write.format("delta").mode("overwrite")
+         .option("overwriteSchema", "true").saveAsTable(self.fqn(layer, name).replace("`", "")))
+        if comment:
+            self.spark.sql(f"COMMENT ON TABLE {self.fqn(layer, name)} IS '{comment.replace(chr(39), '')}'")
+        log.info("delta  %-6s %-28s %8d rows", layer, name, len(df))
+
+    def upload_raw(self, local: Path, rel: str):
+        return None  # in the notebook raw files are already read from the volume
+
+
+class MultiSink:
+    """Write to several sinks; the first one must be a LocalSink (used for reads)."""
+
+    def __init__(self, *sinks):
+        self.sinks = sinks
+
+    def write(self, layer, name, df, comment=None):
+        for s in self.sinks:
+            s.write(layer, name, df, comment)
+
+    def upload_raw(self, local, rel):
+        for s in self.sinks:
+            s.upload_raw(local, rel)
+
+    def read(self, layer, name):
+        return self.sinks[0].read(layer, name)
+
+    def close(self):
+        for s in self.sinks:
+            if hasattr(s, "close"):
+                s.close()

@@ -1,0 +1,14 @@
+# VisitWell data pipeline (paths relative to pipeline/)
+.venv/
+.pytest_cache/
+__pycache__/
+*.pyc
+
+# generated data; rebuild with `python dt_preproc.py`
+data/raw/
+data/bronze/
+data/silver/
+data/gold/
+data/push_log.txt
+data/reports/*.parquet
+# data/seeds/ and data/reports/*.{csv,md} are committed

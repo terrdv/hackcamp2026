@@ -1,0 +1,142 @@
+# VisitWell preprocessing pipeline configuration.
+# Every threshold used by the pipeline lives here. Values marked `needs_review: true`
+# are placeholders chosen by the dev team, NOT official cut-offs.
+
+destinations: [VNM, PHL, IND, CHN, MEX, BRA]
+
+paths:            # relative to the repo root (overridden in the Databricks notebook)
+  raw: data/raw
+  seeds: data/seeds
+  bronze: data/bronze
+  silver: data/silver
+  gold: data/gold
+  reports: data/reports
+
+sources:
+  flunet:
+    name: WHO FluNet
+    url: "https://xmart-api-public.who.int/FLUMART/VIW_FNT?%24format=csv"
+    file: flunet/flunet_full.csv
+    dictionary_url: "https://xmart-api-public.who.int/FLUMART/VIW_FLU_METADATA?%24format=csv&%24filter=contains%28DatasetName%2C%20%27FluNet%27%29"
+    dictionary_file: flunet/flunet_dictionary.csv
+    # Mapped from the FluNet data dictionary (FieldName column). Validated at runtime.
+    columns:
+      iso3: COUNTRY_CODE
+      week_start: ISO_WEEKSTARTDATE
+      iso_year: ISO_YEAR
+      iso_week: ISO_WEEK
+      origin_source: ORIGIN_SOURCE
+      specimens_processed: SPEC_PROCESSED_NB
+      influenza_positive: INF_ALL
+
+  opendengue:
+    name: OpenDengue V1.3
+    version: V1.3
+    base_url: "https://raw.githubusercontent.com/OpenDengue/master-repo/main/data/releases/V1.3"
+    dir: opendengue
+    extracts:            # name -> file stem (zip + csv share the stem)
+      national: National_extract_V1_3
+      spatial: Spatial_extract_V1_3     # highest spatial resolution
+      temporal: Temporal_extract_V1_3   # highest temporal resolution
+
+  measles:
+    name: WHO provisional monthly measles and rubella data
+    # Primary: WHO immunization data portal "epi curve" file (monthly, by country).
+    url: "https://immunizationdata.who.int/docs/librariesprovider21/measles-and-rubella/404-table-web-epi-curve-data.xlsx?sfvrsn=5922ebf7_21"
+    page_url: "https://immunizationdata.who.int/global?topic=Provisional-measles-and-rubella-data&location="
+    file: measles_who/404-table-web-epi-curve-data.xlsx
+    sheet: WEB
+    # Fallback for development: TidyTuesday 2025-06-24 cleaned copy of the same WHO data.
+    fallback_name: WHO provisional measles data (TidyTuesday 2025-06-24 copy)
+    fallback_url: "https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-06-24/cases_month.csv"
+    fallback_file: measles/cases_month.csv
+
+  population:
+    name: World Bank WDI SP.POP.TOTL (based on UN World Population Prospects)
+    url: "https://api.worldbank.org/v2/country/all/indicator/SP.POP.TOTL?format=json&per_page=20000&date=2010:2025"
+    file: population/wb_pop.json
+
+  malaria_who:
+    name: WHO GHO MALARIA_EST_INCIDENCE (estimated cases per 1,000 population at risk)
+    url: "https://ghoapi.azureedge.net/api/MALARIA_EST_INCIDENCE"
+    file: malaria/who_gho_malaria_incidence.json
+
+  malaria_map:
+    name: Malaria Atlas Project
+    page_url: "https://data.malariaatlas.org/"
+    manual: true
+    file_glob: "malaria/map_*.csv"   # manual download(s); optional
+    columns:                         # map MAP export columns -> pipeline columns
+      iso3: ISO3
+      admin1: Name
+      admin_level: Admin Level
+      year: Year
+      value: Value
+      metric: Metric
+
+influenza:
+  min_specimens: 20                 # weeks below this get low_sample_flag=true and are excluded
+  min_valid_weeks_per_month: 2      # a month counts as observed if it has >= this many valid weeks
+  excluded_baseline_years: [2020, 2021]   # COVID-19 disrupted seasons
+  realtime:
+    departure_window_days: 21       # use real-time if (start_date - today) <= this
+    max_age_weeks: 4                # latest week older than this -> fall back to seasonal
+    min_baseline_years: 5           # need this many prior years for percentiles
+
+dengue:
+  excluded_baseline_years: []
+  month_coverage_min: 0.8           # fraction of a month's days covered by reports to count it observed
+
+seasonal:
+  min_years: 5
+  peak_min: 1.5                     # index >= 1.5 -> peak
+  moderate_min: 1.0                 # 1.0 <= index < 1.5 -> moderate ; < 1.0 -> low
+  top_n_months: 3
+  consistency_min: 0.6              # >= 0.6 -> consistent ; else variable
+
+measles:
+  case_column: Measles total
+  high_incidence_per_million: 10    # needs_review: placeholder, not an official cut-off
+  # 12-month incidence > 0 and below `high` -> circulating ; 0 cases -> not_reported
+  max_age_months: 6                 # latest month older than this -> level unknown (last status kept in notes)
+  needs_review: true
+
+seeds:
+  use_unverified: false             # false: unverified seed rows are treated as "unknown"
+  files:
+    presence: presence_seed.csv
+    yellow_fever_entry: yellow_fever_entry_seed.csv
+    vaccines: vaccine_recommendations_seed.csv
+    alerts: alerts_seed.csv
+
+card_groups:
+  influenza: respiratory
+  covid19: respiratory
+  dengue: mosquito
+  malaria: mosquito
+  yellow_fever: mosquito
+  measles: measles
+  hepatitis_a: food_water
+  typhoid: food_water
+
+static_presence_diseases: [malaria, yellow_fever, hepatitis_a, typhoid]
+
+reminders:     # always shown; wording should be checked against the linked source
+  - disease: covid19
+    card_group: respiratory
+    text: "Check that everyone's COVID-19 vaccinations are up to date before you travel."
+    source: Public Health Agency of Canada
+    source_url: "https://www.canada.ca/en/public-health/services/diseases/coronavirus-disease-covid-19.html"
+    needs_review: true
+  - disease: measles
+    card_group: measles
+    text: "Check that everyone's measles (MMR) vaccinations are up to date before you travel."
+    source: Public Health Agency of Canada
+    source_url: "https://www.canada.ca/en/public-health/services/diseases/measles.html"
+    needs_review: true
+
+databricks:
+  catalog: visitwell
+  schemas: {bronze: bronze, silver: silver, gold: gold}
+  volume: landing                   # created in the bronze schema: /Volumes/<catalog>/bronze/landing
+  upload_raw_files: true            # archive raw downloads in the volume (raw/ folder)
