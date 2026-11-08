@@ -164,6 +164,7 @@ export const GlobeMap = forwardRef<GlobeHandle, GlobeMapProps>(function GlobeMap
 
   useEffect(() => {
     let cancelled = false;
+    let pulseTimer: ReturnType<typeof setInterval> | undefined;
     import("maplibre-gl").then((mod) => {
       const maplibregl = ("Map" in mod && mod.Map ? mod : (mod as unknown as { default: typeof mod }).default) as typeof mod;
       if (cancelled || !container.current) return;
@@ -252,7 +253,10 @@ export const GlobeMap = forwardRef<GlobeHandle, GlobeMapProps>(function GlobeMap
               paint: {
                 "circle-radius": ["interpolate", ["linear"], ["get", "cases"], 0, 12, 500, 20, 2000, 30, 8000, 40],
                 "circle-color": ["match", ["get", "level"], "elevated", colors.elevated, "moderate", colors.moderate, "low", colors.low, colors.unknown],
-                "circle-opacity": 0.18,
+                "circle-opacity": 0.3,
+                "circle-blur": 0.8,
+                "circle-radius-transition": { duration: 0 },
+                "circle-opacity-transition": { duration: 0 },
               },
             },
             {
@@ -263,8 +267,9 @@ export const GlobeMap = forwardRef<GlobeHandle, GlobeMapProps>(function GlobeMap
                 "circle-radius": ["interpolate", ["linear"], ["get", "cases"], 0, 5, 500, 9, 2000, 13, 8000, 18],
                 "circle-color": ["match", ["get", "level"], "elevated", colors.elevated, "moderate", colors.moderate, "low", colors.low, colors.unknown],
                 "circle-opacity": 0.9,
-                "circle-stroke-width": 1.5,
-                "circle-stroke-color": "rgba(255, 255, 255, 0.6)",
+                "circle-radius-transition": { duration: 0 },
+                "circle-opacity-transition": { duration: 0 },
+                "circle-stroke-width": 0,
               },
             },
           ],
@@ -280,6 +285,27 @@ export const GlobeMap = forwardRef<GlobeHandle, GlobeMapProps>(function GlobeMap
         container.current?.setAttribute("data-globe-ready", "true");
         applyOutbreaks(m);
         applyCountry(m);
+        if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+          pulseTimer = setInterval(() => {
+            const { outbreaks: observations, selectedDestinationId: destinationId, selectedDiseaseId: diseaseId } = dataRef.current;
+            if (document.hidden || !destinationId || !observations.some((o) => !diseaseId || o.diseaseId === diseaseId)) return;
+            // Contract both edges inward, then expand the glow back outward.
+            // Apply the same scale to every dot to preserve relative case sizes.
+            const light = (1 - Math.cos(performance.now() / 2200 * Math.PI * 2)) / 2;
+            const scale = 0.55 + light * 1.25;
+            const coreScale = 0.72 + light * 0.28;
+            m.setPaintProperty("outbreak-halo", "circle-radius", [
+              "interpolate", ["linear"], ["get", "cases"],
+              0, 12 * scale, 500, 20 * scale, 2000, 30 * scale, 8000, 40 * scale,
+            ]);
+            m.setPaintProperty("outbreak-halo", "circle-opacity", 0.25 + light * 0.45);
+            m.setPaintProperty("outbreak-dots", "circle-radius", [
+              "interpolate", ["linear"], ["get", "cases"],
+              0, 5 * coreScale, 500, 9 * coreScale, 2000, 13 * coreScale, 8000, 18 * coreScale,
+            ]);
+            m.setPaintProperty("outbreak-dots", "circle-opacity", 0.72 + light * 0.28);
+          }, 50);
+        }
         const destination = destinations.find((d) => d.id === dataRef.current.selectedDestinationId);
         if (destination) {
           setSearchZoom(m, false);
@@ -316,6 +342,7 @@ export const GlobeMap = forwardRef<GlobeHandle, GlobeMapProps>(function GlobeMap
     });
     return () => {
       cancelled = true;
+      if (pulseTimer !== undefined) clearInterval(pulseTimer);
       ready.current = false;
       map.current?.remove();
       map.current = null;
@@ -344,7 +371,7 @@ export const GlobeMap = forwardRef<GlobeHandle, GlobeMapProps>(function GlobeMap
     <div className={`globe-bg absolute inset-0 ${selectedDestinationId ? "" : "globe-search"}`}>
       <div ref={container} className="h-full w-full" />
       {outbreaks.length > 0 && (
-        <div className="glass-solid pointer-events-auto absolute bottom-4 left-4 z-10 rounded-2xl px-4 py-3 text-xs">
+        <div className="glass pointer-events-auto absolute bottom-4 left-4 z-10 rounded-2xl px-4 py-3 text-xs">
           <p className="mb-2 font-semibold uppercase tracking-widest text-muted-foreground">Reported activity</p>
           <div className="grid gap-1.5">
             <span className="flex items-center gap-2"><span className="legend-dot legend-dot-elevated" /> Elevated</span>
