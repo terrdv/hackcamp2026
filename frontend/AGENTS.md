@@ -30,7 +30,7 @@ use the editor.
 <!-- LOVABLE:END -->
 
 - Render the textured globe with geographically aligned raster imagery so country overlays remain registered to land.
-- Keep the uploaded GLB renderer separate from the preserved MapLibre satellite renderer, with an in-page style switch so reverting does not lose destination state.
+- Display only the Original MapLibre satellite renderer on the homepage, without an in-page style switch. Keep the unused GLB renderer separate from it.
 - Register GLB overlays through barycentric UV-to-surface projection because the model's geographic textures are warped relative to ideal spherical XYZ coordinates.
 - Flatten GLB radial relief before building its surface projector, and derive glass Earth maps and destination outlines from the same Natural Earth 10m source to preserve coastline registration.
 - Apply the enlarged clipped canvas and lowered camera padding only in search/reset views; restore the full-viewport canvas before destination fly-to to preserve its framing and interaction.
