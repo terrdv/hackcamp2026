@@ -85,18 +85,18 @@ def run_gold(cfg, sink, silver: dict | None = None, as_of: dt.date | None = None
     seasonal = pd.concat([flu_seasonal, dengue_seasonal], ignore_index=True)
 
     rt = flu_realtime(fw, cfg, as_of)
-    alerts = build_alerts(get("seed_alerts"), as_of)
+    alerts = build_alerts(None, as_of)   # no alert source since seeds were removed
     measles = measles_status(get("measles_monthly"), alerts, cfg, as_of)
-    presence = build_presence(get("seed_presence"), get("malaria_annual"), cfg)
+    presence = build_presence(get("malaria_annual"), cfg)
     outlook = build_outlook(cfg, flu_seasonal=flu_seasonal, flu_rt=rt, flu_weekly=fw,
                             dengue_seasonal=dengue_seasonal, dengue_monthly=dm, measles=measles,
-                            presence=presence, alerts=alerts, yf_entry=get("seed_yellow_fever_entry"))
+                            presence=presence, alerts=alerts)
     outlook["built_on"] = as_of
     cases = monthly_cases(fm, dm, get("measles_monthly"), cfg)
     trend = disease_trend(cases, cfg, as_of)
     points = map_points(trend, get("seed_centroids"), cfg, as_of)
     gold = {"seasonal_profile": seasonal, "flu_realtime": rt, "measles_status": measles,
-            "presence": presence, "alerts": alerts, "destination_outlook": outlook,
+            "presence": presence, "destination_outlook": outlook,
             "monthly_cases": cases, "disease_trend": trend, "map_points": points}
     for name, df in gold.items():
         sink.write("gold", name, df, comment=f"VisitWell gold: {name}" +

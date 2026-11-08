@@ -1,63 +1,912 @@
 location_iso3,admin1,latitude,longitude,source_name,source_url,checked_on,verified,needs_review,notes
-BRA,,-12.0987,-49.5594,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-07,true,false,Brazil
-BRA,Acre,-8.9285,-70.2976,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-07,true,false,Acre
-BRA,Alagoas,-9.7739,-36.6917,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-07,true,false,Alagoas
-BRA,Amapa,1.4116,-51.6842,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-07,true,false,Amapá
-BRA,Amazonas,-4.2177,-63.7853,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-07,true,false,Amazonas
-BRA,Bahia,-12.3651,-41.8027,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-07,true,false,Bahia
-BRA,Ceara,-5.376,-39.3429,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-07,true,false,Ceará
-BRA,Distrito Federal,-15.7665,-47.7902,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-07,true,false,Distrito Federal
-BRA,Espirito Santo,-19.6916,-40.5436,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-07,true,false,Espírito Santo
-BRA,Goias,-15.863,-49.5786,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-07,true,false,Goiás
-BRA,Maranhao,-5.019,-45.389,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-07,true,false,Maranhão
-BRA,Mato Grosso,-13.3926,-55.9235,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-07,true,false,Mato Grosso
-BRA,Mato Grosso Do Sul,-20.6756,-54.5502,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-07,true,false,Mato Grosso do Sul
-BRA,Minas Gerais,-18.5895,-44.4808,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-07,true,false,Minas Gerais
-BRA,Para,-4.4431,-52.6491,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-07,true,false,Pará
-BRA,Paraiba,-7.3423,-36.2726,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-07,true,false,Paraíba
-BRA,Parana,-24.6618,-51.3228,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-07,true,false,Paraná
-BRA,Pernambuco,-8.4728,-37.2958,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-07,true,false,Pernambuco
-BRA,Piaui,-8.087,-43.1974,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-07,true,false,Piauí
-BRA,Rio De Janeiro,-22.4049,-43.1152,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-07,true,false,Rio de Janeiro
-BRA,Rio Grande Do Norte,-5.6616,-36.5472,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-07,true,false,Rio Grande do Norte
-BRA,Rio Grande Do Sul,-29.7277,-53.656,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-07,true,false,Rio Grande do Sul
-BRA,Rondonia,-10.9712,-63.1439,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-07,true,false,Rondônia
-BRA,Roraima,1.938,-61.3325,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-07,true,false,Roraima
-BRA,Santa Catarina,-27.0392,-51.1586,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-07,true,false,Santa Catarina
-BRA,Sao Paulo,-22.2267,-48.5206,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-07,true,false,São Paulo
-BRA,Sergipe,-10.5918,-37.3836,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-07,true,false,Sergipe
-BRA,Tocantins,-10.223,-48.2502,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-07,true,false,Tocantins
-CHN,,32.4982,106.3373,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-07,true,false,China
-IND,,22.6869,79.3581,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-07,true,false,India
-JPN,,36.1425,138.4422,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-07,true,false,Japan
-MEX,,23.92,-102.2894,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-07,true,false,Mexico
-MEX,Baja California Sur,25.0656,-111.452,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-07,true,false,Baja California Sur
-MEX,Campeche,18.6624,-90.2807,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-07,true,false,Campeche
-MEX,Chiapas,16.527,-92.581,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-07,true,false,Chiapas
-MEX,Coahuila,27.4473,-101.885,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-07,true,false,Coahuila
-MEX,Colima,19.1325,-103.915,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-07,true,false,Colima
-MEX,Durango,24.566,-104.808,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-07,true,false,Durango
-MEX,Guanajuato,20.8141,-100.904,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-07,true,false,Guanajuato
-MEX,Guerrero,17.7608,-100.091,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-07,true,false,Guerrero
-MEX,Hidalgo,20.5354,-98.9221,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-07,true,false,Hidalgo
-MEX,Jalisco,20.3026,-103.602,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-07,true,false,Jalisco
-MEX,Mexico,19.3275,-99.7416,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-07,true,false,México
-MEX,Michoacan,19.2458,-101.936,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-07,true,false,Michoacán
-MEX,Morelos,18.742,-99.0785,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-07,true,false,Morelos
-MEX,Nayarit,21.7934,-104.824,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-07,true,false,Nayarit
-MEX,Nuevo Leon,25.6178,-99.8307,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-07,true,false,Nuevo León
-MEX,Oaxaca,16.94,-96.2087,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-07,true,false,Oaxaca
-MEX,Puebla,18.549,-97.8889,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-07,true,false,Puebla
-MEX,Queretaro,20.7392,-99.9663,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-07,true,false,Querétaro
-MEX,Quintana Roo,19.3861,-88.344,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-07,true,false,Quintana Roo
-MEX,San Luis Potosi,22.4465,-100.324,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-07,true,false,San Luis Potosí
-MEX,Sinaloa,25.6041,-108.001,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-07,true,false,Sinaloa
-MEX,Sonora,29.5293,-110.485,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-07,true,false,Sonora
-MEX,Tabasco,18.1252,-92.8274,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-07,true,false,Tabasco
-MEX,Tamaulipas,24.0808,-98.5197,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-07,true,false,Tamaulipas
-MEX,Veracruz,19.0926,-96.5953,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-07,true,false,Veracruz
-MEX,Yucatan,20.663,-88.9836,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-07,true,false,Yucatán
-MEX,Zacatecas,23.3785,-102.579,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-07,true,false,Zacatecas
-PHL,,11.198,122.465,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-07,true,false,Philippines
-THA,,15.4597,101.0732,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-07,true,false,Thailand
-VNM,,21.7154,105.3873,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-07,true,false,Vietnam
+ABW,,12.5174,-69.9728,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Aruba
+AFG,,34.1643,66.4966,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Afghanistan
+AGO,,-12.1828,17.9842,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Angola
+AIA,,18.243,-63.0264,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Anguilla
+ALA,,60.1565,19.8697,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Åland
+ALB,,40.6549,20.1138,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Albania
+AND,,42.5476,1.5394,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Andorra
+ARE,,23.4663,54.5473,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,United Arab Emirates
+ARG,,-33.5012,-64.1733,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Argentina
+ARG,Buenos Aires,-36.6734,-60.1133,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Buenos Aires
+ARG,Catamarca,-26.7709,-67.0086,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Catamarca
+ARG,Chaco,-26.509,-60.8752,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Chaco
+ARG,Chubut,-43.9995,-67.8642,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Chubut
+ARG,Cordoba,-32.3275,-63.7501,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Córdoba
+ARG,Corrientes,-28.8387,-57.6482,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Corrientes
+ARG,Entre Rios,-32.0275,-59.2824,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Entre Ríos
+ARG,Formosa,-24.9146,-59.9494,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Formosa
+ARG,Jujuy,-23.1764,-65.7054,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Jujuy
+ARG,La Pampa,-37.3861,-65.8386,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,La Pampa
+ARG,La Rioja,-29.3762,-67.5283,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,La Rioja
+ARG,Mendoza,-34.8484,-68.5423,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Mendoza
+ARG,Misiones,-27.1262,-54.8406,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Misiones
+ARG,Neuquen,-38.3579,-69.9833,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Neuquén
+ARG,Rio Negro,-40.1261,-67.3641,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Río Negro
+ARG,Salta,-25.0203,-64.4715,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Salta
+ARG,San Juan,-30.97,-68.6612,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,San Juan
+ARG,San Luis,-33.9469,-66.135,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,San Luis
+ARG,Santa Cruz,-49.0428,-69.6596,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Santa Cruz
+ARG,Santa Fe,-30.7764,-60.8593,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Santa Fe
+ARG,Santiago Del Estero,-27.6882,-63.445,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Santiago del Estero
+ARG,Tierra Del Fuego,-54.3887,-67.5329,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Tierra del Fuego
+ARG,Tucuman,-26.9711,-65.3387,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Tucumán
+ARM,,40.4591,44.8006,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Armenia
+ASM,,-14.3267,-170.7472,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,American Samoa
+ATA,,-79.8432,35.8855,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Antarctica
+ATF,,-49.3037,69.1221,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Fr. S. Antarctic Lands
+ATG,,17.3522,-61.7906,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Antigua and Barb.
+AUS,,-24.1295,134.0497,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Australia
+AUS,Act,-35.1532,150.692,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Jervis Bay Territory
+AUS,Nsw,-32.4751,146.781,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,New South Wales
+AUS,Nt,-20.1026,133.78,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Northern Territory
+AUS,Qld,-23.1364,144.778,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Queensland
+AUS,Sa,-29.6504,135.783,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,South Australia
+AUS,Tas,-42.1383,146.603,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Tasmania
+AUS,Vic,-37.0082,144.75,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Victoria
+AUS,Wa,-25.8483,121.646,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Western Australia
+AUT,,47.5189,14.1305,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Austria
+AZE,,40.4024,47.211,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Azerbaijan
+BDI,,-3.3328,29.9171,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Burundi
+BEL,,50.7854,4.8004,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Belgium
+BEN,,10.3248,2.352,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Benin
+BFA,,12.673,-1.3639,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Burkina Faso
+BGD,,24.215,89.685,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Bangladesh
+BGR,,42.5088,25.1571,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Bulgaria
+BHR,,26.056,50.5548,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Bahrain
+BHS,,26.4018,-77.1467,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Bahamas
+BIH,,44.0911,18.0684,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Bosnia and Herz.
+BLM,,17.902,-62.8332,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,St-Barthélemy
+BLR,,53.8219,28.4177,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Belarus
+BLZ,,17.2021,-88.713,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Belize
+BMU,,32.2966,-64.7636,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Bermuda
+BOL,,-16.666,-64.5934,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Bolivia
+BOL,Beni,-14.0358,-64.5806,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,El Beni
+BOL,Chuquisaca,-20.0848,-63.9529,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Chuquisaca
+BOL,Cochabamba,-17.2884,-65.6137,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Cochabamba
+BOL,La Paz,-14.8335,-68.2128,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,La Paz
+BOL,Oruro,-18.7151,-67.5984,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Oruro
+BOL,Pando,-11.273,-67.4319,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Pando
+BOL,Potosi,-20.9033,-66.7701,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Potosí
+BOL,Santa Cruz,-16.5168,-61.137,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Santa Cruz
+BOL,Tarija,-21.5039,-63.8005,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Tarija
+BRA,,-12.0987,-49.5594,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Brazil
+BRA,Acre,-8.9285,-70.2976,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Acre
+BRA,Alagoas,-9.7739,-36.6917,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Alagoas
+BRA,Amapa,1.4116,-51.6842,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Amapá
+BRA,Amazonas,-4.2177,-63.7853,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Amazonas
+BRA,Bahia,-12.3651,-41.8027,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Bahia
+BRA,Ceara,-5.376,-39.3429,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Ceará
+BRA,Distrito Federal,-15.7665,-47.7902,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Distrito Federal
+BRA,Espirito Santo,-19.6916,-40.5436,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Espírito Santo
+BRA,Goias,-15.863,-49.5786,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Goiás
+BRA,Maranhao,-5.019,-45.389,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Maranhão
+BRA,Mato Grosso,-13.3926,-55.9235,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Mato Grosso
+BRA,Mato Grosso Do Sul,-20.6756,-54.5502,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Mato Grosso do Sul
+BRA,Minas Gerais,-18.5895,-44.4808,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Minas Gerais
+BRA,Para,-4.4431,-52.6491,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Pará
+BRA,Paraiba,-7.3423,-36.2726,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Paraíba
+BRA,Parana,-24.6618,-51.3228,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Paraná
+BRA,Pernambuco,-8.4728,-37.2958,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Pernambuco
+BRA,Piaui,-8.087,-43.1974,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Piauí
+BRA,Rio De Janeiro,-22.4049,-43.1152,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Rio de Janeiro
+BRA,Rio Grande Do Norte,-5.6616,-36.5472,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Rio Grande do Norte
+BRA,Rio Grande Do Sul,-29.7277,-53.656,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Rio Grande do Sul
+BRA,Rondonia,-10.9712,-63.1439,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Rondônia
+BRA,Roraima,1.938,-61.3325,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Roraima
+BRA,Santa Catarina,-27.0392,-51.1586,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Santa Catarina
+BRA,Sao Paulo,-22.2267,-48.5206,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,São Paulo
+BRA,Sergipe,-10.5918,-37.3836,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Sergipe
+BRA,Tocantins,-10.223,-48.2502,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Tocantins
+BRB,,13.1637,-59.569,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Barbados
+BRN,,4.4483,114.5519,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Brunei
+BTN,,27.5367,90.0403,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Bhutan
+BWA,,-22.1026,24.1792,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Botswana
+CAF,,6.9897,20.9069,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Central African Rep.
+CAN,,60.3243,-101.9107,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Canada
+CHE,,46.7191,7.464,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Switzerland
+CHL,,-38.1518,-72.3189,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Chile
+CHN,,32.4982,106.3373,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,China
+CHN,Anhui Sheng,31.9537,117.253,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Anhui
+CHN,Beijing Shi,39.9488,116.389,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Beijing
+CHN,Chongqing Shi,30.0173,107.73,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Chongqing
+CHN,Fujian Sheng,26.408,118.178,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Fujian
+CHN,Gansu Sheng,38.7393,100.735,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Gansu
+CHN,Guangdong Sheng,23.7924,113.72,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Guangdong
+CHN,Guangxi Zhuangzu Zizhiqu,23.7451,108.756,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Guangxi
+CHN,Guizhou Sheng,26.8033,106.559,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Guizhou
+CHN,Hainan Sheng,19.1865,109.825,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Hainan
+CHN,Hebei Sheng,38.5205,115.314,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Hebei
+CHN,Heilongjiang Sheng,46.8451,127.97,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Heilongjiang
+CHN,Henan Sheng,33.9055,113.484,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Henan
+CHN,Hubei Sheng,30.9857,112.264,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Hubei
+CHN,Hunan Sheng,27.6667,111.712,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Hunan
+CHN,Jiangsu Sheng,32.9844,119.942,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Jiangsu
+CHN,Jiangxi Sheng,27.6397,116.017,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Jiangxi
+CHN,Jilin Sheng,43.2978,126.466,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Jilin
+CHN,Liaoning Sheng,41.386,123.07,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Liaoning
+CHN,Ningxia Huizu Zizhiqu,37.1762,106.038,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Ningxia
+CHN,Qinghai Sheng,35.2652,96.2377,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Qinghai
+CHN,Shandong Sheng,36.3271,118.114,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Shandong
+CHN,Shanghai Shi,31.0909,121.409,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Shanghai
+CHN,Sichuan Sheng,30.5431,102.384,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Sichuan
+CHN,Tianjin Shi,39.3708,117.347,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Tianjin
+CHN,Xinjiang Uygur Zizhiqu,41.122,85.4253,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Xinjiang
+CHN,Yunnan Sheng,24.4603,101.661,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Yunnan
+CHN,Zhejiang Sheng,29.1084,119.97,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Zhejiang
+CIV,,7.4914,-5.5686,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Côte d'Ivoire
+CMR,,4.585,12.4735,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Cameroon
+COD,,-1.8582,23.4588,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Dem. Rep. Congo
+COG,,0.1423,15.9005,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Congo
+COK,,-21.216,-159.7857,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Cook Is.
+COL,,3.3731,-73.1743,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Colombia
+COL,Amazonas,-1.2603,-71.9171,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Amazonas
+COL,Antioquia,6.7037,-75.5071,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Antioquia
+COL,Arauca,6.6431,-70.8913,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Arauca
+COL,Atlantico,10.6712,-74.9941,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Atlántico
+COL,Bogota,4.0856,-74.2443,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Bogota
+COL,Bolivar,8.5782,-74.1807,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Bolívar
+COL,Boyaca,5.6852,-72.933,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Boyacá
+COL,Caldas,5.2904,-75.2793,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Caldas
+COL,Caqueta,0.6155,-73.8097,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Caquetá
+COL,Casanare,5.4625,-71.4622,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Casanare
+COL,Cauca,2.6161,-77.277,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Cauca
+COL,Cesar,9.8489,-73.4339,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Cesar
+COL,Choco,5.3828,-76.7263,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Chocó
+COL,Cordoba,8.4389,-75.6522,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Córdoba
+COL,Cundinamarca,5.1112,-74.0613,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Cundinamarca
+COL,Guainia,2.7054,-68.8925,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Guainía
+COL,Guajira,11.4245,-72.6702,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,La Guajira
+COL,Guaviare,1.8514,-71.8348,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Guaviare
+COL,Huila,2.6547,-75.5471,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Huila
+COL,La Guajira,11.4245,-72.6702,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,La Guajira
+COL,Magdalena,10.3731,-74.3474,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Magdalena
+COL,Meta,3.5302,-72.9789,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Meta
+COL,Narino,1.6017,-77.9777,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Nariño
+COL,Norte De Santander,8.086,-72.8175,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Norte de Santander
+COL,Putumayo,0.4202,-75.5514,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Putumayo
+COL,Quindio,4.472,-75.64,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Quindío
+COL,Risaralda,4.8268,-75.6743,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Risaralda
+COL,Santander,6.854,-73.4981,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Santander
+COL,Sucre,9.0124,-75.1319,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Sucre
+COL,Tolima,3.9375,-75.2073,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Tolima
+COL,Valle,3.5833,-76.5923,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Valle del Cauca
+COL,Vaupes,0.791,-70.5869,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Vaupés
+COL,Vichada,4.8922,-69.2414,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Vichada
+COM,,-11.7277,43.3181,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Comoros
+CPV,,15.0748,-23.6394,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Cabo Verde
+CRI,,10.0651,-84.0779,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Costa Rica
+CUB,,21.334,-77.9759,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Cuba
+CUB,Camaguey,21.3675,-77.9304,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Camagüey
+CUB,Ciego De Avila,21.9626,-78.6388,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Ciego de Ávila
+CUB,Cienfuegos,22.3253,-80.4831,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Cienfuegos
+CUB,Granma,20.3212,-76.8386,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Granma
+CUB,Guantanamo,20.2358,-74.8112,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Guantánamo
+CUB,Holguin,20.808,-76.1892,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Holguín
+CUB,Isla De La Juventud,21.6754,-82.8148,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Isla de la Juventud
+CUB,Las Tunas,21.0299,-77.0723,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Las Tunas
+CUB,Matanzas,22.6152,-81.186,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Matanzas
+CUB,Pinar Del Rio,22.4952,-83.674,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Pinar del Río
+CUB,Sancti Spiritus,21.9618,-79.3804,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Sancti Spíritus
+CUB,Santiago De Cuba,20.1959,-76.2117,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Santiago de Cuba
+CUB,Villa Clara,22.601,-79.9527,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Villa Clara
+CUW,,12.145,-68.9206,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Curaçao
+CYM,,19.3199,-81.2405,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Cayman Is.
+CYP,,34.9133,33.0842,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Cyprus
+CZE,,49.8824,15.3776,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Czechia
+DEU,,50.9617,9.6783,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Germany
+DJI,,11.9763,42.4988,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Djibouti
+DMA,,15.4588,-61.345,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Dominica
+DNK,,55.967,9.0182,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Denmark
+DOM,,19.1041,-70.654,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Dominican Rep.
+DOM,Azua,18.5981,-70.8169,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Azua
+DOM,Baoruco,18.5116,-71.307,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Bahoruco
+DOM,Barahona,18.1674,-71.1872,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Barahona
+DOM,Dajabon,19.4319,-71.5952,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Dajabón
+DOM,Distrito Nacional,18.4746,-69.9376,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Distrito Nacional
+DOM,Duarte,19.1987,-70.0202,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Duarte
+DOM,El Seibo,18.7649,-69.0568,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,El Seybo
+DOM,Elias Pina,19.037,-71.65,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,La Estrelleta
+DOM,Espaillat,19.5998,-70.3537,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Espaillat
+DOM,Hato Mayor,18.981,-69.403,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Hato Mayor
+DOM,Hermanas Mirabal,19.403,-70.352,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Hermanas
+DOM,Independencia,18.3759,-71.6057,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Independencia
+DOM,La Altagracia,18.608,-68.6413,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,La Altagracia
+DOM,La Romana,18.5221,-68.9869,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,La Romana
+DOM,La Vega,19.0453,-70.6836,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,La Vega
+DOM,Maria Trinidad Sanchez,19.4682,-69.9933,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,María Trinidad Sánchez
+DOM,Monsenor Nouel,18.9242,-70.4081,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Monseñor Nouel
+DOM,Monte Cristi,19.7302,-71.4527,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Monte Cristi
+DOM,Monte Plata,18.8533,-69.816,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Monte Plata
+DOM,Pedernales,17.9396,-71.5201,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Pedernales
+DOM,Peravia,18.359,-70.3799,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Peravia
+DOM,Puerto Plata,19.7427,-70.7972,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Puerto Plata
+DOM,Samana,19.2717,-69.4756,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Samaná
+DOM,San Cristobal,18.5126,-70.1914,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,San Cristóbal
+DOM,San Jose De Ocoa,18.6367,-70.525,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,San José de Ocoa
+DOM,San Juan,18.8948,-71.2622,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,San Juan
+DOM,San Pedro De Macoris,18.4796,-69.3484,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,San Pedro de Macorís
+DOM,Sanchez Ramirez,19.0101,-70.15,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Sánchez Ramírez
+DOM,Santiago,19.2636,-70.8974,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Santiago
+DOM,Santiago Rodriguez,19.3626,-71.2919,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Santiago Rodríguez
+DOM,Santiago. Rodriguez,19.3626,-71.2919,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Santiago Rodríguez
+DOM,Santo Domingo,18.5664,-69.8427,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Santo Domingo
+DOM,Valverde,19.5741,-71.0242,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Valverde
+DZA,,27.3974,2.8082,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Algeria
+ECU,,-1.2591,-78.1884,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Ecuador
+ECU,Azuay,-3.1528,-79.0909,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Azuay
+ECU,Bolivar,-1.6762,-79.1205,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Bolivar
+ECU,Canar,-2.5441,-78.9978,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Cañar
+ECU,Carchi,0.6866,-78.0243,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Carchi
+ECU,Chimborazo,-1.8892,-78.7417,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Chimborazo
+ECU,Cotopaxi,-0.8133,-78.8554,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Cotopaxi
+ECU,El Oro,-3.4366,-79.8552,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,El Oro
+ECU,Esmeraldas,1.2925,-78.9448,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Esmeraldas
+ECU,Galapagos,-1.368,-89.685,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Galápagos
+ECU,Guayas,-1.9838,-79.8608,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Guayas
+ECU,Imbabura,0.5527,-78.4124,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Imbabura
+ECU,Loja,-4.1595,-79.8079,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Loja
+ECU,Los Rios,-1.2219,-79.4787,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Los Rios
+ECU,Manabi,-0.7272,-80.1619,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Manabi
+ECU,Morona Santiago,-2.4505,-77.8071,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Morona Santiago
+ECU,Napo,-1.2733,-78.5209,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Napo
+ECU,Orellana,-0.8759,-76.4248,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Orellana
+ECU,Pastaza,-1.8465,-76.8768,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Pastaza
+ECU,Pichincha,-0.0871,-78.5045,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Pichincha
+ECU,Santa Elena,-2.1549,-80.5772,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Santa Elena
+ECU,Santo Domingo De Los Tsachilas,-0.3483,-79.2525,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Santo Domingo de los Tsáchilas
+ECU,Sucumbios,-0.0855,-76.6135,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Sucumbios
+ECU,Tungurahua,-0.6245,-77.7382,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Tungurahua
+ECU,Zamora Chinchipe,-3.9368,-78.8595,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Zamora Chinchipe
+EGY,,26.1862,29.4458,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Egypt
+ERI,,15.7874,38.2856,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Eritrea
+ESH,,23.9676,-12.6303,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,W. Sahara
+ESP,,40.091,-3.4647,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Spain
+EST,,58.7249,25.8671,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Estonia
+ETH,,8.0328,39.0886,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Ethiopia
+FIN,,63.2524,27.2764,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Finland
+FJI,,-17.8261,177.9754,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Fiji
+FLK,,-51.6089,-58.7386,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Falkland Is.
+FRA,,46.6961,2.5523,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,France
+FRO,,62.1856,-7.0584,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Faeroe Is.
+FSM,,6.8876,158.234,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Micronesia
+GAB,,-0.4377,11.8359,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Gabon
+GBR,,54.4027,-2.1163,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,United Kingdom
+GEO,,41.8701,43.7357,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Georgia
+GGY,,49.4635,-2.5617,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Guernsey
+GHA,,7.7176,-1.0369,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Ghana
+GIB,,36.1294,-5.3467,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Gibraltar
+GIN,,10.6185,-10.0164,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Guinea
+GMB,,13.6417,-14.9983,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Gambia
+GNB,,12.1637,-14.5241,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Guinea-Bissau
+GNQ,,2.333,8.9902,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Eq. Guinea
+GRC,,39.4928,21.7257,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Greece
+GRD,,12.1132,-61.6805,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Grenada
+GRL,,74.3194,-39.3353,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Greenland
+GTM,,14.9821,-90.4971,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Guatemala
+GUM,,13.3542,144.7036,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Guam
+GUY,,5.1243,-58.9426,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Guyana
+HKG,,22.4488,114.0978,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Hong Kong
+HMD,,-53.1035,73.5052,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Heard I. and McDonald Is.
+HND,,14.7948,-86.8876,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Honduras
+HRV,,45.8058,16.3724,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Croatia
+HTI,,19.2638,-72.2241,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Haiti
+HUN,,47.0868,19.4479,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Hungary
+IDN,,-0.9544,101.8929,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Indonesia
+IDN,Aceh,4.4153,96.9956,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Aceh
+IDN,Babel,-2.9582,106.819,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Bangka-Belitung
+IDN,Bali,-8.3412,115.179,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Bali
+IDN,Bangka Belitung,-2.9582,106.819,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Bangka-Belitung
+IDN,Banten,-6.2579,106.167,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Banten
+IDN,Bengkulu,-3.4861,102.368,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Bengkulu
+IDN,Daerah Istimewa Yogyakarta,-7.8353,110.443,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Yogyakarta
+IDN,Gorontalo,0.7605,122.331,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Gorontalo
+IDN,Jambi,-1.655,102.823,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Jambi
+IDN,Jawa Barat,-6.9076,107.638,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Jawa Barat
+IDN,Jawa Tengah,-7.2901,109.896,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Jawa Tengah
+IDN,Jawa Timur,-7.8813,112.616,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Jawa Timur
+IDN,Kalimantan Barat,-0.0636,111.304,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Kalimantan Barat
+IDN,Kalimantan Selatan,-3.0071,115.451,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Kalimantan Selatan
+IDN,Kalimantan Tengah,-1.8422,113.286,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Kalimantan Tengah
+IDN,Kalimantan Timur,1.2892,116.354,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Kalimantan Timur
+IDN,Kepulauan Riau,-0.1426,104.601,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Kepulauan Riau
+IDN,Lampung,-4.919,105.059,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Lampung
+IDN,Maluku,-8.2481,128.161,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Maluku
+IDN,Maluku Utara,-2.2894,125.976,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Maluku Utara
+IDN,Nusa Tenggara Barat,-8.5711,116.294,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Nusa Tenggara Barat
+IDN,Nusa Tenggara Timur,-8.5844,120.689,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Nusa Tenggara Timur
+IDN,Papua,-4.1082,138.689,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Papua
+IDN,Papua Barat,-1.3253,132.825,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Papua Barat
+IDN,Riau,0.3969,101.745,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Riau
+IDN,Sulawesi Barat,-2.6961,119.316,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Sulawesi Barat
+IDN,Sulawesi Selatan,-3.7444,119.99,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Sulawesi Selatan
+IDN,Sulawesi Tengah,-1.301,120.153,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Sulawesi Tengah
+IDN,Sulawesi Tenggara,-4.0746,122.119,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Sulawesi Tenggara
+IDN,Sulawesi Utara,0.853,124.446,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Sulawesi Utara
+IDN,Sumatera Barat,-0.6426,100.611,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Sumatera Barat
+IDN,Sumatera Selatan,-3.3824,104.073,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Sumatera Selatan
+IDN,Sumatera Utara,2.363,99.2161,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Sumatera Utara
+IMN,,54.2208,-4.5301,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Isle of Man
+IND,,22.6869,79.3581,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,India
+IOT,,-6.1908,71.3483,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Br. Indian Ocean Ter.
+IRL,,53.0787,-7.7986,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Ireland
+IRN,,32.1662,54.9315,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Iran
+IRQ,,33.094,43.2618,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Iraq
+ISL,,64.7793,-18.6737,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Iceland
+ISR,,30.9111,34.8479,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Israel
+ITA,,44.7325,11.0769,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Italy
+JAM,,18.1371,-77.3188,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Jamaica
+JEY,,49.2208,-2.0901,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Jersey
+JOR,,30.805,36.376,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Jordan
+JPN,,36.1425,138.4422,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Japan
+JPN,Aichi,34.9973,137.214,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Aichi
+JPN,Akita,39.7318,140.334,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Akita
+JPN,Aomori,40.6385,140.769,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Aomori
+JPN,Chiba,35.489,140.318,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Chiba
+JPN,Ehime,33.8141,132.916,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Ehime
+JPN,Fukui,35.9297,136.316,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Fukui
+JPN,Fukuoka,33.4906,130.616,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Fukuoka
+JPN,Fukushima,37.4153,140.099,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Fukushima
+JPN,Gifu,35.8522,136.941,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Gifu
+JPN,Gunma,36.5592,139.025,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Gunma
+JPN,Hiroshima,34.6067,132.853,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Hiroshima
+JPN,Hokkaido,43.37,142.805,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Hokkaidō
+JPN,Hyogo,35.063,134.837,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Hyōgo
+JPN,Ibaraki,36.2773,140.257,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Ibaraki
+JPN,Ishikawa,36.5654,136.677,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Ishikawa
+JPN,Iwate,39.5715,141.364,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Iwate
+JPN,Kagawa,34.2162,134.001,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Kagawa
+JPN,Kagoshima,29.4572,129.601,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Kagoshima
+JPN,Kanagawa,35.4378,139.344,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Kanagawa
+JPN,Kochi,33.6129,133.442,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Kōchi
+JPN,Kumamoto,32.588,130.834,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Kumamoto
+JPN,Kyoto,35.2117,135.451,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Kyōto
+JPN,Mie,34.5679,136.386,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Mie
+JPN,Miyagi,38.5307,140.972,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Miyagi
+JPN,Miyazaki,32.0981,131.286,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Miyazaki
+JPN,Nagano,36.0666,138.019,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Nagano
+JPN,Nagasaki,32.6745,128.755,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Nagasaki
+JPN,Nara,34.2815,135.877,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Nara
+JPN,Niigata,37.5471,139.005,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Niigata
+JPN,Oita,33.2006,131.449,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Ōita
+JPN,Okayama,34.8521,133.831,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Okayama
+JPN,Okinawa,24.3349,123.802,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Okinawa
+JPN,Osaka,34.5993,135.519,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Ōsaka
+JPN,Saga,33.0097,130.147,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Saga
+JPN,Saitama,36.0173,139.287,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Saitama
+JPN,Shiga,35.1832,136.093,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Shiga
+JPN,Shimane,35.0972,132.603,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Shimane
+JPN,Shizuoka,35.0359,138.306,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Shizuoka
+JPN,Tochigi,36.6593,139.786,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Tochigi
+JPN,Tokushima,33.8546,134.2,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Tokushima
+JPN,Tokyo,35.6578,139.407,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Tokyo
+JPN,Tottori,35.3657,133.819,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Tottori
+JPN,Toyama,36.596,137.246,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Toyama
+JPN,Wakayama,33.93,135.401,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Wakayama
+JPN,Yamagata,38.4024,140.084,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Yamagata
+JPN,Yamaguchi,34.2154,131.645,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Yamaguchi
+JPN,Yamanashi,35.6149,138.645,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Yamanashi
+KAZ,,49.0541,68.6855,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Kazakhstan
+KEN,,0.549,37.9076,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Kenya
+KGZ,,41.6685,74.5326,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Kyrgyzstan
+KHM,,12.6476,104.5049,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Cambodia
+KHM,Banteay Meanchey,13.7359,102.873,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Bântéay Méanchey
+KHM,Battambang,12.9675,103.068,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Batdâmbâng
+KHM,Kampong Cham,12.1206,105.629,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Kâmpóng Cham
+KHM,Kampong Chhnang,12.1624,104.548,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Kâmpóng Chhnang
+KHM,Kampong Speu,11.5221,104.282,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Kâmpóng Spœ
+KHM,Kampong Thom,12.6883,104.972,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Kâmpóng Thum
+KHM,Kampot,10.8503,104.328,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Kâmpôt
+KHM,Kandal,11.5453,104.973,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Kândal
+KHM,Kep,10.5308,104.346,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Kep
+KHM,Koh Kong,11.5609,103.466,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Kaôh Kong
+KHM,Kratie,12.66,106.184,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Krâchéh
+KHM,Mondul Kiri,12.6284,106.961,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Môndól Kiri
+KHM,Pailin,12.8901,102.611,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Krong Pailin
+KHM,Phnom Penh,11.5733,104.874,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Phnom Penh
+KHM,Preah Vihear,13.728,105.125,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Preah Vihéar
+KHM,Prey Veng,11.3561,105.473,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Prey Vêng
+KHM,Pursat,12.3391,103.549,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Pouthisat
+KHM,Siem Reap,13.5711,104.043,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Siemréab
+KHM,Stung Treng,13.6662,106.095,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Stœng Trêng
+KHM,Svay Rieng,11.0416,105.888,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Svay Rieng
+KHM,Takeo,10.9346,104.751,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Takêv
+KIR,,1.8204,-157.3846,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Kiribati
+KNA,,17.3366,-62.758,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,St. Kitts and Nevis
+KOR,,36.3849,128.1295,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,South Korea
+KWT,,29.4136,47.314,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Kuwait
+LAO,,19.4318,102.5339,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Laos
+LAO,Attapu,14.7848,106.866,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Attapu
+LAO,Bokeo,20.3044,100.672,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Bokeo
+LAO,Bolikhamxai,18.538,104.039,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Bolikhamxai
+LAO,Champasak,14.1093,106.003,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Champasak
+LAO,Houaphan,20.3729,104.039,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Houaphan
+LAO,Khammouan,17.6151,105.343,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Khammouan
+LAO,Louang-Namtha,20.9099,101.148,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Louang Namtha
+LAO,Louangphabang,20.0788,102.549,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Louangphrabang
+LAO,Oudomxai,20.161,101.548,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Oudômxai
+LAO,Phongsali,21.6153,102.245,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Phôngsali
+LAO,Salavan,15.7614,106.248,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Saravan
+LAO,Savannakhet,16.4937,105.771,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Savannakhét
+LAO,Xaignabouli,17.7502,101.143,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Xaignabouri
+LAO,Xekong,15.6414,106.982,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Xékong
+LAO,Xiangkhouang,19.5113,103.46,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Xiangkhoang
+LBN,,34.1334,35.9929,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Lebanon
+LBR,,6.4472,-9.4604,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Liberia
+LBY,,26.6389,18.011,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Libya
+LCA,,13.8924,-60.9801,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Saint Lucia
+LIE,,47.1114,9.5594,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Liechtenstein
+LKA,,7.5811,80.7048,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Sri Lanka
+LSO,,-29.4802,28.2466,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Lesotho
+LTU,,55.1037,24.0899,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Lithuania
+LUX,,49.7337,6.0776,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Luxembourg
+LVA,,57.0669,25.4587,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Latvia
+MAC,,22.1297,113.556,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Macao
+MAF,,18.0813,-63.0494,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,St-Martin
+MAR,,31.6507,-7.1873,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Morocco
+MCO,,43.7397,7.3983,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Monaco
+MDA,,47.435,28.4879,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Moldova
+MDG,,-18.6283,46.7042,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Madagascar
+MDV,,4.1744,73.5076,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Maldives
+MEX,,23.92,-102.2894,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Mexico
+MEX,Aguascalientes,22.0375,-102.351,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Aguascalientes
+MEX,Baja California,30.3399,-115.209,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Baja California
+MEX,Baja California Sur,25.0656,-111.452,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Baja California Sur
+MEX,Campeche,18.6624,-90.2807,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Campeche
+MEX,Chiapas,16.527,-92.581,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Chiapas
+MEX,Chihuahua,28.973,-106.232,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Chihuahua
+MEX,Coahuila,27.4473,-101.885,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Coahuila
+MEX,Colima,19.1325,-103.915,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Colima
+MEX,Distrito Federal,19.3266,-99.1369,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Distrito Federal
+MEX,Durango,24.566,-104.808,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Durango
+MEX,Guanajuato,20.8141,-100.904,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Guanajuato
+MEX,Guerrero,17.7608,-100.091,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Guerrero
+MEX,Hidalgo,20.5354,-98.9221,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Hidalgo
+MEX,Jalisco,20.3026,-103.602,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Jalisco
+MEX,Mexico,19.3275,-99.7416,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,México
+MEX,Michoacan,19.2458,-101.936,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Michoacán
+MEX,Morelos,18.742,-99.0785,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Morelos
+MEX,Nayarit,21.7934,-104.824,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Nayarit
+MEX,Nuevo Leon,25.6178,-99.8307,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Nuevo León
+MEX,Oaxaca,16.94,-96.2087,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Oaxaca
+MEX,Puebla,18.549,-97.8889,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Puebla
+MEX,Queretaro,20.7392,-99.9663,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Querétaro
+MEX,Quintana Roo,19.3861,-88.344,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Quintana Roo
+MEX,San Luis Potosi,22.4465,-100.324,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,San Luis Potosí
+MEX,Sinaloa,25.6041,-108.001,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Sinaloa
+MEX,Sonora,29.5293,-110.485,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Sonora
+MEX,Tabasco,18.1252,-92.8274,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Tabasco
+MEX,Tamaulipas,24.0808,-98.5197,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Tamaulipas
+MEX,Tlaxcala,19.3956,-98.161,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Tlaxcala
+MEX,Veracruz,19.0926,-96.5953,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Veracruz
+MEX,Yucatan,20.663,-88.9836,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Yucatán
+MEX,Zacatecas,23.3785,-102.579,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Zacatecas
+MHL,,7.0826,171.1936,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Marshall Is.
+MKD,,41.5582,21.5558,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,North Macedonia
+MLI,,18.6927,-2.0385,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Mali
+MLT,,35.8929,14.433,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Malta
+MMR,,21.5739,95.8045,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Myanmar
+MNE,,42.8031,19.1437,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Montenegro
+MNG,,45.9975,104.1504,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Mongolia
+MNP,,15.1882,145.7344,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,N. Mariana Is.
+MOZ,,-13.9432,37.8379,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Mozambique
+MRT,,19.5871,-9.7403,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Mauritania
+MSR,,16.7372,-62.1883,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Montserrat
+MUS,,-20.2995,57.5658,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Mauritius
+MWI,,-13.3867,33.6081,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Malawi
+MYS,,2.5287,113.8371,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Malaysia
+MYS,Johor,2.0065,103.412,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Johor
+MYS,Kelantan,5.4035,102.005,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Kelantan
+MYS,Negeri Sembilan,2.7086,102.149,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Negeri Sembilan
+MYS,Pahang,3.8456,102.491,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Pahang
+MYS,Perak,4.7474,101.059,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Perak
+MYS,Perlis,6.5217,100.253,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Perlis
+MYS,Pulau Pinang,5.3684,100.261,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Pulau Pinang
+MYS,Sabah,5.3111,117.095,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Sabah
+MYS,Sarawak,2.4495,113.344,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Sarawak
+MYS,Selangor,3.3078,101.428,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Selangor
+NAM,,-20.5753,17.1082,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Namibia
+NCL,,-21.0647,165.084,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,New Caledonia
+NER,,17.4462,9.5044,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Niger
+NFK,,-29.033,167.9545,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Norfolk Island
+NGA,,9.4398,7.5032,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Nigeria
+NIC,,12.6707,-85.0693,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Nicaragua
+NIC,Boaco,12.524,-85.4734,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Boaco
+NIC,Carazo,11.7692,-86.2874,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Carazo
+NIC,Chinandega,12.7475,-87.1702,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Chinandega
+NIC,Chontales,12.0292,-85.1156,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Chontales
+NIC,Esteli,13.225,-86.4072,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Estelí
+NIC,Granada,11.8736,-85.9698,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Granada
+NIC,Jinotega,13.6975,-85.5417,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Jinotega
+NIC,Leon,12.4168,-86.7187,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,León
+NIC,Madriz,13.4963,-86.412,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Madriz
+NIC,Managua,12.3035,-86.2493,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Managua
+NIC,Masaya,11.9959,-86.1227,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Masaya
+NIC,Matagalpa,13.0242,-85.4926,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Matagalpa
+NIC,Nueva Segovia,13.7183,-86.2589,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Nueva Segovia
+NIC,Rio San Juan,11.1691,-84.5184,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Rio San Juan
+NIC,Rivas,11.3524,-85.7633,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Rivas
+NIU,,-19.046,-169.8626,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Niue
+NLD,,52.4222,5.6114,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Netherlands
+NOR,,61.3571,9.68,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Norway
+NPL,,28.2979,83.6399,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Nepal
+NRU,,-0.5203,166.9326,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Nauru
+NZL,,-39.759,172.787,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,New Zealand
+OMN,,22.1204,57.3366,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Oman
+PAK,,29.3284,68.5456,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Pakistan
+PAK,Balochistan,27.5194,65.5512,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Baluchistan
+PAK,Gilgit Baltistan,35.7864,74.9848,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Northern Areas
+PAK,Khyber Pakhtunkhwa,34.9407,72.6402,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,K.P.
+PAK,Punjab,31.3589,72.3449,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Punjab
+PAK,Sindh,26.3734,68.8685,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Sind
+PAN,,8.722,-80.3521,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Panama
+PAN,Bocas Del Toro,9.2074,-82.6597,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Bocas del Toro
+PAN,Chiriqui,8.3082,-82.0992,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Chiriquí
+PAN,Cocle,8.5771,-80.4314,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Coclé
+PAN,Colon,9.1702,-79.9683,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Colón
+PAN,Darien,7.9019,-77.7067,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Darién
+PAN,Herrera,7.8563,-80.6613,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Herrera
+PAN,Kuna Yala,9.2827,-78.3273,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Kuna Yala
+PAN,Los Santos,7.584,-80.3927,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Los Santos
+PAN,Ngobe Bugle,8.68,-81.7558,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Ngöbe Buglé
+PAN,Panama,9.0863,-78.9283,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Panama
+PAN,Veraguas,8.2255,-81.1447,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Veraguas
+PCN,,-24.3646,-128.3175,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Pitcairn Is.
+PER,,-12.9767,-72.9002,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Peru
+PER,Amazonas,-5.0485,-77.9695,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Amazonas
+PER,Ancash,-9.54,-77.6571,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Áncash
+PER,Arequipa,-15.8757,-72.4209,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Arequipa
+PER,Ayacucho,-13.9245,-73.9838,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Ayacucho
+PER,Cajamarca,-6.8178,-78.6091,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Cajamarca
+PER,Callao,-15.1677,-69.9802,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Puno
+PER,Cusco,-13.1633,-72.2479,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Cusco
+PER,Huanuco,-9.592,-75.9161,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Huánuco
+PER,Ica,-14.2257,-75.6773,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Ica
+PER,Junin,-11.3744,-74.9642,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Junín
+PER,La Libertad,-8.2133,-78.2813,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,La Libertad
+PER,Lambayeque,-6.2514,-79.8994,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Lambayeque
+PER,Lima,-11.0602,-77.0756,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Lima
+PER,Loreto,-4.2747,-73.8868,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Loreto
+PER,Madre De Dios,-11.8726,-70.6831,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Madre de Dios
+PER,Moquegua,-16.6807,-70.7546,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Moquegua
+PER,Pasco,-10.3457,-75.4586,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Pasco
+PER,Piura,-5.0995,-80.2868,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Piura
+PER,Puno,-15.1677,-69.9802,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Puno
+PER,San Martin,-7.3085,-76.6238,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,San Martín
+PER,Tumbes,-3.8849,-80.6135,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Tumbes
+PER,Ucayali,-9.9982,-73.2493,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Ucayali
+PHL,,11.198,122.465,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Philippines
+PLW,,7.5183,134.5802,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Palau
+PLW,Aimeliik,7.4324,134.533,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Aimeliik
+PLW,Airai,7.3995,134.571,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Airai
+PLW,Kayangel,8.0705,134.711,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Kayangel
+PLW,Koror,7.2658,134.446,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Koror
+PLW,Melekeok,7.5168,134.613,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Melekeok
+PLW,Ngaraard,7.6505,134.65,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Ngaraard
+PLW,Ngarchelong,7.7069,134.641,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Ngarchelong
+PLW,Ngardmau,7.6013,134.597,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Ngardmau
+PLW,Ngatpang,7.4793,134.552,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Ngatpang
+PLW,Ngchesar,7.4629,134.597,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Ngchesar
+PLW,Ngiwal,7.5731,134.636,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Ngiwal
+PLW,Peleliu,7.0265,134.259,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Peleliu
+PNG,,-5.6953,143.9102,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Papua New Guinea
+POL,,51.9903,19.4905,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Poland
+PRI,,18.2347,-66.4811,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Puerto Rico
+PRK,,39.8853,126.4445,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,North Korea
+PRT,,39.6067,-8.2718,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Portugal
+PRY,,-21.6745,-60.1464,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Paraguay
+PSE,,32.0474,35.2913,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Palestine
+PYF,,-17.6281,-149.4616,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Fr. Polynesia
+QAT,,25.2374,51.1435,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Qatar
+ROU,,45.7332,24.9726,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Romania
+RUS,,58.2494,44.6865,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Russia
+RWA,,-1.8972,30.1039,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Rwanda
+SAU,,23.8069,44.6996,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Saudi Arabia
+SAU,Al-Jouf,29.5589,38.3651,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Al Jawf
+SAU,Asir,19.3484,42.9503,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,`Asir
+SAU,Baha,20.1605,41.4165,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Al Bahah
+SAU,Eastern,22.9875,50.1714,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Ash Sharqiyah
+SAU,Hail,27.2652,41.7076,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Ha'il
+SAU,Jizan,17.3028,42.726,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Jizan
+SAU,Madinah,24.9279,39.4378,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Al Madinah
+SAU,Makkah,21.4348,40.2542,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Makkah
+SAU,Najran,18.2931,45.6917,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Najran
+SAU,Riyadh,23.3432,45.1404,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Ar Riyad
+SAU,Tabuk,27.9146,36.8014,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Tabuk
+SDN,,16.3307,29.2607,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Sudan
+SEN,,15.1381,-14.7786,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Senegal
+SGP,,1.3666,103.8169,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Singapore
+SGP,Central Singapore,1.317,103.846,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Central Singapore
+SGS,,-55.6834,-31.0632,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,S. Geo. and the Is.
+SHN,,-15.9505,-5.7126,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Saint Helena
+SLB,,-8.0295,159.1705,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Solomon Is.
+SLB,Choiseul,-7.4099,157.547,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Choiseul
+SLB,Guadalcanal,-9.6169,160.209,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Guadalcanal
+SLB,Honiara,-9.4466,160.019,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Capital Territory (Honiara)
+SLB,Isabel,-8.4469,159.619,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Isabel
+SLB,Makira,-10.2782,161.744,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Makira
+SLB,Malaita,-9.7583,161.956,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Malaita
+SLB,Temotu,-12.277,168.812,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Temotu
+SLB,Western,-8.73,157.551,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Western
+SLE,,8.6174,-11.7637,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Sierra Leone
+SLV,,13.6854,-88.8901,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,El Salvador
+SLV,Ahuachapan,13.8657,-89.9057,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Ahuachapán
+SLV,Cabanas,13.9079,-88.7326,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Cabañas
+SLV,Chalatenango,14.1895,-89.0591,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Chalatenango
+SLV,Cuscatlan,13.8166,-89.0055,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Cuscatlán
+SLV,La Libertad,13.7727,-89.3593,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,La Libertad
+SLV,La Paz,13.4872,-88.9628,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,La Paz
+SLV,La Union,13.302,-87.9301,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,La Unión
+SLV,Morazan,13.7736,-88.1055,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Morazán
+SLV,San Miguel,13.4882,-88.1953,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,San Miguel
+SLV,San Salvador,13.713,-89.1488,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,San Salvador
+SLV,San Vicente,13.6291,-88.6917,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,San Vicente
+SLV,Santa Ana,14.1024,-89.5013,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Santa Ana
+SLV,Sonsonate,13.7165,-89.6937,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Sonsonate
+SLV,Usulutan,13.4104,-88.5293,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Usulután
+SMR,,43.9339,12.4412,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,San Marino
+SOM,,3.5689,45.1924,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Somalia
+SPM,,47.0403,-56.3324,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,St. Pierre and Miquelon
+SRB,,44.1899,20.788,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Serbia
+SSD,,7.2305,30.3902,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,S. Sudan
+STP,,0.9709,7.021,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,São Tomé and Principe
+SUR,,4.144,-55.9109,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Suriname
+SVK,,48.734,19.0499,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Slovakia
+SVN,,46.0608,14.9153,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Slovenia
+SWE,,65.8592,19.0171,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Sweden
+SWZ,,-26.5337,31.4673,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,eSwatini
+SXM,,18.0409,-63.0701,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Sint Maarten
+SYC,,-4.6767,55.4802,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Seychelles
+SYR,,35.0066,38.2778,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Syria
+TCA,,21.8166,-71.7527,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Turks and Caicos Is.
+TCD,,15.143,18.645,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Chad
+TGO,,8.8072,1.0581,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Togo
+THA,,15.4597,101.0732,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Thailand
+THA,Amnat Charoen,15.8583,104.766,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Amnat Charoen
+THA,Ang Thong,14.6335,100.357,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Ang Thong
+THA,Bangkok,13.793,100.626,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Bangkok Metropolis
+THA,Chachoengsao,13.6342,101.419,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Chachoengsao
+THA,Chainat,15.1055,100.013,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Chai Nat
+THA,Chaiyaphum,16.0138,101.877,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Chaiyaphum
+THA,Chanthaburi,12.8117,102.139,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Chanthaburi
+THA,Chiang Mai,18.8368,98.6967,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Chiang Mai
+THA,Chiang Rai,19.9607,99.9059,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Chiang Rai
+THA,Chumphon,10.3809,99.0755,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Chumphon
+THA,Kalasin,16.6224,103.679,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Kalasin
+THA,Kanchanaburi,14.3317,99.2969,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Kanchanaburi
+THA,Khon Kaen,16.5762,102.683,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Khon Kaen
+THA,Krabi,8.1333,98.984,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Krabi
+THA,Lampang,18.6296,99.5707,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Lampang
+THA,Lamphun,18.1333,98.9979,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Lamphun
+THA,Loei,17.4099,101.517,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Loei
+THA,Lopburi,15.1147,100.944,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Lop Buri
+THA,Mae Hong Son,18.4043,97.8911,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Mae Hong Son
+THA,Maha Sarakham,15.9151,103.188,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Maha Sarakham
+THA,Mukdahan,16.5636,104.531,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Mukdahan
+THA,Nakhon Nayok,14.2249,101.21,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Nakhon Nayok
+THA,Nakhon Pathom,13.917,100.072,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Nakhon Pathom
+THA,Nakhon Phanom,17.2227,104.628,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Nakhon Phanom
+THA,Nakhon Ratchasima,14.8923,102.103,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Nakhon Ratchasima
+THA,Nakhon Sawan,15.6943,100.25,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Nakhon Sawan
+THA,Nakhon Si Thammarat,8.3745,99.7819,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Nakhon Si Thammarat
+THA,Nan,18.8264,100.837,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Nan
+THA,Narathiwat,6.1776,101.727,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Narathiwat
+THA,Nong Bua Lamphu,17.2392,102.311,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Nong Bua Lam Phu
+THA,Nong Khai,17.7553,102.754,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Nong Khai
+THA,Nonthaburi,13.8933,100.407,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Nonthaburi
+THA,Pathum Thani,14.034,100.625,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Pathum Thani
+THA,Pattani,6.7391,101.381,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Pattani
+THA,Phangnga,8.5768,98.394,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Phangnga
+THA,Phatthalung,7.4728,100.062,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Phatthalung
+THA,Phayao,19.1866,100.16,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Phayao
+THA,Phetchabun,16.2589,101.21,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Phetchabun
+THA,Phetchaburi,12.8727,99.5964,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Phetchaburi
+THA,Phichit,16.2321,100.374,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Phichit
+THA,Phitsanulok,16.9748,100.49,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Phitsanulok
+THA,Phrae,18.0577,99.9263,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Phrae
+THA,Phuket,7.9711,98.3472,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Phuket
+THA,Prachin Buri,14.1081,101.594,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Prachin Buri
+THA,Ranong,9.5172,98.58,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Ranong
+THA,Ratchaburi,13.4964,99.6128,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Ratchaburi
+THA,Rayong,12.8125,101.402,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Rayong
+THA,Roi Et,15.9601,103.827,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Roi Et
+THA,Sa Kaeo,13.8589,102.384,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Sa Kaeo
+THA,Sakon Nakhon,17.3577,103.845,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Sakon Nakhon
+THA,Samut Sakhon,13.5655,100.225,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Samut Sakhon
+THA,Saraburi,14.4914,100.909,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Saraburi
+THA,Satun,6.8583,99.9633,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Satun
+THA,Songkhla,6.8121,100.568,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Songkhla
+THA,Sukhothai,17.2435,99.7009,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Sukhothai
+THA,Surat Thani,9.0048,99.0107,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Surat Thani
+THA,Surin,14.9355,103.588,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Surin
+THA,Tak,17.0043,98.8441,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Tak
+THA,Trang,7.5697,99.6467,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Trang
+THA,Ubon Ratchathani,15.0137,105.016,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Ubon Ratchathani
+THA,Udon Thani,17.4511,102.882,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Udon Thani
+THA,Uthai Thani,15.27,99.5275,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Uthai Thani
+THA,Uttaradit,17.7188,100.531,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Uttaradit
+THA,Yala,6.1426,101.218,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Yala
+THA,Yasothon,16.0225,104.324,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Yasothon
+TJK,,38.1998,72.5873,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Tajikistan
+TKM,,39.8552,58.6766,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Turkmenistan
+TLS,,-8.8037,125.8547,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Timor-Leste
+TLS,Baucau,-8.5373,126.476,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Baucau
+TLS,Bobonaro,-8.9807,125.219,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Bobonaro
+TLS,Dili,-8.5543,125.668,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Dili
+TLS,Ermera,-8.8472,125.344,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Ermera
+TLS,Lautem,-8.5016,127.001,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Lautém
+TLS,Liquica,-8.6527,125.308,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Liquica
+TLS,Manatuto,-8.737,125.968,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Manatuto
+TLS,Manufahi,-9.0043,125.813,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Manufahi
+TLS,Viqueque,-8.8247,126.386,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Viqueque
+TON,,-21.21,-175.163,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Tonga
+TON,Haapai,-19.757,-174.317,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Ha'apai
+TON,Tongatapu,-21.1718,-175.155,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Tongatapu
+TON,Vava'U,-18.6118,-173.988,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Vava'u
+TTO,,10.9989,-60.9184,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Trinidad and Tobago
+TUN,,33.6873,9.0079,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Tunisia
+TUR,,39.3454,34.5083,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Turkey
+TUV,,-8.5137,179.2096,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Tuvalu
+TWN,,23.6524,120.8682,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Taiwan
+TWN,Changhua County,24.0016,120.464,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Changhua
+TWN,Chiayi City,23.4822,120.441,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Chiayi City
+TWN,Chiayi County,23.4465,120.26,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Chiayi
+TWN,Hsinchu City,24.7757,120.959,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Hsinchu City
+TWN,Hsinchu County,24.6748,121.163,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Hsinchu
+TWN,Hualien County,23.7743,121.381,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Hualien
+TWN,Kaohsiung City,23.0157,120.609,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Kaohsiung City
+TWN,Keelung City,25.1131,121.704,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Keelung City
+TWN,Miaoli County,24.5253,120.942,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Miaoli
+TWN,Nantou County,23.7977,120.988,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Nantou
+TWN,New Taipei City,24.911,121.646,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,New Taipei City
+TWN,Penghu County,23.5724,119.597,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Penghu
+TWN,Pingtung County,22.5344,120.661,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Pingtung
+TWN,Taichung City,24.238,120.966,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Taichung City
+TWN,Tainan City,23.0464,120.182,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Tainan City
+TWN,Taipei City,25.0904,121.559,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Taipei City
+TWN,Taitung County,22.0499,121.54,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Taitung
+TWN,Yilan County,24.5913,121.644,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Yilan
+TWN,Yunlin County,23.7253,120.427,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Yunlin
+TZA,,-6.0519,34.9592,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Tanzania
+UGA,,1.9726,32.9486,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Uganda
+UKR,,49.7247,32.1409,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Ukraine
+UMI,,19.2857,166.6445,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,U.S. Minor Outlying Is.
+URY,,-32.9611,-55.9669,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Uruguay
+USA,,39.5385,-97.4826,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,United States of America
+USA,Alabama,32.8551,-86.7184,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Alabama
+USA,Alaska,65.3609,-151.604,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Alaska
+USA,Arkansas,34.7563,-92.1428,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Arkansas
+USA,California,36.7496,-119.591,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,California
+USA,Colorado,38.9998,-105.543,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Colorado
+USA,Connecticut,41.6486,-72.7594,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Connecticut
+USA,Delaware,38.8657,-75.4112,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Delaware
+USA,District Of Columbia,38.8922,-77.0113,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,District of Columbia
+USA,Florida,28.1568,-81.6228,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Florida
+USA,Georgia,32.8547,-83.4078,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Georgia
+USA,Hawaii,21.4919,-157.999,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Hawaii
+USA,Illinois,39.946,-89.1991,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Illinois
+USA,Indiana,39.8874,-86.1396,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Indiana
+USA,Kansas,38.5,-98.3309,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Kansas
+USA,Kentucky,37.3994,-85.5729,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Kentucky
+USA,Maine,45.148,-69.1973,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Maine
+USA,Maryland,39.3874,-77.0454,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Maryland
+USA,Massachusetts,42.3739,-71.9993,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Massachusetts
+USA,Michigan,43.4343,-84.9479,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Michigan
+USA,Minnesota,46.0592,-93.364,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Minnesota
+USA,Missouri,38.5487,-92.446,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Missouri
+USA,Montana,46.9965,-110.044,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Montana
+USA,Nebraska,41.5002,-99.6855,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Nebraska
+USA,Nevada,39.4299,-117.02,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Nevada
+USA,New Hampshire,43.5993,-71.6301,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,New Hampshire
+USA,New Jersey,40.0449,-74.4653,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,New Jersey
+USA,New Mexico,34.5002,-106.024,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,New Mexico
+USA,New York,43.1988,-75.3242,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,New York
+USA,North Carolina,35.6152,-78.866,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,North Carolina
+USA,Ohio,40.0924,-82.6719,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Ohio
+USA,Oklahoma,35.452,-97.1309,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Oklahoma
+USA,Oregon,43.8333,-120.386,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Oregon
+USA,Pennsylvania,40.8601,-77.6094,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Pennsylvania
+USA,South Carolina,33.8578,-80.6471,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,South Carolina
+USA,Tennessee,35.7514,-86.3415,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Tennessee
+USA,Texas,31.131,-98.7607,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Texas
+USA,Utah,39.5007,-111.544,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Utah
+USA,Vermont,44.0886,-72.7317,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Vermont
+USA,Virginia,37.7403,-78.2431,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Virginia
+USA,Washington,47.4865,-120.361,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Washington
+USA,West Virginia,38.6422,-80.7128,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,West Virginia
+USA,Wisconsin,44.3709,-89.5831,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Wisconsin
+UZB,,41.6936,64.0054,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Uzbekistan
+VAT,,41.9033,12.4534,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Vatican
+VCT,,13.0879,-61.3359,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,St. Vin. and Gren.
+VEN,,7.1825,-64.5994,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Venezuela
+VEN,Amazonas,3.3619,-65.6187,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Amazonas
+VEN,Anzoategui,9.0559,-64.1949,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Anzoátegui
+VEN,Apure,7.0405,-68.55,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Apure
+VEN,Aragua,10.1618,-67.3252,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Aragua
+VEN,Barinas,8.2238,-69.9798,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Barinas
+VEN,Bolivar,6.0061,-63.8628,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Bolívar
+VEN,Carabobo,10.1548,-67.9745,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Carabobo
+VEN,Cojedes,9.3018,-68.3738,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Cojedes
+VEN,Delta Amacuro,8.7891,-61.5863,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Delta Amacuro
+VEN,Distrito Capital,10.4857,-66.964,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Distrito Capital
+VEN,Falcon,11.0897,-69.7604,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Falcón
+VEN,Guarico,8.7237,-66.4794,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Guárico
+VEN,Lara,10.1552,-69.8053,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Lara
+VEN,Merida,8.491,-71.2398,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Mérida
+VEN,Miranda,10.2616,-66.3229,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Miranda
+VEN,Monagas,9.5039,-63.0869,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Monagas
+VEN,Nueva Esparta,10.9719,-63.9689,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Nueva Esparta
+VEN,Portuguesa,9.1562,-69.3776,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Portuguesa
+VEN,Sucre,10.4729,-63.3542,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Sucre
+VEN,Tachira,7.8573,-72.0039,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Táchira
+VEN,Trujillo,9.4951,-70.5519,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Trujillo
+VEN,Yaracuy,10.3466,-68.7447,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Yaracuy
+VEN,Zulia,9.5847,-72.5482,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Zulia
+VGB,,18.4266,-64.6366,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,British Virgin Is.
+VIR,,17.7467,-64.7792,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,U.S. Virgin Is.
+VNM,,21.7154,105.3873,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Vietnam
+VNM,An Giang,10.5736,105.154,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,An Giang
+VNM,Ba Ria-Vung Tau,10.3969,107.143,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Bà Rịa - Vũng Tàu
+VNM,Bac Giang,21.3512,106.493,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Bắc Giang
+VNM,Bac Lieu,9.3394,105.573,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Bạc Liêu
+VNM,Bac Ninh,21.098,106.117,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Bắc Ninh
+VNM,Ben Tre,10.171,106.496,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Bến Tre
+VNM,Binh Dinh,14.1075,108.971,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Bình Định
+VNM,Binh Duong,11.1382,106.659,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Bình Dương
+VNM,Binh Phuoc,11.6805,106.897,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Bình Phước
+VNM,Binh Thuan,11.1284,108.232,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Bình Thuận
+VNM,Ca Mau,9.0555,105.073,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Cà Mau
+VNM,Cao Bang,22.7595,106.047,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Cao Bằng
+VNM,Da Nang City,16.0912,108.102,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Đà Nẵng
+VNM,Dak Lak,12.7691,108.133,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Đắk Lắk
+VNM,Dak Nong,12.1425,107.66,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Đắk Nông
+VNM,Dien Bien,21.7487,103.226,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Điện Biên
+VNM,Dong Thap,10.6644,105.586,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Ðong Tháp
+VNM,Gia Lai,13.8493,108.156,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Gia Lai
+VNM,Ha Giang,22.7655,104.965,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Hà Giang
+VNM,Ha Nam,20.5569,105.985,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Hà Nam
+VNM,Ha Tinh,18.3563,105.799,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Ha Tinh
+VNM,Hai Duong,20.9613,106.364,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Hải Dương
+VNM,Hau Giang,9.8435,105.663,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Hau Giang
+VNM,Ho Chi Minh City,10.409,106.926,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Hồ Chí Minh city
+VNM,Hoa Binh,20.7292,105.34,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Hòa Bình
+VNM,Khanh Hoa,12.6049,109.359,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Khánh Hòa
+VNM,Kien Giang,9.8596,105.284,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Kiên Giang
+VNM,Kon Tum,14.7451,107.969,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Kon Tum
+VNM,Lai Chau,22.3502,103.255,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Lai Chau
+VNM,Lam Dong,11.5362,108,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Lâm Đồng
+VNM,Lang Son,21.7826,106.724,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Lạng Sơn
+VNM,Lao Cai,22.3559,104.096,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Lào Cai
+VNM,Long An,10.6869,106.134,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Long An
+VNM,Nam Dinh,20.2343,106.254,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Nam Định
+VNM,Nghe An,19.3548,104.827,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Nghệ An
+VNM,Ninh Binh,20.2722,105.852,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Ninh Bình
+VNM,Ninh Thuan,11.6242,108.925,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Ninh Thuận
+VNM,Phu Tho,21.3127,105.143,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Phú Thọ
+VNM,Phu Yen,13.1647,109.064,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Phú Yên
+VNM,Quang Binh,17.4691,106.357,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Quảng Bình
+VNM,Quang Nam,15.6535,107.955,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Quàng Nam
+VNM,Quang Ngai,14.9971,108.686,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Quảng Ngãi
+VNM,Quang Ninh,21.223,107.181,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Quảng Ninh
+VNM,Quang Tri,16.7204,106.973,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Quảng Trị
+VNM,Soc Trang,9.5614,105.9,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Sóc Trăng
+VNM,Son La,21.3011,104.159,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Son La
+VNM,Tay Ninh,11.4121,106.14,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Tây Ninh
+VNM,Thai Binh,20.5303,106.371,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Thái Bình
+VNM,Thai Nguyen,21.5812,105.887,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Thái Nguyên
+VNM,Thanh Hoa,20.0917,105.215,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Thanh Hóa
+VNM,Thua Thien - Hue,16.312,107.634,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Thừa Thiên - Huế
+VNM,Tien Giang,10.4581,106.217,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Tiền Giang
+VNM,Tra Vinh,9.8282,106.289,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Trà Vinh
+VNM,Tuyen Quang,22.131,105.229,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Tuyên Quang
+VNM,Vinh Long,10.1042,105.969,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Vĩnh Long
+VNM,Vinh Phuc,21.3455,105.549,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Vĩnh Phúc
+VNM,Yen Bai,21.7484,104.512,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Yên Bái
+VUT,,-15.3715,166.9088,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Vanuatu
+WLF,,-14.2864,-178.1374,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Wallis and Futuna Is.
+WSM,,-13.6391,-172.4382,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Samoa
+XKX,,42.5936,20.8607,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Kosovo
+YEM,,15.3282,45.8744,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Yemen
+ZAF,,-29.7088,23.6657,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,South Africa
+ZMB,,-14.6608,26.3953,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Zambia
+ZWE,,-18.9116,29.9254,Natural Earth 10m v5.1.2 label point,https://www.naturalearthdata.com/,2026-11-08,true,false,Zimbabwe

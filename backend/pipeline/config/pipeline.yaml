@@ -2,7 +2,9 @@
 # Every threshold used by the pipeline lives here. Values marked `needs_review: true`
 # are placeholders chosen by the dev team, NOT official cut-offs.
 
-destinations: [VNM, PHL, IND, CHN, MEX, BRA, THA, JPN]
+# `all` = every country code; countries without data simply get `unknown` rows (hidden in the app).
+# A list such as [VNM, PHL, BRA] restricts the run to those countries.
+destinations: all
 
 paths:            # relative to the repo root (overridden in the Databricks notebook)
   raw: data/raw
@@ -101,13 +103,9 @@ measles:
   max_age_months: 6                 # latest month older than this -> level unknown (last status kept in notes)
   needs_review: true
 
-seeds:
-  use_unverified: false             # false: unverified seed rows are treated as "unknown"
+seeds:          # reference data only (no health facts): map coordinates
+  use_unverified: false             # false: unverified rows are ignored
   files:
-    presence: presence_seed.csv
-    yellow_fever_entry: yellow_fever_entry_seed.csv
-    vaccines: vaccine_recommendations_seed.csv
-    alerts: alerts_seed.csv
     centroids: admin1_centroids_seed.csv   # map coordinates (Natural Earth label points)
 
 app:          # tables shaped for the web app: monthly_cases, disease_trend, map_points
@@ -129,6 +127,7 @@ card_groups:
   hepatitis_a: food_water
   typhoid: food_water
 
+# presence-type diseases: malaria from WHO estimated incidence; the others have no data source yet (-> unknown)
 static_presence_diseases: [malaria, yellow_fever, hepatitis_a, typhoid]
 
 reminders:     # always shown; wording should be checked against the linked source

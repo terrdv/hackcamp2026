@@ -38,10 +38,18 @@ def load_config(path: str | Path | None = None, overrides: dict[str, Any] | None
         raise ValueError(f"config {path} missing keys: {missing}")
     if overrides:
         data = deep_merge(data, overrides)
-    data["destinations"] = [d.strip().upper() for d in data["destinations"]]
+    data["destinations"] = resolve_destinations(data["destinations"])
     cfg = Config(data)
     cfg["_root"] = str(Path(root) if root else REPO_ROOT)
     return cfg
+
+
+def resolve_destinations(value) -> list[str]:
+    """`all` -> every ISO 3166 country code (plus WHO's XKX for Kosovo); otherwise the listed ISO3 codes."""
+    if isinstance(value, str) and value.strip().lower() == "all":
+        import pycountry
+        return sorted({c.alpha_3 for c in pycountry.countries} | {"XKX"})
+    return [d.strip().upper() for d in value]
 
 
 def deep_merge(base: dict, extra: dict) -> dict:

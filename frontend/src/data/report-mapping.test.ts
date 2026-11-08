@@ -87,6 +87,16 @@ describe("buildReport", () => {
         month: null,
         level: "circulating",
       },
+      {
+        ...seasonal(1, "unknown"),
+        disease: "influenza",
+      },
+      {
+        ...seasonal(1, "unknown"),
+        disease: "typhoid",
+        row_type: "presence",
+        month: null,
+      },
     ],
     trends: [
       {
@@ -168,5 +178,29 @@ describe("buildReport", () => {
     expect(r.outbreaks[0]).toMatchObject({ latitude: -22.2, longitude: -48.5 });
     expect(r.recommendations).toEqual([]);
     expect(r.surveillanceDate).toBe("2025-03-01");
+  });
+
+  it("leaves out diseases whose level is unknown, with their chart data and dots", () => {
+    const withFlu = buildReport({
+      ...input,
+      monthly: [...input.monthly, { disease: "influenza", period_start: "2026-10-01", cases: 50 }],
+      points: [
+        ...input.points,
+        {
+          point_id: "influenza:BRA:national",
+          disease: "influenza",
+          admin1: null,
+          point_type: "national",
+          latitude: -12,
+          longitude: -49,
+          cases: 50,
+          period_start: "2026-10-01",
+          source: "FluNet",
+        },
+      ],
+    });
+    expect(withFlu.diseases.map((d) => d.id)).toEqual(["bra-dengue", "bra-measles"]);
+    expect(withFlu.timeSeries.some((p) => p.diseaseId === "bra-influenza")).toBe(false);
+    expect(withFlu.outbreaks.some((o) => o.diseaseId === "bra-influenza")).toBe(false);
   });
 });

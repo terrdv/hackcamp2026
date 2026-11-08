@@ -1,40 +1,1035 @@
 disease,location_iso3,level,first_period,last_period,n_periods,pct_missing_months,complete_years,complete_year_list,data_as_of,status
-influenza,VNM,national,2006-01-01,2026-10-01,222,11.2,15,"2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2017,2018,2023,2024,2025",2026-10-26,ok
-influenza,PHL,national,2002-07-01,2026-10-01,225,22.9,10,"2007,2008,2009,2010,2011,2013,2019,2023,2024,2025",2026-10-19,ok
-influenza,IND,national,2000-06-01,2026-10-01,215,32.2,14,"2010,2011,2012,2013,2014,2015,2017,2018,2019,2021,2022,2023,2024,2025",2026-10-26,ok
-influenza,CHN,national,2005-10-01,2026-10-01,234,7.5,16,"2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2020,2021,2022,2023,2024,2025",2026-10-26,ok
-influenza,MEX,national,2000-01-01,2026-10-01,277,14.0,16,"2007,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2022,2023,2024,2025",2026-10-26,ok
+influenza,ABW,national,,,0,,0,,,no data
+influenza,AFG,national,2009-11-01,2026-10-01,81,60.3,0,,2026-10-12,ok
+influenza,AGO,national,,,0,,0,,,no data
+influenza,AIA,national,,,0,,0,,,no data
+influenza,ALA,national,,,0,,0,,,no data
+influenza,ALB,national,2011-01-01,2026-03-01,55,69.9,0,,2026-04-13,ok
+influenza,AND,national,,,0,,0,,,no data
+influenza,ARE,national,2020-01-01,2026-10-01,65,20.7,4,"2022,2023,2024,2025",2026-10-26,ok
+influenza,ARG,national,1999-06-01,2026-10-01,252,23.4,13,"2010,2011,2012,2013,2015,2016,2017,2018,2019,2022,2023,2024,2025",2026-10-19,ok
+influenza,ARM,national,2014-01-01,2025-12-01,50,65.3,0,,2025-12-22,ok
+influenza,ASM,national,,,0,,0,,,no data
+influenza,ATA,national,,,0,,0,,,no data
+influenza,ATF,national,,,0,,0,,,no data
+influenza,ATG,national,,,0,,0,,,no data
+influenza,AUS,national,1998-07-01,2026-10-01,259,23.8,17,"2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2022,2023,2024,2025",2026-10-26,ok
+influenza,AUT,national,1999-12-01,2026-10-01,102,68.4,1,2025,2026-10-19,ok
+influenza,AZE,national,2013-02-01,2025-02-01,24,83.4,0,,2025-12-08,ok
+influenza,BDI,national,,,0,,0,,,no data
+influenza,BEL,national,2000-11-01,2025-10-01,54,82.0,0,,2025-10-13,ok
+influenza,BEN,national,,,0,,0,,,no data
+influenza,BES,national,,,0,,0,,,no data
+influenza,BFA,national,2014-02-01,2026-10-01,54,64.7,0,,2026-10-26,ok
+influenza,BGD,national,2010-01-01,2026-10-01,172,14.9,7,"2012,2013,2016,2019,2023,2024,2025",2026-10-19,ok
+influenza,BGR,national,2003-02-01,2026-10-01,69,75.8,0,,2026-10-26,ok
+influenza,BHR,national,2013-02-01,2026-10-01,78,52.7,3,"2023,2024,2025",2026-10-26,ok
+influenza,BHS,national,,,0,,0,,,no data
+influenza,BIH,national,2011-01-01,2014-03-01,5,87.2,0,,2023-01-09,ok
+influenza,BLM,national,,,0,,0,,,no data
+influenza,BLR,national,2005-03-01,2026-06-01,82,68.0,0,,2026-07-06,ok
+influenza,BLZ,national,2020-02-01,2026-02-01,25,65.8,0,,2026-03-02,ok
+influenza,BMU,national,,,0,,0,,,no data
+influenza,BOL,national,2010-03-01,2026-10-01,148,26.0,5,"2012,2013,2014,2018,2019",2026-10-12,ok
 influenza,BRA,national,2003-03-01,2026-10-01,247,13.0,13,"2010,2011,2012,2013,2014,2015,2017,2018,2019,2022,2023,2024,2025",2026-10-26,ok
-influenza,THA,national,2004-01-01,2026-10-01,246,10.2,15,"2007,2008,2009,2010,2011,2012,2013,2014,2016,2017,2018,2019,2023,2024,2025",2026-10-12,ok
+influenza,BRB,national,2015-11-01,2026-10-01,37,72.0,0,,2026-10-26,ok
+influenza,BRN,national,2022-09-01,2026-10-01,48,4.0,2,"2023,2024",2026-10-26,ok
+influenza,BTN,national,2012-08-01,2026-10-01,115,32.7,4,"2019,2023,2024,2025",2026-10-26,ok
+influenza,BVT,national,,,0,,0,,,no data
+influenza,BWA,national,,,0,,0,,,no data
+influenza,CAF,national,2012-08-01,2025-11-01,38,76.2,0,,2026-08-03,ok
+influenza,CAN,national,1997-01-01,2026-10-01,282,21.2,17,"2003,2007,2008,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2022,2023,2024,2025",2026-10-26,ok
+influenza,CCK,national,,,0,,0,,,no data
+influenza,CHE,national,1995-01-01,2025-09-01,95,74.3,0,,2026-09-14,ok
+influenza,CHL,national,2000-05-01,2026-10-01,261,17.9,14,"2008,2011,2012,2013,2014,2015,2016,2017,2018,2019,2022,2023,2024,2025",2026-10-26,ok
+influenza,CHN,national,2005-10-01,2026-10-01,234,7.5,16,"2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2020,2021,2022,2023,2024,2025",2026-10-26,ok
+influenza,CIV,national,2009-01-01,2026-10-01,182,15.0,5,"2013,2015,2017,2018,2025",2026-10-05,ok
+influenza,CMR,national,2008-11-01,2026-10-01,138,36.1,4,"2013,2014,2024,2025",2026-10-26,ok
+influenza,COD,national,2010-01-01,2025-10-01,80,57.9,0,,2025-11-10,ok
+influenza,COG,national,,,0,,0,,,no data
+influenza,COK,national,,,0,,0,,,no data
+influenza,COL,national,1998-10-01,2026-10-01,210,37.7,14,"2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2022,2023,2024,2025",2026-10-26,ok
+influenza,COM,national,,,0,,0,,,no data
+influenza,CPV,national,,,0,,0,,,no data
+influenza,CRI,national,2008-06-01,2026-09-01,165,25.0,8,"2010,2012,2013,2014,2017,2019,2024,2025",2026-09-14,ok
+influenza,CUB,national,2009-04-01,2026-10-01,160,24.2,5,"2010,2011,2013,2015,2016",2026-10-19,ok
+influenza,CUW,national,,,0,,0,,,no data
+influenza,CXR,national,,,0,,0,,,no data
+influenza,CYM,national,2023-12-01,2026-10-01,18,48.6,0,,2026-11-02,ok
+influenza,CYP,national,2016-01-01,2026-03-01,29,76.4,0,,2026-10-26,ok
+influenza,CZE,national,1998-01-01,2026-10-01,153,55.8,2,"2022,2023",2026-10-26,ok
+influenza,DEU,national,1999-01-01,2026-09-01,177,46.8,2,"2022,2024",2026-09-28,ok
+influenza,DJI,national,,,0,,0,,,no data
+influenza,DMA,national,,,0,,0,,,no data
+influenza,DNK,national,1999-02-01,2026-10-01,195,41.4,11,"2009,2014,2015,2016,2017,2018,2019,2022,2023,2024,2025",2026-10-26,ok
+influenza,DOM,national,2008-07-01,2026-10-01,101,54.1,2,"2016,2025",2026-10-26,ok
+influenza,DZA,national,2009-07-01,2026-04-01,64,68.3,0,,2026-04-06,ok
+influenza,ECU,national,2009-06-01,2026-10-01,170,18.7,8,"2012,2013,2014,2015,2018,2023,2024,2025",2026-11-02,ok
+influenza,EGY,national,2004-12-01,2026-10-01,212,19.4,14,"2009,2012,2013,2014,2015,2016,2017,2018,2019,2020,2022,2023,2024,2025",2026-10-19,ok
+influenza,ERI,national,,,0,,0,,,no data
+influenza,ESH,national,,,0,,0,,,no data
+influenza,ESP,national,1999-12-01,2026-10-01,186,42.4,8,"2013,2017,2018,2019,2022,2023,2024,2025",2026-10-26,ok
+influenza,EST,national,2008-01-01,2026-10-01,132,41.6,2,"2009,2025",2026-10-26,ok
+influenza,ETH,national,2012-04-01,2026-09-01,101,42.0,4,"2021,2022,2023,2024",2026-09-28,ok
+influenza,FIN,national,2008-01-01,2023-01-01,38,79.0,0,,2023-01-23,ok
+influenza,FJI,national,2009-06-01,2026-09-01,38,81.7,0,,2026-09-28,ok
+influenza,FLK,national,,,0,,0,,,no data
+influenza,FRA,national,1997-01-01,2026-10-01,250,30.2,5,"2009,2022,2023,2024,2025",2026-10-19,ok
+influenza,FRO,national,,,0,,0,,,no data
+influenza,FSM,national,,,0,,0,,,no data
+influenza,GAB,national,2023-01-01,2025-01-01,2,92.0,0,,2026-06-29,ok
+influenza,GBR,national,,,0,,0,,,no data
+influenza,GEO,national,2009-07-01,2026-10-01,64,69.2,0,,2026-10-19,ok
+influenza,GGY,national,,,0,,0,,,no data
+influenza,GHA,national,2009-04-01,2026-10-01,191,9.5,6,"2010,2014,2015,2018,2019,2025",2026-10-05,ok
+influenza,GIB,national,,,0,,0,,,no data
+influenza,GIN,national,2021-06-01,2026-09-01,40,37.5,1,2023,2026-09-28,ok
+influenza,GLP,national,2009-09-01,2019-02-01,6,94.7,0,,2019-02-18,ok
+influenza,GMB,national,,,0,,0,,,no data
+influenza,GNB,national,,,0,,0,,,no data
+influenza,GNQ,national,,,0,,0,,,no data
+influenza,GRC,national,2003-02-01,2026-10-01,112,60.7,1,2025,2026-10-26,ok
+influenza,GRD,national,,,0,,0,,,no data
+influenza,GRL,national,,,0,,0,,,no data
+influenza,GTM,national,2009-09-01,2026-10-01,145,29.6,1,2025,2026-10-19,ok
+influenza,GUF,national,2002-01-01,2026-01-01,33,88.6,0,,2026-02-02,ok
+influenza,GUM,national,,,0,,0,,,no data
+influenza,GUY,national,2023-06-01,2026-09-01,35,12.5,0,,2026-10-12,ok
+influenza,HKG,national,2015-07-01,2026-10-01,121,11.0,7,"2016,2017,2018,2019,2023,2024,2025",2026-10-19,ok
+influenza,HMD,national,,,0,,0,,,no data
+influenza,HND,national,2009-03-01,2026-10-01,148,30.2,4,"2010,2018,2023,2025",2026-10-26,ok
+influenza,HRV,national,1999-01-01,2026-10-01,141,57.8,3,"2022,2024,2025",2026-10-26,ok
+influenza,HTI,national,2015-10-01,2026-07-01,83,36.2,0,,2026-08-03,ok
+influenza,HUN,national,1999-01-01,2026-10-01,83,75.1,0,,2026-10-26,ok
+influenza,IDN,national,2004-09-01,2026-10-01,183,31.2,10,"2010,2011,2012,2013,2014,2015,2016,2017,2024,2025",2026-10-19,ok
+influenza,IMN,national,,,0,,0,,,no data
+influenza,IND,national,2000-06-01,2026-10-01,215,32.2,14,"2010,2011,2012,2013,2014,2015,2017,2018,2019,2021,2022,2023,2024,2025",2026-10-26,ok
+influenza,IOT,national,,,0,,0,,,no data
+influenza,IRL,national,2003-11-01,2026-10-01,174,37.0,8,"2015,2016,2017,2019,2022,2023,2024,2025",2026-10-26,ok
+influenza,IRN,national,2005-02-01,2026-10-01,164,37.2,4,"2022,2023,2024,2025",2026-10-26,ok
+influenza,IRQ,national,2009-07-01,2026-10-01,58,72.1,0,,2026-10-19,ok
+influenza,ISL,national,1999-01-01,2026-10-01,122,63.5,0,,2026-10-26,ok
+influenza,ISR,national,1997-12-01,2026-10-01,158,54.5,0,,2026-10-12,ok
+influenza,ITA,national,2000-01-01,2026-02-01,142,54.8,1,2009,2026-02-23,ok
+influenza,JAM,national,2009-04-01,2026-06-01,84,59.4,1,2024,2026-09-14,ok
+influenza,JEY,national,,,0,,0,,,no data
+influenza,JOR,national,2010-12-01,2026-01-01,84,53.8,0,,2026-07-27,ok
 influenza,JPN,national,2025-04-01,2026-10-01,19,0.0,0,,2026-10-19,ok
-dengue,VNM,national,1995-01-01,2025-03-01,273,24.8,22,"1995,1996,1998,1999,2000,2003,2004,2005,2006,2007,2008,2009,2011,2012,2013,2014,2015,2016,2017,2018,2019,2024",2025-03-31,ok
-dengue,PHL,national,2011-01-01,2023-11-01,135,12.9,5,"2011,2013,2014,2019,2020",2023-11-25,ok
-dengue,IND,national,2024-01-01,2025-01-01,12,7.7,0,,2025-01-31,ok
-dengue,CHN,national,1998-01-01,2025-02-01,228,30.1,18,"1998,1999,2000,2001,2008,2009,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2023,2024",2025-02-28,ok
-dengue,MEX,national,2003-01-01,2024-12-01,192,27.3,16,"2003,2004,2005,2006,2007,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-28,ok
+influenza,KAZ,national,2008-01-01,2026-10-01,94,58.4,0,,2026-10-19,ok
+influenza,KEN,national,2006-09-01,2026-10-01,191,21.1,6,"2008,2009,2010,2011,2021,2022",2026-10-19,ok
+influenza,KGZ,national,2008-01-01,2025-12-01,37,82.9,0,,2025-12-15,ok
+influenza,KHM,national,2006-09-01,2026-10-01,196,19.0,9,"2011,2012,2014,2016,2018,2019,2023,2024,2025",2026-10-19,ok
+influenza,KIR,national,,,0,,0,,,no data
+influenza,KNA,national,,,0,,0,,,no data
+influenza,KOR,national,2002-03-01,2026-10-01,172,41.9,6,"2017,2018,2019,2023,2024,2025",2026-10-12,ok
+influenza,KWT,national,2017-09-01,2026-10-01,50,54.5,2,"2019,2025",2026-10-12,ok
+influenza,LAO,national,2010-12-01,2026-09-01,165,13.2,10,"2013,2014,2015,2016,2017,2018,2019,2023,2024,2025",2026-09-28,ok
+influenza,LBN,national,2015-03-01,2026-10-01,53,62.1,0,,2026-10-19,ok
+influenza,LBR,national,2025-04-01,2026-10-01,9,52.6,0,,2026-10-19,ok
+influenza,LBY,national,2022-12-01,2024-03-01,8,50.0,0,,2024-03-11,ok
+influenza,LCA,national,2023-10-01,2025-01-01,5,68.8,0,,2026-02-16,ok
+influenza,LIE,national,,,0,,0,,,no data
+influenza,LKA,national,2007-05-01,2026-10-01,186,20.5,10,"2011,2012,2013,2014,2015,2016,2017,2019,2023,2024",2026-10-26,ok
+influenza,LSO,national,,,0,,0,,,no data
+influenza,LTU,national,2009-08-01,2026-09-01,70,66.0,0,,2026-09-21,ok
+influenza,LUX,national,2006-02-01,2026-10-01,84,66.3,0,,2026-10-19,ok
+influenza,LVA,national,2001-01-01,2024-05-01,146,48.0,0,,2026-03-30,ok
+influenza,MAC,national,,,0,,0,,,no data
+influenza,MAF,national,,,0,,0,,,no data
+influenza,MAR,national,2002-11-01,2026-04-01,81,71.3,0,,2026-10-12,ok
+influenza,MCO,national,,,0,,0,,,no data
+influenza,MDA,national,2009-11-01,2026-10-01,73,64.2,0,,2026-10-26,ok
+influenza,MDG,national,2002-07-01,2026-10-01,159,45.5,5,"2015,2022,2023,2024,2025",2026-10-26,ok
+influenza,MDV,national,2017-02-01,2026-10-01,70,40.2,1,2023,2026-10-19,ok
+influenza,MEX,national,2000-01-01,2026-10-01,277,14.0,16,"2007,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2022,2023,2024,2025",2026-10-26,ok
+influenza,MHL,national,,,0,,0,,,no data
+influenza,MKD,national,2018-02-01,2025-03-01,23,73.3,0,,2025-03-24,ok
+influenza,MLI,national,2010-01-01,2026-02-01,70,63.9,0,,2026-09-21,ok
+influenza,MLT,national,2009-10-01,2026-10-01,98,52.2,3,"2023,2024,2025",2026-10-19,ok
+influenza,MMR,national,2016-06-01,2026-10-01,32,74.4,0,,2026-10-12,ok
+influenza,MNE,national,2016-02-01,2026-02-01,42,65.3,0,,2026-02-16,ok
+influenza,MNG,national,2005-01-01,2026-10-01,125,52.3,0,,2026-10-12,ok
+influenza,MNP,national,,,0,,0,,,no data
+influenza,MOZ,national,2015-02-01,2026-07-01,65,52.9,1,2023,2026-08-10,ok
+influenza,MRT,national,2016-03-01,2024-01-01,5,94.7,0,,2024-01-22,ok
+influenza,MSR,national,,,0,,0,,,no data
+influenza,MTQ,national,2009-08-01,2019-03-01,6,94.8,0,,2019-03-25,ok
+influenza,MUS,national,2000-05-01,2026-10-01,95,70.1,3,"2023,2024,2025",2026-10-19,ok
+influenza,MWI,national,,,0,,0,,,no data
+influenza,MYS,national,1997-12-01,2026-10-01,201,42.1,8,"2010,2017,2018,2019,2022,2023,2024,2025",2026-10-12,ok
+influenza,MYT,national,,,0,,0,,,no data
+influenza,NAM,national,2021-11-01,2021-12-01,2,0.0,0,,2022-10-24,ok
+influenza,NCL,national,2002-03-01,2026-03-01,97,66.4,1,2025,2026-06-01,ok
+influenza,NER,national,2010-02-01,2026-10-01,88,56.2,0,,2026-10-05,ok
+influenza,NFK,national,,,0,,0,,,no data
+influenza,NGA,national,2010-01-01,2026-07-01,101,49.2,2,"2011,2013",2026-10-05,ok
+influenza,NIC,national,2010-02-01,2026-10-01,142,29.4,7,"2013,2017,2019,2022,2023,2024,2025",2026-10-26,ok
+influenza,NIU,national,,,0,,0,,,no data
+influenza,NLD,national,1997-02-01,2025-10-01,76,78.0,0,,2026-10-05,ok
+influenza,NOR,national,2000-12-01,2026-10-01,245,21.2,11,"2013,2014,2015,2016,2017,2018,2019,2022,2023,2024,2025",2026-10-26,ok
+influenza,NPL,national,2011-10-01,2026-10-01,145,19.9,5,"2014,2018,2019,2023,2025",2026-10-26,ok
+influenza,NRU,national,,,0,,0,,,no data
+influenza,NZL,national,1997-07-01,2026-10-01,106,69.9,3,"2023,2024,2025",2026-10-26,ok
+influenza,OMN,national,2008-05-01,2026-09-01,172,22.2,9,"2011,2014,2015,2017,2018,2019,2023,2024,2025",2026-09-14,ok
+influenza,PAK,national,2009-06-01,2026-10-01,135,35.4,2,"2022,2025",2026-10-19,ok
+influenza,PAN,national,2007-09-01,2026-10-01,137,40.4,3,"2022,2023,2025",2026-10-19,ok
+influenza,PCN,national,,,0,,0,,,no data
+influenza,PER,national,2002-09-01,2026-10-01,247,14.8,11,"2008,2010,2011,2012,2013,2016,2017,2019,2022,2024,2025",2026-10-26,ok
+influenza,PHL,national,2002-07-01,2026-10-01,225,22.9,10,"2007,2008,2009,2010,2011,2013,2019,2023,2024,2025",2026-10-19,ok
+influenza,PLW,national,,,0,,0,,,no data
+influenza,PNG,national,2015-04-01,2026-07-01,13,90.4,0,,2026-08-17,ok
+influenza,POL,national,2000-01-01,2026-10-01,133,58.7,1,2024,2026-10-26,ok
+influenza,PRI,national,,,0,,0,,,no data
+influenza,PRK,national,2019-01-01,2026-04-01,8,90.9,0,,2026-04-27,ok
+influenza,PRT,national,1996-11-01,2026-10-01,152,57.8,4,"2022,2023,2024,2025",2026-10-26,ok
+influenza,PRY,national,2001-09-01,2026-10-01,189,37.4,9,"2013,2014,2016,2017,2018,2019,2022,2024,2025",2026-10-12,ok
+influenza,PSE,national,2017-01-01,2026-03-01,35,68.5,0,,2026-03-16,ok
+influenza,PYF,national,,,0,,0,,,no data
+influenza,QAT,national,2011-01-01,2026-10-01,179,5.8,12,"2011,2013,2014,2015,2016,2017,2018,2019,2022,2023,2024,2025",2026-10-05,ok
+influenza,REU,national,,,0,,0,,,no data
+influenza,ROU,national,2001-02-01,2026-10-01,103,66.7,0,,2026-10-26,ok
+influenza,RUS,national,2004-12-01,2026-10-01,216,17.9,9,"2009,2010,2012,2013,2015,2016,2023,2024,2025",2026-10-19,ok
+influenza,RWA,national,2010-01-01,2025-11-01,57,70.2,0,,2025-11-24,ok
+influenza,SAU,national,2017-02-01,2026-10-01,107,8.5,6,"2018,2019,2022,2023,2024,2025",2026-10-12,ok
+influenza,SDN,national,2009-11-01,2009-11-01,1,0.0,0,,2026-10-12,ok
+influenza,SEN,national,1999-03-01,2026-10-01,189,43.1,6,"2010,2017,2018,2019,2024,2025",2026-10-26,ok
+influenza,SGP,national,2002-01-01,2026-10-01,205,31.2,10,"2007,2008,2010,2011,2017,2018,2019,2023,2024,2025",2026-10-26,ok
+influenza,SGS,national,,,0,,0,,,no data
+influenza,SHN,national,,,0,,0,,,no data
+influenza,SJM,national,,,0,,0,,,no data
+influenza,SLB,national,,,0,,0,,,no data
+influenza,SLE,national,2011-09-01,2026-02-01,9,94.8,0,,2026-02-23,ok
+influenza,SLV,national,2008-07-01,2026-10-01,134,39.1,0,,2026-10-26,ok
+influenza,SMR,national,,,0,,0,,,no data
+influenza,SOM,national,2021-09-01,2026-07-01,37,37.3,1,2023,2026-07-27,ok
+influenza,SPM,national,,,0,,0,,,no data
+influenza,SRB,national,2007-02-01,2026-10-01,64,73.0,0,,2026-10-26,ok
+influenza,SSD,national,2022-05-01,2026-06-01,26,48.0,0,,2026-06-22,ok
+influenza,STP,national,,,0,,0,,,no data
+influenza,SUR,national,2019-01-01,2019-03-01,3,0.0,0,,2019-04-01,ok
+influenza,SVK,national,2001-01-01,2026-10-01,89,71.3,0,,2026-10-26,ok
+influenza,SVN,national,2000-01-01,2026-10-01,161,50.0,1,2024,2026-10-26,ok
+influenza,SWE,national,2001-02-01,2026-10-01,161,47.9,0,,2026-10-26,ok
+influenza,SWZ,national,,,0,,0,,,no data
+influenza,SXM,national,,,0,,0,,,no data
+influenza,SYC,national,2023-02-01,2026-10-01,4,91.1,0,,2026-10-12,ok
+influenza,SYR,national,2021-11-01,2026-03-01,21,60.4,0,,2026-09-28,ok
+influenza,TCA,national,,,0,,0,,,no data
+influenza,TCD,national,2018-01-01,2018-03-01,3,0.0,0,,2018-03-05,ok
+influenza,TGO,national,2012-10-01,2026-10-01,98,42.0,1,2023,2026-10-19,ok
+influenza,THA,national,2004-01-01,2026-10-01,246,10.2,15,"2007,2008,2009,2010,2011,2012,2013,2014,2016,2017,2018,2019,2023,2024,2025",2026-10-12,ok
+influenza,TJK,national,2019-12-01,2025-12-01,14,80.8,0,,2026-10-12,ok
+influenza,TKL,national,,,0,,0,,,no data
+influenza,TKM,national,2020-02-01,2022-12-01,2,94.3,0,,2024-03-18,ok
+influenza,TLS,national,2019-02-01,2026-10-01,51,45.2,1,2025,2026-10-05,ok
+influenza,TON,national,2025-03-01,2025-11-01,8,11.1,0,,2025-11-10,ok
+influenza,TTO,national,2019-01-01,2020-03-01,4,73.3,0,,2020-03-16,ok
+influenza,TUN,national,2004-12-01,2026-08-01,89,65.9,0,,2026-09-28,ok
+influenza,TUR,national,2005-11-01,2026-05-01,137,44.5,0,,2026-06-01,ok
+influenza,TUV,national,2025-10-01,2025-10-01,1,0.0,0,,2025-10-27,ok
+influenza,TWN,national,,,0,,0,,,no data
+influenza,TZA,national,2009-09-01,2026-10-01,155,24.8,5,"2011,2022,2023,2024,2025",2026-10-19,ok
+influenza,UGA,national,2007-10-01,2026-10-01,160,30.1,4,"2022,2023,2024,2025",2026-11-02,ok
+influenza,UKR,national,2007-03-01,2026-05-01,121,47.6,0,,2026-06-01,ok
+influenza,UMI,national,,,0,,0,,,no data
+influenza,URY,national,2003-06-01,2026-10-01,74,73.7,0,,2026-10-12,ok
+influenza,USA,national,1997-01-01,2026-10-01,320,10.6,21,"2004,2005,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025",2026-10-26,ok
+influenza,UZB,national,2016-02-01,2025-12-01,16,86.6,0,,2026-02-02,ok
+influenza,VAT,national,,,0,,0,,,no data
+influenza,VCT,national,2023-05-01,2026-09-01,8,80.5,0,,2026-09-14,ok
+influenza,VEN,national,2004-06-01,2026-10-01,70,74.0,2,"2011,2024",2026-10-12,ok
+influenza,VGB,national,,,0,,0,,,no data
+influenza,VIR,national,,,0,,0,,,no data
+influenza,VNM,national,2006-01-01,2026-10-01,222,11.2,15,"2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2017,2018,2023,2024,2025",2026-10-26,ok
+influenza,VUT,national,,,0,,0,,,no data
+influenza,WLF,national,,,0,,0,,,no data
+influenza,WSM,national,,,0,,0,,,no data
+influenza,XKX,national,2016-02-01,2026-10-01,32,75.2,0,,2026-10-26,ok
+influenza,YEM,national,2019-01-01,2026-09-01,18,80.6,0,,2026-09-14,ok
+influenza,ZAF,national,1999-04-01,2026-10-01,226,31.7,8,"2011,2013,2015,2018,2022,2023,2024,2025",2026-10-26,ok
+influenza,ZMB,national,1997-07-01,2026-10-01,153,56.5,4,"2018,2019,2022,2023",2026-10-19,ok
+influenza,ZWE,national,2022-07-01,2024-07-01,4,84.0,0,,2024-08-05,ok
+dengue,ABW,national,2014-08-01,2024-12-01,91,27.2,7,"2018,2019,2020,2021,2022,2023,2024",2024-12-28,ok
+dengue,AFG,national,2021-09-01,2025-03-01,42,2.3,2,"2022,2024",2025-03-31,ok
+dengue,AGO,national,2024-01-01,2025-02-01,13,7.1,1,2024,2025-02-28,ok
+dengue,AIA,national,2014-01-01,2024-12-01,72,45.5,3,"2018,2020,2023",2024-12-28,ok
+dengue,ALA,national,,,0,,0,,,no data
+dengue,ALB,national,,,0,,0,,,no data
+dengue,AND,national,,,0,,0,,,no data
+dengue,ARE,national,,,0,,0,,,no data
+dengue,ARG,national,2014-01-01,2024-12-01,116,12.1,9,"2014,2015,2016,2017,2018,2019,2020,2023,2024",2024-12-28,ok
+dengue,ARM,national,,,0,,0,,,no data
+dengue,ASM,national,2017-04-01,2024-12-01,7,92.5,0,,2024-12-28,ok
+dengue,ATA,national,,,0,,0,,,no data
+dengue,ATF,national,,,0,,0,,,no data
+dengue,ATG,national,2014-08-01,2024-12-01,87,30.4,2,"2017,2020",2024-12-28,ok
+dengue,AUS,national,1995-01-01,2025-04-01,268,26.4,22,"1995,1996,1998,2001,2002,2003,2005,2006,2007,2009,2010,2011,2012,2016,2017,2018,2019,2020,2021,2022,2023,2024",2025-04-30,ok
+dengue,AUT,national,,,0,,0,,,no data
+dengue,AZE,national,,,0,,0,,,no data
+dengue,BDI,national,,,0,,0,,,no data
+dengue,BEL,national,,,0,,0,,,no data
+dengue,BEN,national,2024-01-01,2025-03-01,15,0.0,1,2024,2025-03-31,ok
+dengue,BES,national,2018-01-01,2024-12-01,48,42.9,4,"2018,2019,2020,2024",2024-12-28,ok
+dengue,BFA,national,2024-01-01,2025-03-01,15,0.0,1,2024,2025-03-31,ok
+dengue,BGD,national,2008-01-01,2025-03-01,207,0.0,17,"2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2025-03-31,ok
+dengue,BGR,national,,,0,,0,,,no data
+dengue,BHR,national,,,0,,0,,,no data
+dengue,BHS,national,2014-01-01,2024-12-01,72,45.5,5,"2017,2018,2020,2023,2024",2024-12-28,ok
+dengue,BIH,national,,,0,,0,,,no data
+dengue,BLM,national,2014-01-01,2024-12-01,104,21.2,7,"2017,2018,2019,2020,2021,2023,2024",2024-12-28,ok
+dengue,BLR,national,,,0,,0,,,no data
+dengue,BLZ,national,2014-01-01,2024-12-01,125,5.3,10,"2014,2015,2016,2017,2018,2019,2020,2022,2023,2024",2024-12-28,ok
+dengue,BMU,national,2014-01-01,2024-12-01,132,0.0,11,"2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-28,ok
+dengue,BOL,national,2014-01-01,2024-12-01,132,0.0,11,"2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-28,ok
 dengue,BRA,national,2014-01-01,2024-12-01,132,0.0,11,"2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-28,ok
-dengue,THA,national,2009-01-01,2025-03-01,195,0.0,16,"2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2025-03-31,ok
+dengue,BRB,national,2014-01-01,2024-12-01,132,0.0,11,"2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-28,ok
+dengue,BRN,national,2012-01-01,2017-04-01,64,0.0,5,"2012,2013,2014,2015,2016",2017-04-30,ok
+dengue,BTN,national,2024-01-01,2024-10-01,10,0.0,0,,2024-10-31,ok
+dengue,BVT,national,,,0,,0,,,no data
+dengue,BWA,national,,,0,,0,,,no data
+dengue,CAF,national,2024-01-01,2024-09-01,7,22.2,0,,2024-09-30,ok
+dengue,CAN,national,,,0,,0,,,no data
+dengue,CCK,national,,,0,,0,,,no data
+dengue,CHE,national,,,0,,0,,,no data
+dengue,CHL,national,2015-01-01,2024-12-01,90,25.0,7,"2018,2019,2020,2021,2022,2023,2024",2024-12-28,ok
+dengue,CHN,national,1998-01-01,2025-02-01,228,30.1,18,"1998,1999,2000,2001,2008,2009,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2023,2024",2025-02-28,ok
+dengue,CIV,national,2023-01-01,2025-03-01,27,0.0,2,"2023,2024",2025-03-31,ok
+dengue,CMR,national,2024-01-01,2025-03-01,15,0.0,1,2024,2025-03-31,ok
+dengue,COD,national,,,0,,0,,,no data
+dengue,COG,national,,,0,,0,,,no data
+dengue,COK,national,2017-05-01,2024-12-01,39,57.6,0,,2024-12-28,ok
+dengue,COL,national,2007-01-01,2024-12-01,192,11.1,16,"2007,2008,2009,2010,2012,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-28,ok
+dengue,COM,national,,,0,,0,,,no data
+dengue,CPV,national,2023-11-01,2025-03-01,17,0.0,1,2024,2025-03-31,ok
+dengue,CRI,national,2014-01-01,2024-12-01,132,0.0,11,"2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-28,ok
+dengue,CUB,national,2004-01-01,2024-12-01,34,86.5,1,2004,2024-12-28,ok
+dengue,CUW,national,2014-09-01,2024-12-01,88,29.0,7,"2015,2016,2017,2018,2019,2020,2024",2024-12-28,ok
+dengue,CXR,national,,,0,,0,,,no data
+dengue,CYM,national,2014-01-01,2024-09-01,96,25.6,4,"2019,2020,2021,2022",2024-10-05,ok
+dengue,CYP,national,,,0,,0,,,no data
+dengue,CZE,national,,,0,,0,,,no data
+dengue,DEU,national,,,0,,0,,,no data
+dengue,DJI,national,,,0,,0,,,no data
+dengue,DMA,national,2014-01-01,2022-12-01,46,57.4,1,2022,2022-12-31,ok
+dengue,DNK,national,,,0,,0,,,no data
+dengue,DOM,national,2012-01-01,2024-12-01,142,9.0,11,"2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-28,ok
+dengue,DZA,national,,,0,,0,,,no data
+dengue,ECU,national,2014-01-01,2024-12-01,132,0.0,11,"2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-28,ok
+dengue,EGY,national,,,0,,0,,,no data
+dengue,ERI,national,2024-01-01,2025-02-01,13,7.1,1,2024,2025-02-28,ok
+dengue,ESH,national,,,0,,0,,,no data
+dengue,ESP,national,2024-01-01,2025-03-01,15,0.0,1,2024,2025-03-31,ok
+dengue,EST,national,,,0,,0,,,no data
+dengue,ETH,national,2023-04-01,2025-03-01,23,4.2,1,2024,2025-03-31,ok
+dengue,FIN,national,,,0,,0,,,no data
+dengue,FJI,national,2012-01-01,2024-12-01,63,59.6,0,,2024-12-28,ok
+dengue,FLK,national,,,0,,0,,,no data
+dengue,FRA,national,2024-01-01,2025-03-01,15,0.0,1,2024,2025-03-31,ok
+dengue,FRO,national,,,0,,0,,,no data
+dengue,FSM,national,2017-05-01,2024-12-01,21,77.2,0,,2024-12-28,ok
+dengue,GAB,national,,,0,,0,,,no data
+dengue,GBR,national,,,0,,0,,,no data
+dengue,GEO,national,,,0,,0,,,no data
+dengue,GGY,national,,,0,,0,,,no data
+dengue,GHA,national,2024-01-01,2025-03-01,15,0.0,1,2024,2025-03-31,ok
+dengue,GIB,national,,,0,,0,,,no data
+dengue,GIN,national,2024-01-01,2024-07-01,7,0.0,0,,2024-07-31,ok
+dengue,GLP,national,2014-01-01,2024-12-01,81,38.6,4,"2020,2021,2023,2024",2024-12-28,ok
+dengue,GMB,national,,,0,,0,,,no data
+dengue,GNB,national,,,0,,0,,,no data
+dengue,GNQ,national,,,0,,0,,,no data
+dengue,GRC,national,,,0,,0,,,no data
+dengue,GRD,national,2010-01-01,2024-12-01,174,3.3,14,"2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2022,2023,2024",2024-12-28,ok
+dengue,GRL,national,,,0,,0,,,no data
+dengue,GTM,national,2014-01-01,2024-12-01,132,0.0,11,"2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-28,ok
+dengue,GUF,national,2014-01-01,2024-12-01,83,37.1,5,"2014,2019,2020,2021,2024",2024-12-28,ok
+dengue,GUM,national,2017-05-01,2024-12-01,11,88.0,0,,2024-12-28,ok
+dengue,GUY,national,2014-08-01,2024-12-01,66,47.2,3,"2022,2023,2024",2024-12-28,ok
+dengue,HKG,national,2002-01-01,2025-03-01,279,0.0,23,"2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2025-03-31,ok
+dengue,HMD,national,,,0,,0,,,no data
+dengue,HND,national,2014-01-01,2024-12-01,132,0.0,11,"2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-28,ok
+dengue,HRV,national,,,0,,0,,,no data
+dengue,HTI,national,2018-01-01,2022-12-01,46,23.3,3,"2018,2019,2020",2022-12-31,ok
+dengue,HUN,national,,,0,,0,,,no data
+dengue,IDN,national,2007-01-01,2024-10-01,214,0.0,17,"2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023",2024-10-31,ok
+dengue,IMN,national,,,0,,0,,,no data
+dengue,IND,national,2024-01-01,2025-01-01,12,7.7,0,,2025-01-31,ok
+dengue,IOT,national,,,0,,0,,,no data
+dengue,IRL,national,,,0,,0,,,no data
+dengue,IRN,national,,,0,,0,,,no data
+dengue,IRQ,national,,,0,,0,,,no data
+dengue,ISL,national,,,0,,0,,,no data
+dengue,ISR,national,,,0,,0,,,no data
+dengue,ITA,national,2024-01-01,2025-03-01,15,0.0,1,2024,2025-03-31,ok
+dengue,JAM,national,2014-01-01,2024-12-01,132,0.0,11,"2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-28,ok
+dengue,JEY,national,,,0,,0,,,no data
+dengue,JOR,national,,,0,,0,,,no data
 dengue,JPN,national,,,0,,0,,,no data
+dengue,KAZ,national,,,0,,0,,,no data
+dengue,KEN,national,2024-01-01,2025-02-01,14,0.0,1,2024,2025-02-28,ok
+dengue,KGZ,national,,,0,,0,,,no data
+dengue,KHM,national,1998-01-01,2024-12-01,254,21.6,19,"1998,1999,2000,2001,2002,2004,2005,2008,2011,2012,2013,2014,2015,2017,2019,2020,2021,2023,2024",2024-12-31,ok
+dengue,KIR,national,2017-05-01,2024-12-01,30,67.4,0,,2024-12-28,ok
+dengue,KNA,national,2015-01-01,2024-12-01,106,11.7,8,"2015,2018,2019,2020,2021,2022,2023,2024",2024-12-28,ok
+dengue,KOR,national,,,0,,0,,,no data
+dengue,KWT,national,,,0,,0,,,no data
+dengue,LAO,national,1999-01-01,2025-03-01,285,9.5,22,"1999,2000,2001,2002,2004,2005,2006,2007,2008,2009,2011,2012,2014,2015,2016,2017,2018,2019,2020,2021,2022,2024",2025-03-31,ok
+dengue,LBN,national,,,0,,0,,,no data
+dengue,LBR,national,,,0,,0,,,no data
+dengue,LBY,national,,,0,,0,,,no data
+dengue,LCA,national,2014-07-01,2024-12-01,98,22.2,7,"2018,2019,2020,2021,2022,2023,2024",2024-12-28,ok
+dengue,LIE,national,,,0,,0,,,no data
+dengue,LKA,national,1997-01-01,2024-08-01,191,42.5,8,"1997,1999,2010,2018,2020,2021,2022,2023",2024-08-31,ok
+dengue,LSO,national,,,0,,0,,,no data
+dengue,LTU,national,,,0,,0,,,no data
+dengue,LUX,national,,,0,,0,,,no data
+dengue,LVA,national,,,0,,0,,,no data
+dengue,MAC,national,,,0,,0,,,no data
+dengue,MAF,national,2014-01-01,2024-12-01,82,37.9,5,"2018,2020,2021,2023,2024",2024-12-28,ok
+dengue,MAR,national,,,0,,0,,,no data
+dengue,MCO,national,,,0,,0,,,no data
+dengue,MDA,national,,,0,,0,,,no data
+dengue,MDG,national,,,0,,0,,,no data
+dengue,MDV,national,2006-01-01,2025-03-01,183,20.8,15,"2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2020,2022,2023,2024",2025-03-31,ok
+dengue,MEX,national,2003-01-01,2024-12-01,192,27.3,16,"2003,2004,2005,2006,2007,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-28,ok
+dengue,MHL,national,2017-06-01,2024-12-01,19,79.1,0,,2024-12-28,ok
+dengue,MKD,national,,,0,,0,,,no data
+dengue,MLI,national,2024-01-01,2025-03-01,15,0.0,1,2024,2025-03-31,ok
+dengue,MLT,national,,,0,,0,,,no data
+dengue,MMR,national,2012-01-01,2025-02-01,86,45.6,7,"2012,2013,2014,2015,2016,2017,2024",2025-02-28,ok
+dengue,MNE,national,,,0,,0,,,no data
+dengue,MNG,national,,,0,,0,,,no data
+dengue,MNP,national,2017-05-01,2024-12-01,28,69.6,0,,2024-12-28,ok
+dengue,MOZ,national,,,0,,0,,,no data
+dengue,MRT,national,2023-01-01,2025-03-01,27,0.0,2,"2023,2024",2025-03-31,ok
+dengue,MSR,national,2014-01-01,2024-12-01,105,20.5,7,"2015,2017,2018,2019,2020,2023,2024",2024-12-28,ok
+dengue,MTQ,national,2014-01-01,2024-12-01,102,22.7,7,"2014,2017,2018,2020,2021,2023,2024",2024-12-28,ok
+dengue,MUS,national,2023-12-01,2025-03-01,16,0.0,1,2024,2025-03-31,ok
+dengue,MWI,national,,,0,,0,,,no data
+dengue,MYS,national,1995-01-01,2024-12-01,180,50.0,15,"1995,2000,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2024",2024-12-31,ok
+dengue,MYT,national,2024-01-01,2024-10-01,10,0.0,0,,2024-10-31,ok
+dengue,NAM,national,,,0,,0,,,no data
+dengue,NCL,national,2012-01-01,2024-12-01,100,35.9,4,"2012,2013,2021,2024",2024-12-31,ok
+dengue,NER,national,2024-01-01,2025-03-01,15,0.0,1,2024,2025-03-31,ok
+dengue,NFK,national,,,0,,0,,,no data
+dengue,NGA,national,,,0,,0,,,no data
+dengue,NIC,national,2001-01-01,2024-12-01,264,8.3,22,"2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2012,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-28,ok
+dengue,NIU,national,2017-05-01,2024-12-01,14,84.8,0,,2024-12-28,ok
+dengue,NLD,national,,,0,,0,,,no data
+dengue,NOR,national,,,0,,0,,,no data
+dengue,NPL,national,2016-09-01,2025-03-01,101,1.9,7,"2017,2018,2019,2020,2022,2023,2024",2025-03-31,ok
+dengue,NRU,national,2024-05-01,2024-12-01,5,37.5,0,,2024-12-28,ok
+dengue,NZL,national,,,0,,0,,,no data
+dengue,OMN,national,2014-01-01,2023-12-01,96,20.0,8,"2014,2015,2018,2019,2020,2021,2022,2023",2023-12-31,ok
+dengue,PAK,national,2013-01-01,2025-01-01,42,71.0,2,"2013,2024",2025-01-31,ok
+dengue,PAN,national,2014-01-01,2024-12-01,132,0.0,11,"2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-28,ok
+dengue,PCN,national,2017-07-01,2024-12-01,19,78.9,0,,2024-12-28,ok
+dengue,PER,national,2000-01-01,2024-12-01,224,25.3,18,"2000,2001,2007,2008,2009,2011,2012,2013,2014,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-28,ok
+dengue,PHL,national,2011-01-01,2023-11-01,135,12.9,5,"2011,2013,2014,2019,2020",2023-11-25,ok
+dengue,PLW,national,2017-05-01,2024-12-01,29,68.5,0,,2024-12-28,ok
+dengue,PNG,national,2024-05-01,2024-12-01,5,37.5,0,,2024-12-28,ok
+dengue,POL,national,,,0,,0,,,no data
+dengue,PRI,national,2014-01-01,2024-12-01,132,0.0,11,"2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-28,ok
+dengue,PRK,national,,,0,,0,,,no data
+dengue,PRT,national,,,0,,0,,,no data
+dengue,PRY,national,2014-01-01,2024-12-01,124,6.1,9,"2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-28,ok
+dengue,PSE,national,,,0,,0,,,no data
+dengue,PYF,national,2014-01-01,2024-12-01,49,62.9,2,"2014,2015",2024-12-28,ok
+dengue,QAT,national,,,0,,0,,,no data
+dengue,REU,national,2024-01-01,2025-01-01,7,46.2,0,,2025-01-31,ok
+dengue,ROU,national,,,0,,0,,,no data
+dengue,RUS,national,,,0,,0,,,no data
+dengue,RWA,national,,,0,,0,,,no data
+dengue,SAU,national,2006-01-01,2024-08-01,224,0.0,18,"2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023",2024-08-31,ok
+dengue,SDN,national,2019-10-01,2025-03-01,22,66.7,1,2024,2025-03-31,ok
+dengue,SEN,national,2024-01-01,2025-03-01,15,0.0,1,2024,2025-03-31,ok
+dengue,SGP,national,1993-01-01,2025-03-01,355,8.3,27,"1993,1994,1995,1997,1999,2000,2001,2002,2003,2004,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2019,2020,2021,2023,2024",2025-03-31,ok
+dengue,SGS,national,,,0,,0,,,no data
+dengue,SHN,national,,,0,,0,,,no data
+dengue,SJM,national,,,0,,0,,,no data
+dengue,SLB,national,2016-09-01,2024-12-01,38,62.0,0,,2024-12-28,ok
+dengue,SLE,national,,,0,,0,,,no data
+dengue,SLV,national,2014-01-01,2024-12-01,132,0.0,11,"2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-28,ok
+dengue,SMR,national,,,0,,0,,,no data
+dengue,SOM,national,,,0,,0,,,no data
+dengue,SPM,national,,,0,,0,,,no data
+dengue,SRB,national,,,0,,0,,,no data
+dengue,SSD,national,,,0,,0,,,no data
+dengue,STP,national,2023-04-01,2025-03-01,24,0.0,1,2024,2025-03-31,ok
+dengue,SUR,national,2014-11-01,2024-12-01,86,29.5,7,"2018,2019,2020,2021,2022,2023,2024",2024-12-28,ok
+dengue,SVK,national,,,0,,0,,,no data
+dengue,SVN,national,,,0,,0,,,no data
+dengue,SWE,national,,,0,,0,,,no data
+dengue,SWZ,national,,,0,,0,,,no data
+dengue,SXM,national,2015-12-01,2024-12-01,68,37.6,4,"2016,2017,2019,2020",2024-12-28,ok
+dengue,SYC,national,2023-01-01,2025-03-01,22,18.5,1,2023,2025-03-31,ok
+dengue,SYR,national,,,0,,0,,,no data
+dengue,TCA,national,2015-01-01,2024-12-01,92,23.3,5,"2019,2020,2022,2023,2024",2024-12-28,ok
+dengue,TCD,national,2024-01-01,2025-03-01,9,40.0,0,,2025-03-31,ok
+dengue,TGO,national,2023-09-01,2025-03-01,19,0.0,1,2024,2025-03-31,ok
+dengue,THA,national,2009-01-01,2025-03-01,195,0.0,16,"2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2025-03-31,ok
+dengue,TJK,national,,,0,,0,,,no data
+dengue,TKL,national,2017-06-01,2024-12-01,14,84.6,0,,2024-12-28,ok
+dengue,TKM,national,,,0,,0,,,no data
+dengue,TLS,national,2021-01-01,2024-10-01,46,0.0,3,"2021,2022,2023",2024-10-31,ok
+dengue,TON,national,2017-05-01,2024-12-01,30,67.4,0,,2024-12-28,ok
+dengue,TTO,national,2014-01-01,2024-12-01,52,60.6,1,2019,2024-12-28,ok
+dengue,TUN,national,,,0,,0,,,no data
+dengue,TUR,national,,,0,,0,,,no data
+dengue,TUV,national,2019-10-01,2024-12-01,8,87.3,0,,2024-12-28,ok
+dengue,TWN,national,1998-01-01,2024-10-01,247,23.3,9,"1999,2000,2001,2002,2003,2006,2008,2010,2021",2024-12-28,ok
+dengue,TZA,national,2024-01-01,2025-03-01,15,0.0,1,2024,2025-03-31,ok
+dengue,UGA,national,,,0,,0,,,no data
+dengue,UKR,national,,,0,,0,,,no data
+dengue,UMI,national,,,0,,0,,,no data
+dengue,URY,national,2014-01-01,2024-12-01,109,17.4,8,"2014,2015,2016,2017,2018,2019,2020,2023",2024-12-28,ok
+dengue,USA,national,2014-01-01,2024-12-01,132,0.0,11,"2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-28,ok
+dengue,UZB,national,,,0,,0,,,no data
+dengue,VAT,national,,,0,,0,,,no data
+dengue,VCT,national,2014-11-01,2024-12-01,82,32.8,4,"2017,2019,2022,2023",2024-12-28,ok
+dengue,VEN,national,2000-01-01,2023-12-01,166,42.4,13,"2000,2001,2002,2003,2004,2016,2017,2018,2019,2020,2021,2022,2023",2023-12-30,ok
+dengue,VGB,national,2014-01-01,2024-12-01,72,45.5,3,"2018,2019,2020",2024-12-28,ok
+dengue,VIR,national,2014-01-01,2024-12-01,132,0.0,11,"2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-28,ok
+dengue,VNM,national,1995-01-01,2025-03-01,273,24.8,22,"1995,1996,1998,1999,2000,2003,2004,2005,2006,2007,2008,2009,2011,2012,2013,2014,2015,2016,2017,2018,2019,2024",2025-03-31,ok
+dengue,VUT,national,2017-04-01,2024-12-01,36,61.3,0,,2024-12-28,ok
+dengue,WLF,national,2019-05-01,2024-12-01,30,55.9,1,2020,2024-12-28,ok
+dengue,WSM,national,2018-04-01,2024-12-01,10,87.7,0,,2024-12-28,ok
+dengue,XKX,national,,,0,,0,,,no data
+dengue,YEM,national,2016-01-01,2024-07-01,90,12.6,6,"2018,2019,2020,2021,2022,2023",2024-07-27,ok
+dengue,ZAF,national,,,0,,0,,,no data
+dengue,ZMB,national,,,0,,0,,,no data
+dengue,ZWE,national,,,0,,0,,,no data
+dengue,ARG,admin1,1998-01-01,2021-06-01,159,,1,23 admin1 units; median complete years shown,2021-06-26,ok
+dengue,AUS,admin1,1991-01-01,2025-04-01,3296,,34,8 admin1 units; median complete years shown,2025-04-30,ok
+dengue,BOL,admin1,2005-01-01,2022-06-01,1042,,8,9 admin1 units; median complete years shown,2022-07-09,ok
 dengue,BRA,admin1,1993-01-01,2024-12-01,7835,,24,27 admin1 units; median complete years shown,2024-12-28,ok
 dengue,CHN,admin1,1998-01-01,2009-12-01,2880,,8,30 admin1 units; median complete years shown,2009-12-31,ok
+dengue,COL,admin1,2002-01-01,2022-12-01,5829,,14,40 admin1 units; median complete years shown,2022-12-31,ok
+dengue,CUB,admin1,2004-01-01,2005-01-01,182,,1,14 admin1 units; median complete years shown,2005-01-31,ok
+dengue,DOM,admin1,2007-01-01,2013-12-01,1484,,0,35 admin1 units; median complete years shown,2013-12-28,ok
+dengue,ECU,admin1,2013-03-01,2020-09-01,340,,1,25 admin1 units; median complete years shown,2020-10-10,ok
+dengue,IDN,admin1,2004-01-01,2024-07-01,7461,,14,46 admin1 units; median complete years shown,2024-07-31,ok
 dengue,JPN,admin1,2014-01-01,2019-12-01,3384,,6,47 admin1 units; median complete years shown,2019-12-28,ok
+dengue,KHM,admin1,1998-01-01,2010-12-01,3680,,12,24 admin1 units; median complete years shown,2010-12-31,ok
+dengue,LAO,admin1,1998-01-01,2010-12-01,2731,,13,18 admin1 units; median complete years shown,2010-12-31,ok
+dengue,LKA,admin1,1996-01-01,2004-12-01,960,,9,9 admin1 units; median complete years shown,2004-12-31,ok
 dengue,MEX,admin1,2003-01-01,2022-07-01,3832,,8,32 admin1 units; median complete years shown,2022-12-31,ok
+dengue,MYS,admin1,1993-01-01,2010-12-01,1944,,17,10 admin1 units; median complete years shown,2010-12-31,ok
+dengue,NIC,admin1,2000-01-01,2022-10-01,4788,,22,18 admin1 units; median complete years shown,2022-11-12,ok
+dengue,NPL,admin1,2022-01-01,2024-12-01,252,,3,8 admin1 units; median complete years shown,2024-12-31,ok
+dengue,PAK,admin1,2019-01-01,2022-01-01,104,,1,10 admin1 units; median complete years shown,2022-04-23,ok
+dengue,PAN,admin1,2004-01-01,2022-10-01,751,,1,11 admin1 units; median complete years shown,2022-11-12,ok
+dengue,PER,admin1,2000-01-01,2023-12-01,2611,,5,22 admin1 units; median complete years shown,2023-12-30,ok
 dengue,PHL,admin1,1994-01-01,2010-12-01,2936,,14,16 admin1 units; median complete years shown,2010-12-31,ok
+dengue,PLW,admin1,2018-12-01,2019-09-01,109,,0,13 admin1 units; median complete years shown,2019-09-30,ok
+dengue,SAU,admin1,2018-01-01,2023-05-01,1180,,4,20 admin1 units; median complete years shown,2023-05-31,ok
+dengue,SGP,admin1,1993-01-01,2010-12-01,216,,18,1 admin1 units; median complete years shown,2010-12-31,ok
+dengue,SLB,admin1,2016-09-01,2016-10-01,18,,0,9 admin1 units; median complete years shown,2016-11-19,ok
+dengue,SLV,admin1,2000-01-01,2009-08-01,1587,,9,14 admin1 units; median complete years shown,2009-08-31,ok
 dengue,THA,admin1,1993-01-01,2022-12-01,27024,,30,78 admin1 units; median complete years shown,2022-12-31,ok
+dengue,TLS,admin1,2005-01-01,2005-05-01,45,,0,9 admin1 units; median complete years shown,2005-05-31,ok
+dengue,TON,admin1,2015-01-01,2015-01-01,3,,0,3 admin1 units; median complete years shown,2015-02-21,ok
+dengue,TWN,admin1,1998-11-01,2024-10-01,242,,0,22 admin1 units; median complete years shown,2024-12-28,ok
+dengue,USA,admin1,,,0,,0,42 admin1 units; median complete years shown,2017-12-16,ok
+dengue,VEN,admin1,1999-01-01,2005-03-01,1647,,6,23 admin1 units; median complete years shown,2005-03-31,ok
 dengue,VNM,admin1,1994-02-01,2010-12-01,12273,,16,64 admin1 units; median complete years shown,2010-12-31,ok
-measles,VNM,national,2012-01-01,2025-02-01,158,0.0,13,"2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2025-02-01,ok
-measles,PHL,national,2012-01-01,2026-09-01,177,0.0,14,"2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025",2026-09-01,ok
-measles,IND,national,2014-01-01,2026-09-01,153,0.0,12,"2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025",2026-09-01,ok
-measles,CHN,national,2012-01-01,2026-08-01,175,0.6,13,"2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2023,2024,2025",2026-08-01,ok
-measles,MEX,national,2014-01-01,2026-09-01,141,7.8,11,"2014,2015,2016,2017,2019,2020,2021,2022,2023,2024,2025",2026-09-01,ok
+measles,ABW,national,,,0,,0,,,no data
+measles,AFG,national,2012-01-01,2026-09-01,177,0.0,14,"2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025",2026-09-01,ok
+measles,AGO,national,2012-01-01,2026-09-01,167,5.6,12,"2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2025",2026-09-01,ok
+measles,AIA,national,,,0,,0,,,no data
+measles,ALA,national,,,0,,0,,,no data
+measles,ALB,national,2012-01-01,2026-06-01,137,21.3,8,"2012,2013,2014,2015,2016,2017,2018,2019",2026-06-01,ok
+measles,AND,national,2012-01-01,2021-01-01,109,0.0,9,"2012,2013,2014,2015,2016,2017,2018,2019,2020",2021-01-01,ok
+measles,ARE,national,2012-01-01,2026-08-01,176,0.0,14,"2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025",2026-08-01,ok
+measles,ARG,national,2015-01-01,2026-02-01,127,5.2,9,"2015,2016,2017,2018,2019,2021,2022,2023,2024",2026-02-01,ok
+measles,ARM,national,2012-01-01,2026-08-01,165,6.2,11,"2012,2013,2014,2015,2016,2017,2018,2019,2023,2024,2025",2026-08-01,ok
+measles,ASM,national,,,0,,0,,,no data
+measles,ATA,national,,,0,,0,,,no data
+measles,ATF,national,,,0,,0,,,no data
+measles,ATG,national,2016-04-01,2025-04-01,8,92.7,0,,2025-04-01,ok
+measles,AUS,national,2012-01-01,2026-07-01,138,21.1,7,"2012,2013,2014,2016,2018,2019,2025",2026-07-01,ok
+measles,AUT,national,2012-01-01,2026-07-01,143,18.3,8,"2012,2013,2014,2016,2017,2018,2019,2024",2026-07-01,ok
+measles,AZE,national,2012-01-01,2026-08-01,159,9.7,10,"2012,2013,2014,2015,2016,2017,2018,2022,2023,2024",2026-08-01,ok
+measles,BDI,national,2012-01-01,2026-09-01,173,2.3,10,"2014,2017,2018,2019,2020,2021,2022,2023,2024,2025",2026-09-01,ok
+measles,BEL,national,2012-01-01,2026-08-01,160,9.1,6,"2012,2013,2014,2015,2018,2019",2026-08-01,ok
+measles,BEN,national,2012-01-01,2026-09-01,177,0.0,14,"2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025",2026-09-01,ok
+measles,BES,national,,,0,,0,,,no data
+measles,BFA,national,2012-01-01,2026-09-01,175,1.1,13,"2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2023,2024,2025",2026-09-01,ok
+measles,BGD,national,2012-01-01,2026-09-01,177,0.0,14,"2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025",2026-09-01,ok
+measles,BGR,national,2012-01-01,2026-08-01,110,37.5,6,"2012,2013,2016,2017,2018,2019",2026-08-01,ok
+measles,BHR,national,2012-01-01,2026-08-01,176,0.0,14,"2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025",2026-08-01,ok
+measles,BHS,national,2016-07-01,2026-04-01,21,82.2,0,,2026-04-01,ok
+measles,BIH,national,2013-02-01,2025-03-01,114,21.9,7,"2014,2015,2018,2019,2021,2022,2024",2025-03-01,ok
+measles,BLM,national,,,0,,0,,,no data
+measles,BLR,national,2012-01-01,2026-07-01,169,3.4,13,"2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025",2026-07-01,ok
+measles,BLZ,national,2015-01-01,2026-09-01,87,38.3,2,"2016,2017",2026-09-01,ok
+measles,BMU,national,,,0,,0,,,no data
+measles,BOL,national,2015-01-01,2026-09-01,141,0.0,11,"2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025",2026-09-01,ok
 measles,BRA,national,2014-01-01,2026-09-01,153,0.0,12,"2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025",2026-09-01,ok
-measles,THA,national,2012-01-01,2026-09-01,177,0.0,14,"2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025",2026-09-01,ok
+measles,BRB,national,2015-02-01,2026-07-01,94,31.9,3,"2023,2024,2025",2026-07-01,ok
+measles,BRN,national,2012-01-01,2026-08-01,137,22.2,2,"2024,2025",2026-08-01,ok
+measles,BTN,national,2012-01-01,2026-08-01,153,13.1,11,"2013,2014,2017,2018,2019,2020,2021,2022,2023,2024,2025",2026-08-01,ok
+measles,BVT,national,,,0,,0,,,no data
+measles,BWA,national,2012-01-01,2026-09-01,155,12.4,6,"2013,2015,2016,2017,2018,2023",2026-09-01,ok
+measles,CAF,national,2012-01-01,2026-08-01,173,1.7,12,"2012,2013,2014,2015,2016,2017,2019,2021,2022,2023,2024,2025",2026-08-01,ok
+measles,CAN,national,2014-01-01,2026-09-01,109,28.8,5,"2014,2015,2016,2018,2025",2026-09-01,ok
+measles,CCK,national,,,0,,0,,,no data
+measles,CHE,national,2012-01-01,2026-08-01,176,0.0,14,"2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025",2026-08-01,ok
+measles,CHL,national,2015-01-01,2026-08-01,134,4.3,10,"2015,2016,2017,2018,2019,2021,2022,2023,2024,2025",2026-08-01,ok
+measles,CHN,national,2012-01-01,2026-08-01,175,0.6,13,"2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2023,2024,2025",2026-08-01,ok
+measles,CIV,national,2012-01-01,2026-09-01,177,0.0,14,"2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025",2026-09-01,ok
+measles,CMR,national,2012-01-01,2026-09-01,177,0.0,14,"2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025",2026-09-01,ok
+measles,COD,national,2012-01-01,2026-10-01,178,0.0,14,"2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025",2026-10-01,ok
+measles,COG,national,2012-01-01,2026-09-01,175,1.1,12,"2012,2013,2014,2015,2017,2018,2019,2021,2022,2023,2024,2025",2026-09-01,ok
+measles,COK,national,2012-12-01,2026-08-01,15,90.9,0,,2026-08-01,ok
+measles,COL,national,2015-01-01,2026-09-01,129,8.5,9,"2015,2016,2017,2018,2019,2020,2022,2023,2025",2026-09-01,ok
+measles,COM,national,2012-01-01,2026-06-01,112,35.6,2,"2017,2019",2026-06-01,ok
+measles,CPV,national,2012-09-01,2023-01-01,7,94.4,0,,2023-01-01,ok
+measles,CRI,national,2015-01-01,2026-06-01,126,8.7,7,"2015,2016,2017,2018,2023,2024,2025",2026-06-01,ok
+measles,CUB,national,2014-01-01,2026-09-01,153,0.0,12,"2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025",2026-09-01,ok
+measles,CUW,national,,,0,,0,,,no data
+measles,CXR,national,,,0,,0,,,no data
+measles,CYM,national,,,0,,0,,,no data
+measles,CYP,national,2012-01-01,2026-07-01,96,45.1,6,"2012,2013,2014,2016,2017,2018",2026-07-01,ok
+measles,CZE,national,2012-01-01,2026-04-01,110,36.0,6,"2012,2013,2014,2016,2017,2018",2026-04-01,ok
+measles,DEU,national,2012-01-01,2026-08-01,169,4.0,11,"2012,2013,2014,2015,2016,2017,2018,2019,2023,2024,2025",2026-08-01,ok
+measles,DJI,national,2012-01-01,2026-08-01,51,71.0,0,,2026-08-01,ok
+measles,DMA,national,2016-03-01,2026-04-01,9,92.6,0,,2026-04-01,ok
+measles,DNK,national,2012-01-01,2025-12-01,91,45.8,5,"2012,2013,2016,2017,2018",2025-12-01,ok
+measles,DOM,national,2015-01-01,2026-08-01,140,0.0,11,"2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025",2026-08-01,ok
+measles,DZA,national,2012-01-01,2026-09-01,139,21.5,4,"2017,2023,2024,2025",2026-09-01,ok
+measles,ECU,national,2015-01-01,2026-03-01,75,44.4,6,"2015,2016,2017,2023,2024,2025",2026-03-01,ok
+measles,EGY,national,2012-01-01,2025-12-01,168,0.0,14,"2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025",2025-12-01,ok
+measles,ERI,national,2012-01-01,2026-04-01,141,18.0,5,"2013,2015,2016,2022,2025",2026-04-01,ok
+measles,ESH,national,,,0,,0,,,no data
+measles,ESP,national,2012-01-01,2026-08-01,168,4.5,11,"2012,2013,2014,2015,2016,2017,2018,2019,2023,2024,2025",2026-08-01,ok
+measles,EST,national,2012-01-01,2026-08-01,173,1.7,13,"2012,2013,2014,2015,2016,2017,2018,2019,2020,2022,2023,2024,2025",2026-08-01,ok
+measles,ETH,national,2012-01-01,2026-09-01,173,2.3,11,"2012,2013,2014,2015,2016,2017,2019,2020,2021,2022,2024",2026-09-01,ok
+measles,FIN,national,2012-01-01,2026-08-01,94,46.6,6,"2012,2013,2014,2016,2017,2018",2026-08-01,ok
+measles,FJI,national,2012-03-01,2026-08-01,174,0.0,13,"2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025",2026-08-01,ok
+measles,FLK,national,,,0,,0,,,no data
+measles,FRA,national,2012-01-01,2026-08-01,163,7.4,11,"2012,2013,2014,2015,2016,2017,2018,2019,2023,2024,2025",2026-08-01,ok
+measles,FRO,national,,,0,,0,,,no data
+measles,FSM,national,2012-12-01,2026-08-01,21,87.3,0,,2026-08-01,ok
+measles,GAB,national,2012-01-01,2026-09-01,175,1.1,12,"2013,2014,2015,2016,2017,2018,2019,2021,2022,2023,2024,2025",2026-09-01,ok
+measles,GBR,national,2012-01-01,2026-09-01,156,11.9,11,"2012,2013,2014,2015,2016,2017,2018,2019,2023,2024,2025",2026-09-01,ok
+measles,GEO,national,2012-01-01,2026-08-01,174,1.1,12,"2013,2014,2015,2016,2017,2018,2019,2021,2022,2023,2024,2025",2026-08-01,ok
+measles,GGY,national,,,0,,0,,,no data
+measles,GHA,national,2012-01-01,2026-05-01,168,2.9,11,"2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2023",2026-05-01,ok
+measles,GIB,national,,,0,,0,,,no data
+measles,GIN,national,2012-01-01,2026-08-01,160,9.1,8,"2016,2017,2018,2019,2021,2023,2024,2025",2026-08-01,ok
+measles,GLP,national,,,0,,0,,,no data
+measles,GMB,national,2012-01-01,2026-08-01,142,19.3,4,"2012,2019,2024,2025",2026-08-01,ok
+measles,GNB,national,2012-01-01,2025-12-01,31,81.5,1,2024,2025-12-01,ok
+measles,GNQ,national,2012-03-01,2026-08-01,134,23.0,4,"2015,2018,2020,2023",2026-08-01,ok
+measles,GRC,national,2012-01-01,2026-08-01,101,42.6,6,"2012,2013,2014,2016,2017,2018",2026-08-01,ok
+measles,GRD,national,2015-02-01,2026-05-01,31,77.2,0,,2026-05-01,ok
+measles,GRL,national,,,0,,0,,,no data
+measles,GTM,national,2015-01-01,2026-09-01,140,0.7,10,"2015,2016,2017,2018,2019,2020,2021,2023,2024,2025",2026-09-01,ok
+measles,GUF,national,,,0,,0,,,no data
+measles,GUM,national,,,0,,0,,,no data
+measles,GUY,national,2015-01-01,2026-06-01,76,44.9,2,"2016,2019",2026-06-01,ok
+measles,HKG,national,,,0,,0,,,no data
+measles,HMD,national,,,0,,0,,,no data
+measles,HND,national,2015-01-01,2026-09-01,141,0.0,11,"2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025",2026-09-01,ok
+measles,HRV,national,2012-01-01,2026-08-01,115,34.7,7,"2012,2013,2014,2016,2017,2018,2020",2026-08-01,ok
+measles,HTI,national,2015-01-01,2026-06-01,137,0.7,10,"2015,2017,2018,2019,2020,2021,2022,2023,2024,2025",2026-06-01,ok
+measles,HUN,national,2012-01-01,2026-08-01,149,15.3,11,"2012,2013,2014,2016,2017,2018,2020,2022,2023,2024,2025",2026-08-01,ok
+measles,IDN,national,2012-01-01,2026-08-01,176,0.0,14,"2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025",2026-08-01,ok
+measles,IMN,national,,,0,,0,,,no data
+measles,IND,national,2014-01-01,2026-09-01,153,0.0,12,"2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025",2026-09-01,ok
+measles,IOT,national,,,0,,0,,,no data
+measles,IRL,national,2012-01-01,2026-06-01,133,23.6,7,"2012,2013,2014,2016,2017,2018,2019",2026-06-01,ok
+measles,IRN,national,2012-01-01,2026-09-01,177,0.0,14,"2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025",2026-09-01,ok
+measles,IRQ,national,2012-01-01,2026-09-01,175,1.1,13,"2012,2013,2014,2015,2016,2017,2018,2019,2021,2022,2023,2024,2025",2026-09-01,ok
+measles,ISL,national,2012-01-01,2026-01-01,92,45.6,7,"2012,2013,2014,2016,2017,2018,2020",2026-01-01,ok
+measles,ISR,national,2012-01-01,2026-01-01,85,49.7,0,,2026-01-01,ok
+measles,ITA,national,2012-01-01,2026-08-01,171,2.8,12,"2012,2013,2014,2015,2016,2017,2018,2019,2022,2023,2024,2025",2026-08-01,ok
+measles,JAM,national,2015-01-01,2026-08-01,115,17.9,5,"2015,2017,2018,2019,2025",2026-08-01,ok
+measles,JEY,national,,,0,,0,,,no data
+measles,JOR,national,2012-01-01,2026-09-01,155,12.4,8,"2013,2014,2015,2018,2019,2022,2024,2025",2026-09-01,ok
 measles,JPN,national,2012-01-01,2026-08-01,176,0.0,14,"2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025",2026-08-01,ok
-malaria,VNM,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
-malaria,PHL,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
-malaria,IND,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
-malaria,CHN,national,2000-01-01,2024-01-01,23,,23,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2022,2024",2024-12-31,ok
-malaria,MEX,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+measles,KAZ,national,2012-01-01,2026-08-01,155,11.9,7,"2014,2015,2019,2020,2023,2024,2025",2026-08-01,ok
+measles,KEN,national,2012-01-01,2026-09-01,172,2.8,10,"2012,2013,2014,2015,2016,2017,2018,2019,2020,2023",2026-09-01,ok
+measles,KGZ,national,2012-01-01,2026-08-01,150,14.8,9,"2014,2016,2017,2018,2019,2022,2023,2024,2025",2026-08-01,ok
+measles,KHM,national,2012-01-01,2026-08-01,175,0.6,13,"2012,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025",2026-08-01,ok
+measles,KIR,national,2012-12-01,2026-08-01,15,90.9,0,,2026-08-01,ok
+measles,KNA,national,2016-09-01,2026-03-01,12,89.6,0,,2026-03-01,ok
+measles,KOR,national,2012-01-01,2026-08-01,176,0.0,14,"2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025",2026-08-01,ok
+measles,KWT,national,2012-01-01,2026-07-01,150,14.3,10,"2012,2013,2015,2016,2017,2018,2019,2023,2024,2025",2026-07-01,ok
+measles,LAO,national,2012-01-01,2026-08-01,173,1.7,12,"2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2024,2025",2026-08-01,ok
+measles,LBN,national,2012-01-01,2026-08-01,158,10.2,11,"2012,2014,2015,2016,2017,2018,2019,2022,2023,2024,2025",2026-08-01,ok
+measles,LBR,national,2012-01-01,2026-09-01,111,37.3,2,"2020,2021",2026-09-01,ok
+measles,LBY,national,2012-02-01,2026-07-01,153,12.1,8,"2013,2018,2019,2021,2022,2023,2024,2025",2026-07-01,ok
+measles,LCA,national,2019-02-01,2026-08-01,24,73.6,0,,2026-08-01,ok
+measles,LIE,national,,,0,,0,,,no data
+measles,LKA,national,2012-01-01,2026-08-01,175,0.6,13,"2012,2013,2014,2015,2016,2017,2018,2019,2020,2022,2023,2024,2025",2026-08-01,ok
+measles,LSO,national,2012-01-01,2026-09-01,168,5.1,7,"2012,2013,2014,2015,2017,2019,2023",2026-09-01,ok
+measles,LTU,national,2012-01-01,2026-06-01,111,36.2,6,"2012,2013,2014,2016,2017,2018",2026-06-01,ok
+measles,LUX,national,2012-01-01,2026-04-01,102,40.7,6,"2012,2013,2014,2016,2017,2018",2026-04-01,ok
+measles,LVA,national,2012-01-01,2026-07-01,103,41.1,7,"2012,2013,2014,2016,2017,2018,2020",2026-07-01,ok
+measles,MAC,national,,,0,,0,,,no data
+measles,MAF,national,,,0,,0,,,no data
+measles,MAR,national,2012-01-01,2026-08-01,174,1.1,12,"2012,2013,2014,2015,2016,2017,2018,2019,2020,2023,2024,2025",2026-08-01,ok
+measles,MCO,national,2012-01-01,2024-04-01,3,98.0,0,,2024-04-01,ok
+measles,MDA,national,2012-01-01,2026-08-01,128,27.3,6,"2015,2016,2018,2019,2024,2025",2026-08-01,ok
+measles,MDG,national,2012-01-01,2026-09-01,177,0.0,14,"2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025",2026-09-01,ok
+measles,MDV,national,2012-01-01,2026-09-01,158,10.7,8,"2012,2013,2014,2017,2018,2020,2023,2024",2026-09-01,ok
+measles,MEX,national,2014-01-01,2026-09-01,141,7.8,11,"2014,2015,2016,2017,2019,2020,2021,2022,2023,2024,2025",2026-09-01,ok
+measles,MHL,national,2012-12-01,2026-08-01,15,90.9,0,,2026-08-01,ok
+measles,MKD,national,2012-01-01,2024-08-01,127,16.4,6,"2012,2015,2018,2019,2020,2021",2024-08-01,ok
+measles,MLI,national,2012-01-01,2026-09-01,177,0.0,14,"2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025",2026-09-01,ok
+measles,MLT,national,2012-01-01,2024-09-01,88,42.5,6,"2012,2013,2014,2016,2017,2018",2024-09-01,ok
+measles,MMR,national,2012-01-01,2026-09-01,149,15.8,10,"2012,2013,2014,2017,2018,2019,2020,2023,2024,2025",2026-09-01,ok
+measles,MNE,national,2012-03-01,2026-07-01,97,43.9,2,"2013,2025",2026-07-01,ok
+measles,MNG,national,2012-01-01,2026-08-01,162,8.0,11,"2012,2013,2014,2015,2016,2017,2018,2019,2023,2024,2025",2026-08-01,ok
+measles,MNP,national,,,0,,0,,,no data
+measles,MOZ,national,2012-01-01,2026-09-01,170,4.0,9,"2014,2015,2016,2020,2021,2022,2023,2024,2025",2026-09-01,ok
+measles,MRT,national,2012-01-01,2026-06-01,107,38.5,1,2023,2026-06-01,ok
+measles,MSR,national,,,0,,0,,,no data
+measles,MTQ,national,,,0,,0,,,no data
+measles,MUS,national,,,0,,0,,,no data
+measles,MWI,national,2012-01-01,2026-09-01,166,6.2,7,"2013,2015,2016,2019,2020,2022,2023",2026-09-01,ok
+measles,MYS,national,2012-01-01,2026-08-01,176,0.0,14,"2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025",2026-08-01,ok
+measles,MYT,national,,,0,,0,,,no data
+measles,NAM,national,2012-01-01,2026-08-01,164,6.8,6,"2015,2016,2019,2022,2024,2025",2026-08-01,ok
+measles,NCL,national,,,0,,0,,,no data
+measles,NER,national,2012-01-01,2026-08-01,173,1.7,12,"2012,2013,2014,2015,2016,2017,2019,2020,2021,2022,2024,2025",2026-08-01,ok
+measles,NFK,national,,,0,,0,,,no data
+measles,NGA,national,2012-01-01,2026-05-01,173,0.0,14,"2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025",2026-05-01,ok
+measles,NIC,national,2015-01-01,2025-04-01,124,0.0,10,"2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2025-04-01,ok
+measles,NIU,national,2012-12-01,2026-08-01,15,90.9,0,,2026-08-01,ok
+measles,NLD,national,2012-01-01,2026-05-01,124,28.3,7,"2012,2013,2016,2017,2018,2024,2025",2026-05-01,ok
+measles,NOR,national,2012-01-01,2026-05-01,98,43.4,5,"2012,2013,2016,2017,2018",2026-05-01,ok
+measles,NPL,national,2012-01-01,2026-09-01,177,0.0,14,"2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025",2026-09-01,ok
+measles,NRU,national,2012-12-01,2026-08-01,15,90.9,0,,2026-08-01,ok
+measles,NZL,national,2012-01-01,2026-08-01,158,10.2,7,"2014,2016,2019,2020,2023,2024,2025",2026-08-01,ok
+measles,OMN,national,2012-01-01,2026-09-01,177,0.0,14,"2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025",2026-09-01,ok
+measles,PAK,national,2012-01-01,2026-09-01,177,0.0,14,"2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025",2026-09-01,ok
+measles,PAN,national,2015-01-01,2026-09-01,133,5.7,8,"2015,2016,2017,2018,2019,2023,2024,2025",2026-09-01,ok
+measles,PCN,national,,,0,,0,,,no data
+measles,PER,national,2015-01-01,2026-09-01,139,1.4,10,"2015,2016,2017,2018,2019,2021,2022,2023,2024,2025",2026-09-01,ok
+measles,PHL,national,2012-01-01,2026-09-01,177,0.0,14,"2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025",2026-09-01,ok
+measles,PLW,national,2012-12-01,2026-08-01,15,90.9,0,,2026-08-01,ok
+measles,PNG,national,2012-01-01,2026-08-01,142,19.3,2,"2013,2014",2026-08-01,ok
+measles,POL,national,2019-01-01,2026-08-01,64,30.4,3,"2019,2024,2025",2026-08-01,ok
+measles,PRI,national,,,0,,0,,,no data
+measles,PRK,national,2012-01-01,2026-06-01,153,12.1,9,"2012,2018,2019,2020,2021,2022,2023,2024,2025",2026-06-01,ok
+measles,PRT,national,2012-01-01,2026-08-01,156,11.4,7,"2012,2013,2014,2016,2017,2018,2019",2026-08-01,ok
+measles,PRY,national,2015-01-01,2026-09-01,141,0.0,11,"2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025",2026-09-01,ok
+measles,PSE,national,,,0,,0,,,no data
+measles,PYF,national,,,0,,0,,,no data
+measles,QAT,national,2012-01-01,2026-08-01,164,6.8,12,"2012,2013,2014,2015,2016,2017,2018,2019,2022,2023,2024,2025",2026-08-01,ok
+measles,REU,national,,,0,,0,,,no data
+measles,ROU,national,2012-01-01,2026-07-01,147,16.0,10,"2012,2013,2014,2016,2017,2018,2019,2023,2024,2025",2026-07-01,ok
+measles,RUS,national,2012-01-01,2026-09-01,174,1.7,13,"2012,2013,2014,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025",2026-09-01,ok
+measles,RWA,national,2012-01-01,2026-09-01,175,1.1,12,"2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2023,2025",2026-09-01,ok
+measles,SAU,national,2012-01-01,2026-07-01,171,2.3,12,"2012,2013,2014,2015,2017,2018,2019,2020,2022,2023,2024,2025",2026-07-01,ok
+measles,SDN,national,2012-01-01,2026-10-01,176,1.1,12,"2012,2013,2014,2015,2016,2017,2018,2019,2022,2023,2024,2025",2026-10-01,ok
+measles,SEN,national,2012-01-01,2026-09-01,175,1.1,13,"2012,2013,2014,2015,2016,2017,2018,2019,2021,2022,2023,2024,2025",2026-09-01,ok
+measles,SGP,national,2012-01-01,2026-08-01,168,4.5,10,"2012,2013,2014,2015,2016,2017,2018,2019,2024,2025",2026-08-01,ok
+measles,SGS,national,,,0,,0,,,no data
+measles,SHN,national,,,0,,0,,,no data
+measles,SJM,national,,,0,,0,,,no data
+measles,SLB,national,2012-12-01,2026-08-01,21,87.3,0,,2026-08-01,ok
+measles,SLE,national,2012-01-01,2025-10-01,142,14.5,4,"2015,2016,2019,2023",2025-10-01,ok
+measles,SLV,national,2015-01-01,2026-09-01,108,23.4,8,"2015,2017,2018,2019,2022,2023,2024,2025",2026-09-01,ok
+measles,SMR,national,2017-01-01,2024-06-01,37,58.9,2,"2017,2018",2024-06-01,ok
+measles,SOM,national,2012-01-01,2026-07-01,163,6.9,9,"2014,2017,2018,2019,2020,2022,2023,2024,2025",2026-07-01,ok
+measles,SPM,national,,,0,,0,,,no data
+measles,SRB,national,2012-01-01,2026-08-01,149,15.3,8,"2016,2017,2018,2019,2020,2022,2024,2025",2026-08-01,ok
+measles,SSD,national,2012-01-01,2026-08-01,139,21.0,3,"2012,2015,2017",2026-08-01,ok
+measles,STP,national,2014-02-01,2022-05-01,9,91.0,0,,2022-05-01,ok
+measles,SUR,national,2015-01-01,2026-05-01,29,78.8,0,,2026-05-01,ok
+measles,SVK,national,2012-01-01,2026-04-01,136,20.9,7,"2012,2013,2014,2016,2017,2018,2020",2026-04-01,ok
+measles,SVN,national,2012-01-01,2025-06-01,101,37.7,7,"2012,2013,2014,2015,2016,2017,2018",2025-06-01,ok
+measles,SWE,national,2012-01-01,2026-08-01,116,34.1,6,"2012,2013,2014,2016,2017,2018",2026-08-01,ok
+measles,SWZ,national,2012-01-01,2026-09-01,166,6.2,8,"2015,2016,2017,2018,2019,2022,2023,2024",2026-09-01,ok
+measles,SXM,national,,,0,,0,,,no data
+measles,SYC,national,2017-11-01,2020-06-01,12,62.5,0,,2020-06-01,ok
+measles,SYR,national,2012-01-01,2026-09-01,174,1.7,13,"2012,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025",2026-09-01,ok
+measles,TCA,national,,,0,,0,,,no data
+measles,TCD,national,2012-01-01,2026-04-01,155,9.9,10,"2013,2015,2017,2018,2019,2021,2022,2023,2024,2025",2026-04-01,ok
+measles,TGO,national,2012-01-01,2026-09-01,177,0.0,14,"2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025",2026-09-01,ok
+measles,THA,national,2012-01-01,2026-09-01,177,0.0,14,"2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025",2026-09-01,ok
+measles,TJK,national,2012-03-01,2026-08-01,152,12.6,6,"2016,2017,2019,2022,2024,2025",2026-08-01,ok
+measles,TKL,national,,,0,,0,,,no data
+measles,TKM,national,2012-01-01,2026-08-01,131,25.6,6,"2013,2017,2018,2019,2022,2025",2026-08-01,ok
+measles,TLS,national,2012-01-01,2026-08-01,165,6.2,8,"2012,2014,2017,2018,2019,2022,2023,2024",2026-08-01,ok
+measles,TON,national,2012-12-01,2026-08-01,16,90.3,0,,2026-08-01,ok
+measles,TTO,national,2015-01-01,2026-09-01,51,63.8,1,2025,2026-09-01,ok
+measles,TUN,national,2012-01-01,2026-07-01,172,1.7,13,"2012,2013,2014,2015,2016,2017,2018,2019,2020,2022,2023,2024,2025",2026-07-01,ok
+measles,TUR,national,2012-01-01,2026-08-01,173,1.7,13,"2012,2013,2014,2015,2017,2018,2019,2020,2021,2022,2023,2024,2025",2026-08-01,ok
+measles,TUV,national,2012-12-01,2026-08-01,15,90.9,0,,2026-08-01,ok
+measles,TWN,national,,,0,,0,,,no data
+measles,TZA,national,2012-01-01,2026-09-01,176,0.6,13,"2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025",2026-09-01,ok
+measles,UGA,national,2012-01-01,2026-09-01,176,0.6,13,"2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2026-09-01,ok
+measles,UKR,national,2012-01-01,2026-08-01,171,2.8,13,"2012,2013,2014,2015,2017,2018,2019,2020,2021,2022,2023,2024,2025",2026-08-01,ok
+measles,UMI,national,,,0,,0,,,no data
+measles,URY,national,2015-03-01,2026-09-01,68,51.1,1,2025,2026-09-01,ok
+measles,USA,national,2014-01-01,2026-09-01,141,7.8,11,"2014,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025",2026-09-01,ok
+measles,UZB,national,2012-01-01,2025-11-01,121,27.5,6,"2013,2017,2018,2019,2023,2024",2025-11-01,ok
+measles,VAT,national,,,0,,0,,,no data
+measles,VCT,national,2017-04-01,2025-11-01,9,91.3,0,,2025-11-01,ok
+measles,VEN,national,2015-01-01,2025-12-01,124,6.1,10,"2015,2016,2017,2018,2019,2020,2021,2023,2024,2025",2025-12-01,ok
+measles,VGB,national,,,0,,0,,,no data
+measles,VIR,national,,,0,,0,,,no data
+measles,VNM,national,2012-01-01,2025-02-01,158,0.0,13,"2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2025-02-01,ok
+measles,VUT,national,2012-12-01,2026-08-01,18,89.1,0,,2026-08-01,ok
+measles,WLF,national,,,0,,0,,,no data
+measles,WSM,national,2012-12-01,2026-08-01,17,89.7,0,,2026-08-01,ok
+measles,XKX,national,,,0,,0,,,no data
+measles,YEM,national,2012-01-01,2026-09-01,176,0.6,13,"2012,2013,2014,2015,2016,2017,2018,2019,2021,2022,2023,2024,2025",2026-09-01,ok
+measles,ZAF,national,2012-01-01,2026-09-01,169,4.5,10,"2012,2013,2014,2016,2017,2019,2020,2021,2022,2024",2026-09-01,ok
+measles,ZMB,national,2012-01-01,2026-07-01,163,6.9,9,"2012,2014,2015,2016,2017,2018,2020,2021,2024",2026-07-01,ok
+measles,ZWE,national,2012-01-01,2026-07-01,159,9.1,7,"2014,2016,2017,2018,2020,2023,2024",2026-07-01,ok
+malaria,ABW,national,,,0,,0,,,no data
+malaria,AFG,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,AGO,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,AIA,national,,,0,,0,,,no data
+malaria,ALA,national,,,0,,0,,,no data
+malaria,ALB,national,,,0,,0,,,no data
+malaria,AND,national,,,0,,0,,,no data
+malaria,ARE,national,2012-01-01,2024-01-01,13,,13,"2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,ARG,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,ARM,national,2000-01-01,2024-01-01,24,,24,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2022,2023,2024",2024-12-31,ok
+malaria,ASM,national,,,0,,0,,,no data
+malaria,ATA,national,,,0,,0,,,no data
+malaria,ATF,national,,,0,,0,,,no data
+malaria,ATG,national,,,0,,0,,,no data
+malaria,AUS,national,,,0,,0,,,no data
+malaria,AUT,national,,,0,,0,,,no data
+malaria,AZE,national,2000-01-01,2023-01-01,24,,24,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023",2023-12-31,ok
+malaria,BDI,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,BEL,national,,,0,,0,,,no data
+malaria,BEN,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,BES,national,,,0,,0,,,no data
+malaria,BFA,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,BGD,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,BGR,national,,,0,,0,,,no data
+malaria,BHR,national,,,0,,0,,,no data
+malaria,BHS,national,,,0,,0,,,no data
+malaria,BIH,national,,,0,,0,,,no data
+malaria,BLM,national,,,0,,0,,,no data
+malaria,BLR,national,,,0,,0,,,no data
+malaria,BLZ,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,BMU,national,,,0,,0,,,no data
+malaria,BOL,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
 malaria,BRA,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
-malaria,THA,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,BRB,national,,,0,,0,,,no data
+malaria,BRN,national,,,0,,0,,,no data
+malaria,BTN,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,BVT,national,,,0,,0,,,no data
+malaria,BWA,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,CAF,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,CAN,national,,,0,,0,,,no data
+malaria,CCK,national,,,0,,0,,,no data
+malaria,CHE,national,,,0,,0,,,no data
+malaria,CHL,national,,,0,,0,,,no data
+malaria,CHN,national,2000-01-01,2024-01-01,23,,23,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2022,2024",2024-12-31,ok
+malaria,CIV,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,CMR,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,COD,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,COG,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,COK,national,,,0,,0,,,no data
+malaria,COL,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,COM,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,CPV,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,CRI,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,CUB,national,,,0,,0,,,no data
+malaria,CUW,national,,,0,,0,,,no data
+malaria,CXR,national,,,0,,0,,,no data
+malaria,CYM,national,,,0,,0,,,no data
+malaria,CYP,national,,,0,,0,,,no data
+malaria,CZE,national,,,0,,0,,,no data
+malaria,DEU,national,,,0,,0,,,no data
+malaria,DJI,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,DMA,national,,,0,,0,,,no data
+malaria,DNK,national,,,0,,0,,,no data
+malaria,DOM,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,DZA,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,ECU,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,EGY,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,ERI,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,ESH,national,,,0,,0,,,no data
+malaria,ESP,national,,,0,,0,,,no data
+malaria,EST,national,,,0,,0,,,no data
+malaria,ETH,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,FIN,national,,,0,,0,,,no data
+malaria,FJI,national,,,0,,0,,,no data
+malaria,FLK,national,,,0,,0,,,no data
+malaria,FRA,national,,,0,,0,,,no data
+malaria,FRO,national,,,0,,0,,,no data
+malaria,FSM,national,,,0,,0,,,no data
+malaria,GAB,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,GBR,national,,,0,,0,,,no data
+malaria,GEO,national,2000-01-01,2024-01-01,23,,23,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2023,2024",2024-12-31,ok
+malaria,GGY,national,,,0,,0,,,no data
+malaria,GHA,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,GIB,national,,,0,,0,,,no data
+malaria,GIN,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,GLP,national,,,0,,0,,,no data
+malaria,GMB,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,GNB,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,GNQ,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,GRC,national,,,0,,0,,,no data
+malaria,GRD,national,,,0,,0,,,no data
+malaria,GRL,national,,,0,,0,,,no data
+malaria,GTM,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,GUF,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,GUM,national,,,0,,0,,,no data
+malaria,GUY,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,HKG,national,,,0,,0,,,no data
+malaria,HMD,national,,,0,,0,,,no data
+malaria,HND,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,HRV,national,,,0,,0,,,no data
+malaria,HTI,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,HUN,national,,,0,,0,,,no data
+malaria,IDN,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,IMN,national,,,0,,0,,,no data
+malaria,IND,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,IOT,national,,,0,,0,,,no data
+malaria,IRL,national,,,0,,0,,,no data
+malaria,IRN,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,IRQ,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,ISL,national,,,0,,0,,,no data
+malaria,ISR,national,,,0,,0,,,no data
+malaria,ITA,national,,,0,,0,,,no data
+malaria,JAM,national,,,0,,0,,,no data
+malaria,JEY,national,,,0,,0,,,no data
+malaria,JOR,national,,,0,,0,,,no data
 malaria,JPN,national,,,0,,0,,,no data
+malaria,KAZ,national,2010-01-01,2024-01-01,11,,11,"2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2024",2024-12-31,ok
+malaria,KEN,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,KGZ,national,2000-01-01,2024-01-01,22,,22,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2024",2024-12-31,ok
+malaria,KHM,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,KIR,national,,,0,,0,,,no data
+malaria,KNA,national,,,0,,0,,,no data
+malaria,KOR,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,KWT,national,,,0,,0,,,no data
+malaria,LAO,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,LBN,national,,,0,,0,,,no data
+malaria,LBR,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,LBY,national,,,0,,0,,,no data
+malaria,LCA,national,,,0,,0,,,no data
+malaria,LIE,national,,,0,,0,,,no data
+malaria,LKA,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,LSO,national,,,0,,0,,,no data
+malaria,LTU,national,,,0,,0,,,no data
+malaria,LUX,national,,,0,,0,,,no data
+malaria,LVA,national,,,0,,0,,,no data
+malaria,MAC,national,,,0,,0,,,no data
+malaria,MAF,national,,,0,,0,,,no data
+malaria,MAR,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,MCO,national,,,0,,0,,,no data
+malaria,MDA,national,,,0,,0,,,no data
+malaria,MDG,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,MDV,national,,,0,,0,,,no data
+malaria,MEX,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,MHL,national,,,0,,0,,,no data
+malaria,MKD,national,,,0,,0,,,no data
+malaria,MLI,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,MLT,national,,,0,,0,,,no data
+malaria,MMR,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,MNE,national,,,0,,0,,,no data
+malaria,MNG,national,,,0,,0,,,no data
+malaria,MNP,national,,,0,,0,,,no data
+malaria,MOZ,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,MRT,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,MSR,national,,,0,,0,,,no data
+malaria,MTQ,national,,,0,,0,,,no data
+malaria,MUS,national,2021-01-01,2021-01-01,1,,1,2021,2021-12-31,ok
+malaria,MWI,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,MYS,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,MYT,national,2003-01-01,2024-01-01,22,,22,"2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,NAM,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,NCL,national,,,0,,0,,,no data
+malaria,NER,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,NFK,national,,,0,,0,,,no data
+malaria,NGA,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,NIC,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,NIU,national,,,0,,0,,,no data
+malaria,NLD,national,,,0,,0,,,no data
+malaria,NOR,national,,,0,,0,,,no data
+malaria,NPL,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,NRU,national,,,0,,0,,,no data
+malaria,NZL,national,,,0,,0,,,no data
+malaria,OMN,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,PAK,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,PAN,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,PCN,national,,,0,,0,,,no data
+malaria,PER,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,PHL,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,PLW,national,,,0,,0,,,no data
+malaria,PNG,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,POL,national,,,0,,0,,,no data
+malaria,PRI,national,,,0,,0,,,no data
+malaria,PRK,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,PRT,national,,,0,,0,,,no data
+malaria,PRY,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,PSE,national,,,0,,0,,,no data
+malaria,PYF,national,,,0,,0,,,no data
+malaria,QAT,national,,,0,,0,,,no data
+malaria,REU,national,,,0,,0,,,no data
+malaria,ROU,national,,,0,,0,,,no data
+malaria,RUS,national,,,0,,0,,,no data
+malaria,RWA,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,SAU,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,SDN,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,SEN,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,SGP,national,,,0,,0,,,no data
+malaria,SGS,national,,,0,,0,,,no data
+malaria,SHN,national,,,0,,0,,,no data
+malaria,SJM,national,,,0,,0,,,no data
+malaria,SLB,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,SLE,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,SLV,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,SMR,national,,,0,,0,,,no data
+malaria,SOM,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,SPM,national,,,0,,0,,,no data
+malaria,SRB,national,,,0,,0,,,no data
+malaria,SSD,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,STP,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,SUR,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,SVK,national,,,0,,0,,,no data
+malaria,SVN,national,,,0,,0,,,no data
+malaria,SWE,national,,,0,,0,,,no data
+malaria,SWZ,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,SXM,national,,,0,,0,,,no data
+malaria,SYC,national,,,0,,0,,,no data
+malaria,SYR,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,TCA,national,,,0,,0,,,no data
+malaria,TCD,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,TGO,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,THA,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,TJK,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,TKL,national,,,0,,0,,,no data
+malaria,TKM,national,2000-01-01,2024-01-01,22,,22,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2024",2024-12-31,ok
+malaria,TLS,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,TON,national,,,0,,0,,,no data
+malaria,TTO,national,,,0,,0,,,no data
+malaria,TUN,national,,,0,,0,,,no data
+malaria,TUR,national,2000-01-01,2020-01-01,21,,21,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020",2020-12-31,ok
+malaria,TUV,national,,,0,,0,,,no data
+malaria,TWN,national,,,0,,0,,,no data
+malaria,TZA,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,UGA,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,UKR,national,,,0,,0,,,no data
+malaria,UMI,national,,,0,,0,,,no data
+malaria,URY,national,,,0,,0,,,no data
+malaria,USA,national,,,0,,0,,,no data
+malaria,UZB,national,2000-01-01,2024-01-01,24,,24,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2023,2024",2024-12-31,ok
+malaria,VAT,national,,,0,,0,,,no data
+malaria,VCT,national,,,0,,0,,,no data
+malaria,VEN,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,VGB,national,,,0,,0,,,no data
+malaria,VIR,national,,,0,,0,,,no data
+malaria,VNM,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,VUT,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,WLF,national,,,0,,0,,,no data
+malaria,WSM,national,,,0,,0,,,no data
+malaria,XKX,national,,,0,,0,,,no data
+malaria,YEM,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,ZAF,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,ZMB,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok
+malaria,ZWE,national,2000-01-01,2024-01-01,25,,25,"2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024",2024-12-31,ok

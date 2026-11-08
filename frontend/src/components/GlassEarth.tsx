@@ -6,7 +6,7 @@ import { Line2 } from "three/examples/jsm/lines/Line2.js";
 import { LineGeometry } from "three/examples/jsm/lines/LineGeometry.js";
 import { LineMaterial } from "three/examples/jsm/lines/LineMaterial.js";
 import type { Polygon, MultiPolygon } from "geojson";
-import { detailedCountryShapes as countryShapes } from "@/data/detailedCountryShapes";
+import { getCountryShape, loadCountryShape } from "@/data/countryShapes";
 import { destinations } from "@/data/destinations";
 import { createSurfaceProjector } from "@/lib/earth-surface";
 import { geographicMaterialShader, geographicMapFragment, atmosphereVertexShader, atmosphereFragmentShader } from "@/lib/earth-appearance";
@@ -184,7 +184,7 @@ export const GlassEarth = forwardRef<GlobeHandle, Props>(function GlassEarth(pro
       if (!project) return;
       clearOverlays();
       const p = latest.current;
-      const shape = p.selectedDestinationId ? countryShapes[p.selectedDestinationId] : null;
+      const shape = getCountryShape(p.selectedDestinationId);
       if (shape) {
         const geometry = shape.geometry as Polygon | MultiPolygon;
         const polygons = geometry.type === "Polygon" ? [geometry.coordinates] : geometry.coordinates;
@@ -197,14 +197,16 @@ export const GlassEarth = forwardRef<GlobeHandle, Props>(function GlassEarth(pro
           if (!ring) continue;
           const xs = ring.map((v) => v[0] ?? 0), ys = ring.map((v) => v[1] ?? 0);
           const minX = Math.min(...xs), maxX = Math.max(...xs), minY = Math.min(...ys), maxY = Math.max(...ys);
-          const spacing = p.selectedDestinationId === "brazil" ? 1.2 : 0.5;
+          // hatch spacing scales with the landmass so very large countries stay cheap to draw
+          const spacing = Math.min(3, Math.max(0.5, Math.max(maxX - minX, maxY - minY) / 30));
+          const step = spacing / 4;
           const inLand = (x: number, y: number) => inside(x, y, ring) && !polygon.slice(1).some((hole) => inside(x, y, hole));
           for (let axis = 0; axis < 2; axis++) {
             const start = axis === 0 ? minX : minY, end = axis === 0 ? maxX : maxY;
             for (let fixed = Math.ceil(start / spacing) * spacing; fixed <= end; fixed += spacing) {
               let segment: number[][] = [];
               const flush = () => { if (segment.length > 1) { drawLine(segment, 3, 0.07); drawLine(segment, 0.6, 0.48); } segment = []; };
-              for (let moving = axis === 0 ? minY : minX; moving <= (axis === 0 ? maxY : maxX); moving += 0.12) {
+              for (let moving = axis === 0 ? minY : minX; moving <= (axis === 0 ? maxY : maxX); moving += step) {
                 const x = axis === 0 ? fixed : moving, y = axis === 0 ? moving : fixed;
                 if (inLand(x, y)) segment.push([x, y]); else flush();
               }
@@ -339,13 +341,18 @@ export const GlassEarth = forwardRef<GlobeHandle, Props>(function GlassEarth(pro
   }, []);
 
   useEffect(() => { runtime.current?.update(); }, [props.outbreaks, props.selectedDiseaseId, props.selectedDestinationId]);
+  // Outlines are fetched on demand; redraw once the selected country's outline arrives.
+  useEffect(() => {
+    const id = props.selectedDestinationId;
+    if (id) void loadCountryShape(id).then(() => { if (latest.current.selectedDestinationId === id) runtime.current?.update(); });
+  }, [props.selectedDestinationId]);
   useEffect(() => { setPopup(null); }, [props.selectedDestinationId]);
 
   return <div className="globe-bg absolute inset-0">
     <div ref={host} className="glass-earth-canvas h-full w-full" aria-label="Interactive glass Earth" />
     {error && <div className="glass-solid pointer-events-auto absolute bottom-6 left-1/2 z-20 w-[min(90vw,32rem)] -translate-x-1/2 rounded-lg p-4 text-sm" role="alert"><strong>Glass Earth could not render.</strong><p className="mt-1">{error}</p><p className="mt-2 text-muted-foreground">Reload to retry, or select Original above.</p></div>}
     {loading && <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-xs text-muted-foreground" role="status">Loading Earth…</div>}
-    {props.outbreaks.length > 0 && <div className="glass-solid pointer-events-auto absolute left-4 top-20 z-10 rounded-lg px-3 py-2 text-xs md:bottom-4 md:top-auto md:px-4 md:py-3"><p className="mb-2 font-semibold text-muted-foreground">Reported activity</p><div className="flex gap-3 md:grid md:gap-1.5"><span className="flex items-center gap-2"><span className="legend-dot legend-dot-elevated" /> Elevated</span><span className="flex items-center gap-2"><span className="legend-dot legend-dot-moderate" /> Moderate</span><span className="flex items-center gap-2"><span className="legend-dot legend-dot-low" /> Low</span><span className="flex items-center gap-2"><span className="legend-dot legend-dot-unknown" /> Unknown</span></div></div>}
+    {props.outbreaks.length > 0 && <div className="glass-solid pointer-events-auto absolute left-4 top-20 z-10 rounded-lg px-3 py-2 text-xs md:bottom-4 md:top-auto md:px-4 md:py-3"><p className="mb-2 font-semibold text-muted-foreground">Reported activity</p><div className="flex gap-3 md:grid md:gap-1.5"><span className="flex items-center gap-2"><span className="legend-dot legend-dot-elevated" /> Elevated</span><span className="flex items-center gap-2"><span className="legend-dot legend-dot-moderate" /> Moderate</span><span className="flex items-center gap-2"><span className="legend-dot legend-dot-low" /> Low</span></div></div>}
     {popup && <div className="glass-solid absolute bottom-40 left-4 z-20 max-w-64 rounded-lg p-3 text-xs"><strong>{popup.locationName}</strong><p>{popup.diseaseName} — {popup.cases.toLocaleString()} reported in {popup.reportDate.slice(0, 7)}</p><p className="mt-1 text-muted-foreground">{popup.source}</p><Button variant="ghost" size="sm" onClick={() => setPopup(null)}>Close</Button></div>}
   </div>;
 });

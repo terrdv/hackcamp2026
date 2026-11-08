@@ -39,20 +39,21 @@ python -m venv .venv && .venv/Scripts/pip install -r requirements.txt     # Wind
 ```
 .gitignore                    pipeline-only ignores (venv, generated data)
 config/pipeline.yaml          all destinations, thresholds, excluded years, source URLs, Databricks target
-data/seeds/                   hand-curated official-source CSVs (committed)
+data/seeds/                   map coordinates (reference only, committed)
 data/raw/                     downloads + manual files (gitignored); _manifest.json = provenance
 data/{bronze,silver,gold}/    local parquet output (gitignored)
 data/reports/                 quality_report.csv / quality_report.md
 visitwell_pipeline/
   ingest.py                   bronze
-  clean/                      silver: influenza, dengue, measles+population+malaria, seeds
+  clean/                      silver: influenza, dengue, measles+population+malaria, reference files
   quality.py                  quality report
-  gold/                       seasonal, flu_realtime, measles_status, outlook (presence, alerts, destination_outlook)
+  gold/                       seasonal, flu_realtime, measles_status, outlook (presence, destination_outlook), app_tables
   api.py                      get_outlook()
   sinks.py                    LocalSink / DatabricksSqlSink (laptop push) / SparkSink (notebook)
   run.py                      orchestrator used by both the CLI and the notebook
 databricks/visitwell_pipeline_job.py   Databricks notebook / job entry point
 dt_preproc.py                 CLI
+build_geo.py                  map coordinates seed + the app's destination list and country outlines (Natural Earth)
 tests/                        pytest, synthetic fixtures, no network
 ```
 
@@ -62,15 +63,15 @@ tests/                        pytest, synthetic fixtures, no network
 |---|---|---|---|
 | Influenza | real-time if departure ≤ 21 days, otherwise seasonal | WHO FluNet | respiratory |
 | COVID-19 | vaccine reminder only (no data pipeline) | config text, linked to PHAC | respiratory |
-| Dengue | presence gate, then seasonal | OpenDengue V1.3 + presence seed | mosquito |
-| Malaria | static presence (WHO/MAP incidence = supporting evidence only) | presence seed + WHO GHO (+ MAP) | mosquito |
-| Yellow fever | static presence + entry requirement | presence seed + YF entry seed | mosquito |
+| Dengue | seasonal | OpenDengue V1.3 | mosquito |
+| Malaria | present if WHO estimates any cases in the latest year, else not_reported | WHO GHO (+ MAP) | mosquito |
+| Yellow fever | no data source yet → `unknown` (hidden in the app) | none | mosquito |
 | Measles | recent activity (12-month incidence) + always a vaccine check | WHO provisional monthly data | measles |
-| Hepatitis A | static presence | presence seed | food_water |
-| Typhoid | static presence | presence seed | food_water |
+| Hepatitis A | no data source yet → `unknown` (hidden in the app) | none | food_water |
+| Typhoid | no data source yet → `unknown` (hidden in the app) | none | food_water |
 
-Destinations: `VNM, PHL, IND, CHN, MEX, BRA, THA, JPN` (edit `destinations:` in the config; keep it in sync with
-`frontend/src/data/destinations.ts`, where each destination carries its `iso3`).
+Destinations: `destinations: all` runs every country code (about 250; a full local run takes under a minute).
+A list such as `[VNM, PHL, BRA]` restricts the run. The app's destination list is generated from the results (below).
 
 ## Data sources
 
@@ -88,30 +89,17 @@ If an automatic download fails, the pipeline logs a warning and continues; the d
 `unknown`. If the WHO measles link changes, download the xlsx by hand from the page above into
 `data/raw/measles_who/` (keep the file name or update `sources.measles.file`).
 
-## Seed files (no invented medical facts)
+## Reference files (no health facts)
 
-Presence, vaccine recommendations, yellow fever entry rules and alerts come **only** from official sources,
-via the CSVs in `data/seeds/`:
+Every health level comes from a downloaded source. There are no hand-written health facts: the former
+presence, vaccine, yellow fever entry and alert seeds were removed. The only hand-maintained file is map geometry:
 
 | File | Key columns |
 |---|---|
-| `presence_seed.csv` | disease, location_iso3, admin1, presence ∈ none / some_areas / present / widespread / unknown |
-| `yellow_fever_entry_seed.csv` | location_iso3, certificate_required ∈ yes / no / conditional / unknown, condition, min_age_years |
-| `vaccine_recommendations_seed.csv` | disease, location_iso3, recommendation, audience |
-| `alerts_seed.csv` | disease, location_iso3, admin1, level, title, url, issued, expires (PHAC travel health notices) |
-| `admin1_centroids_seed.csv` | location_iso3, admin1 (empty = national), latitude, longitude: map dot positions from Natural Earth 10m label points |
+| `data/seeds/admin1_centroids_seed.csv` | location_iso3, admin1 (empty = national), latitude, longitude: map dot positions from Natural Earth 10m label points |
 
-All seed files also have `source_name, source_url, checked_on, verified, needs_review, notes`.
-
-* The rows shipped in `presence_seed.csv` are **drafts** (`verified=false, needs_review=true`) and point to the
-  official page where they must be checked. `yellow_fever_entry_seed.csv` and `vaccine_recommendations_seed.csv`
-  contain empty rows to fill in. `alerts_seed.csv` is an empty template.
-* A row counts only if `verified=true` **and** it has `source_url` and `checked_on`.
-* With `seeds.use_unverified: false` (the default), unverified rows are treated as `unknown`.
-  Setting it to `true` shows them, flagged `verified=false` with "UNVERIFIED (pending review)" in `notes`.
-  Changing the flag only needs `--steps gold`.
-* To verify a row: open `source_url`, correct `presence` if needed, then set `verified=true` and `checked_on=YYYY-MM-DD`.
-  Re-run `--steps silver gold`.
+It also has `source_name, source_url, checked_on, verified, needs_review, notes`. A row is used only if
+`verified=true` and it has `source_url` and `checked_on`.
 
 ## Pipeline steps
 
@@ -139,7 +127,7 @@ Every row has `source`, `data_as_of`, `is_complete_year` and `low_sample_flag`.
   12-month sum, joined to population (same year, else the latest earlier year; `pop_year` and `pop_source` are
   kept), gives `incidence_12m_per_million`. Any gap in the window makes it null, which becomes `unknown`.
 * **malaria_annual**: annual incidence by country (and admin1 if MAP is present), with `is_latest`.
-* **population**, **seed_\***: validated seeds.
+* **population**, **seed_centroids**: population, and validated map coordinates.
 
 ### 3. Quality report
 `data/reports/quality_report.csv` and `.md`, also written to `silver.quality_report`. Per disease × country it
@@ -158,8 +146,9 @@ gives the first and last period, % missing months, complete years and data as of
 * **measles_status**: not_reported (0 cases in 12 months), circulating, or high (≥ `high_incidence_per_million`,
   a **placeholder of 10 that needs review**). Data older than `max_age_months` (6) becomes `unknown`, with the last
   status kept in `notes`. An active official alert overrides the status to `outbreak`.
-* **presence**: from the presence seed. Malaria rows carry the WHO/MAP incidence as `supporting_*` only.
-* **alerts**: usable seed alerts active on the run date.
+* **presence**: from downloaded data only. Malaria: WHO estimated incidence (latest year) > 0 → `present`, 0 →
+  `not_reported`, no estimate → `unknown`. Yellow fever, hepatitis A and typhoid: `unknown` (no source yet).
+* **alerts**: no alert source is wired in, so the measles `outbreak` override is inactive until one is added.
 * **destination_outlook**: disease levels per destination (read by the app, see below).
 * **monthly_cases**: one row per disease × location × admin1 × month for the last `app.series_months` (24) months of
   each series, counted back from that series' latest reported month. `metric` is `lab_confirmed_positives`
@@ -186,8 +175,8 @@ gives the first and last period, % missing months, complete years and data as of
 | data_as_of, source, source_url, verified, notes | provenance shown to users |
 | details | JSON with method specifics (percentiles, fallback reason, incidence, YF entry rule, …) |
 
-Presence gate: `none` produces no row, and `unknown` produces a single row with level `unknown`. A dengue
-location that is present but has too little seasonal data shows the presence level (`based_on=static_presence`).
+Dengue has no presence gate: its seasonal rows come straight from the case data, and a place with too few complete
+years gets `unknown`. Unknown rows stay in the table (with the reason in `notes`); the app hides them.
 
 ### 10. `get_outlook(location_iso3, start_date, end_date, today, admin1=None)`
 ```python
@@ -209,8 +198,8 @@ Tables are created automatically in Unity Catalog:
 | schema | tables |
 |---|---|
 | `visitwell.bronze` | ingest_log, flunet_raw, flunet_dictionary, opendengue_{national,spatial,temporal}_raw, measles_raw, population_raw, malaria_who_raw (+ malaria_map_raw) |
-| `visitwell.silver` | influenza_weekly, influenza_monthly, dengue_monthly, measles_monthly, malaria_annual, population, seed_presence, seed_yellow_fever_entry, seed_vaccines, seed_alerts, seed_centroids, quality_report |
-| `visitwell.gold` | seasonal_profile, flu_realtime, measles_status, presence, alerts, **destination_outlook**, **monthly_cases**, **disease_trend**, **map_points** |
+| `visitwell.silver` | influenza_weekly, influenza_monthly, dengue_monthly, measles_monthly, malaria_annual, population, seed_centroids, quality_report |
+| `visitwell.gold` | seasonal_profile, flu_realtime, measles_status, presence, **destination_outlook**, **monthly_cases**, **disease_trend**, **map_points** |
 
 Volume `/Volumes/visitwell/bronze/landing/` holds `raw/` (archived source files + `_manifest.json`) and `_staging/` (parquet used to load the tables).
 
@@ -237,20 +226,32 @@ real-time influenza rule, and maps each level to elevated / moderate / low / unk
 `DATABRICKS_HOST`, `DATABRICKS_TOKEN` and `DATABRICKS_HTTP_PATH` variables in its environment. If the live call
 fails, destinations that have a demo dataset fall back to it, labelled as demo data.
 
+## Geography for the app (`build_geo.py`)
+Natural Earth files are downloaded once into `data/raw/naturalearth/`.
+* `python build_geo.py centroids` (after silver) rewrites `data/seeds/admin1_centroids_seed.csv`: one label point
+  per country plus every dengue admin1 region whose name matches Natural Earth (some do not, e.g. Nepal's post-2015
+  provinces; those series use the national point).
+* `python build_geo.py frontend` (after gold) writes `frontend/src/data/destinations.generated.ts` (every country
+  with at least one known disease level: name, region, camera centre/zoom, search aliases) and one outline per
+  country in `frontend/public/shapes/<id>.json` (50m, loaded on demand).
+
+Full refresh: `dt_preproc.py --steps bronze silver` → `build_geo.py centroids` → `dt_preproc.py --steps gold`
+→ `build_geo.py frontend`, then push with `--sink databricks`.
+
 ## Tests
 `python -m pytest`: seasonal index and labels, insufficient years, excluded years, consistency, percentile
-labels and boundaries, freshness fallback (at build time and at query time), presence gate (none and unknown),
+labels and boundaries, freshness fallback (at build time and at query time), dengue without a presence gate, malaria from WHO incidence,
 the 21-day switch boundary, measles thresholds, staleness and alert override, the missing-data → unknown rule
-(influenza, measles, seeds), week-to-month splitting, the FluNet dictionary check, and Delta-safe columns.
+(influenza, measles, dengue, malaria), week-to-month splitting, the FluNet dictionary check, and Delta-safe columns.
 The tests do no network or file I/O beyond pytest's tmp dir.
 
 ## Known limitations / to review
-* Every presence seed row is a draft until someone verifies it against the linked official page.
+* Yellow fever, hepatitis A and typhoid have no data source, so the app does not show them. Candidates: WHO's list of
+  countries with yellow fever risk, and IHME GBD incidence estimates for hepatitis A and typhoid.
+* Malaria `present` only says WHO estimates some cases; it does not say where in the country (MAP admin1 would).
 * The measles `high_incidence_per_million` threshold is a placeholder.
 * Measles data for Vietnam in the WHO file currently ends 2025-02, so it shows as `unknown` (stale).
-* India has no sub-annual national dengue data in OpenDengue V1.3, so its dengue card shows presence only.
+* India has too few complete years of monthly dengue data in OpenDengue V1.3, so its dengue level is `unknown`.
 * Admin1 dengue profiles mostly cover older years (e.g. VNM/PHL up to 2010); `data_as_of` shows this.
 * MAP admin1 malaria is not included until a manual export is added.
-* THA and JPN have no presence seed rows yet, so malaria / yellow fever / hepatitis A / typhoid (and Thai dengue,
-  which is presence-gated) show as `unknown` there until rows are added and verified.
 * Mexico's state-level dengue series end more than 24 months ago, so Mexico shows a national dengue dot.
