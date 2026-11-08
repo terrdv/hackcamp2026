@@ -98,10 +98,10 @@
   --sev-high: oklch(0.7 0.19 25);
   --sev-unknown: oklch(0.7 0.02 240);
   --glass: oklch(0.18 0.045 255 / 55%);
-  --glass-solid: oklch(0.17 0.045 255 / 88%);
+  --glass-solid: oklch(0.17 0.018 250 / 95%);
   --gradient-primary: linear-gradient(135deg, var(--primary), var(--accent));
   --shadow-float: 0 30px 80px -20px oklch(0.05 0.03 255 / 70%);
-  --search-glass: oklch(0.17 0.008 250 / 72%);
+  --search-glass: oklch(0.17 0.008 250 / 94%);
   --search-glass-border: oklch(0.88 0.012 220 / 25%);
   --search-glass-highlight: oklch(1 0 0 / 10%);
   --globe-space: oklch(0.09 0.003 250);
@@ -158,10 +158,19 @@ body { font-family: var(--font-sans); }
 .field-label { display: block; font-size: .65rem; text-transform: uppercase; letter-spacing: .12em; color: var(--muted-foreground); }
 .field-input { width: 100%; background: transparent; outline: none; font-weight: 600; color: var(--foreground); color-scheme: dark; }
 .field-input::placeholder { color: oklch(1 0 0 / 45%); font-weight: 500; }
-.btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: .5rem; padding: .9rem 1.5rem; border-radius: calc(var(--radius) + 2px); background: var(--gradient-primary); color: var(--primary-foreground); font-weight: 700; white-space: nowrap; transition: transform .2s, filter .2s; }
-.btn-primary:hover { transform: translateY(-1px); filter: brightness(1.08); }
-.btn-ghost { display: inline-flex; align-items: center; gap: .4rem; font-size: .85rem; font-weight: 600; padding: .4rem .8rem; border-radius: 999px; background: oklch(1 0 0 / 8%); }
-.btn-ghost:hover { background: oklch(1 0 0 / 14%); }
+/* Quiet glass controls over dark, mostly opaque surfaces. */
+.btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: .5rem; padding: .9rem 1.5rem; border-radius: .65rem; font-weight: 600; white-space: nowrap; }
+.btn-primary, .button-frosted { background: oklch(0.9 0.018 190 / 10%); color: var(--foreground); border: 1px solid oklch(0.94 0.018 190 / 24%); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); box-shadow: inset 0 1px 0 oklch(1 0 0 / 7%); transition: background .18s, border-color .18s, box-shadow .18s; }
+.btn-primary:hover:not(:disabled), .button-frosted:hover:not(:disabled) { background: oklch(0.9 0.018 190 / 16%); border-color: oklch(0.94 0.018 190 / 36%); }
+.btn-primary:active:not(:disabled), .button-frosted:active:not(:disabled) { background: oklch(0.9 0.018 190 / 7%); box-shadow: none; }
+.button-frosted-secondary, .button-frosted-outline { background: oklch(1 0 0 / 4%); border-color: oklch(1 0 0 / 14%); box-shadow: none; }
+.btn-ghost { display: inline-flex; align-items: center; gap: .4rem; font-size: .85rem; font-weight: 500; padding: .4rem .8rem; border-radius: .5rem; color: var(--foreground); background: oklch(1 0 0 / 4%); border: 1px solid oklch(1 0 0 / 10%); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); transition: background .18s, border-color .18s; }
+.btn-ghost:hover:not(:disabled), .button-quiet:hover:not(:disabled) { background: oklch(1 0 0 / 9%); border-color: oklch(1 0 0 / 20%); }
+.button-quiet { border: 1px solid transparent; color: var(--foreground); }
+.button-danger { color: var(--destructive-foreground); background: oklch(0.45 0.1 25 / 35%); border: 1px solid oklch(0.7 0.13 25 / 45%); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); }
+.button-danger:hover:not(:disabled) { background: oklch(0.45 0.1 25 / 50%); }
+:is(.btn-primary, .btn-ghost, .tab-btn, .card-selectable):focus-visible { outline: 2px solid oklch(0.8 0.06 185); outline-offset: 3px; }
+:is(.btn-primary, .btn-ghost, .tab-btn):disabled { opacity: .45; cursor: not-allowed; }
 .logo-mark { display: grid; place-items: center; width: 2rem; height: 2rem; border-radius: .7rem; background: var(--gradient-primary); color: var(--primary-foreground); }
 .card-soft { padding: .9rem 1rem; border-radius: var(--radius); background: oklch(1 0 0 / 5%); border: 1px solid var(--border); }
 .sev { font-size: .65rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; padding: .2rem .55rem; border-radius: 999px; }
@@ -181,10 +190,10 @@ body { font-family: var(--font-sans); }
 .panel-slide { opacity: 0; transform: translateX(40px); pointer-events: none; transition: opacity .6s ease, transform .7s cubic-bezier(.2,.8,.2,1); }
 .panel-slide.is-visible { opacity: 1; transform: none; pointer-events: auto; }
 .maplibregl-ctrl-attrib { background: oklch(0 0 0 / 40%) !important; color: var(--muted-foreground); }
-.tab-bar { display: flex; gap: .35rem; padding: .3rem; border-radius: 999px; background: oklch(1 0 0 / 6%); border: 1px solid var(--border); }
-.tab-btn { flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: .4rem; padding: .45rem .6rem; border-radius: 999px; font-size: .8rem; font-weight: 600; color: var(--muted-foreground); transition: background .2s, color .2s; white-space: nowrap; }
-.tab-btn:hover { color: var(--foreground); }
-.tab-btn.is-active { background: var(--gradient-primary); color: var(--primary-foreground); }
+.tab-bar { display: flex; gap: .35rem; padding: .3rem; border-radius: .75rem; background: oklch(0.12 0.01 250 / 80%); border: 1px solid var(--border); }
+.tab-btn { flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: .4rem; padding: .45rem .6rem; border: 1px solid transparent; border-radius: .5rem; font-size: .8rem; font-weight: 500; color: var(--muted-foreground); transition: background .2s, color .2s, border-color .2s; white-space: nowrap; }
+.tab-btn:hover { color: var(--foreground); background: oklch(1 0 0 / 4%); }
+.tab-btn.is-active { background: oklch(0.9 0.018 190 / 10%); color: var(--foreground); border-color: oklch(0.94 0.018 190 / 22%); box-shadow: inset 0 1px 0 oklch(1 0 0 / 6%); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
 .card-selectable { width: 100%; cursor: pointer; transition: border-color .2s, background .2s, transform .15s; }
 .card-selectable:hover { background: oklch(1 0 0 / 8%); transform: translateY(-1px); }
 .card-selectable.is-selected { border-color: var(--accent); background: color-mix(in oklab, var(--accent) 8%, transparent); }
