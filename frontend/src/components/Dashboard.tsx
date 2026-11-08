@@ -8,7 +8,8 @@ import {
 } from "recharts";
 import type { Destination } from "@/data/destinations";
 import type { ActivityLevel, DestinationReport, Disease, Trend } from "@/data/types";
-import { getRiskBriefing, type RiskBriefing } from "@/data/briefing.functions";
+import { getRiskBriefing, streamBriefExplanation, type BriefingRequest, type RiskBriefing } from "@/data/briefing.functions";
+import { splitExplanation } from "@/data/explanation";
 import { buildPreparations, notableDiseases } from "@/data/preparations";
 
 const fmt = (s: string) => new Date(s + "T00:00:00").toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" });
@@ -156,21 +157,25 @@ type BriefingState = { status: "idle" | "loading" | "error" } | { status: "ready
 const briefingCache = new Map<string, Promise<RiskBriefing>>();
 const BRIEFING_TIMEOUT_MS = 45_000;
 
+const tripKey = (report: DestinationReport, depart: string, ret: string) => `${report.destinationId}|${depart}|${ret}`;
+
+function briefingRequest(country: string, depart: string, ret: string, report: DestinationReport): BriefingRequest {
+  return {
+    country,
+    depart,
+    ret,
+    diseases: report.diseases.map((x) => ({
+      id: x.id, name: x.name, level: x.activityLevel, trend: x.trend,
+      latestCases: x.latestCases, reportingPeriod: x.reportingPeriod, description: x.description,
+    })),
+  };
+}
+
 function fetchBriefing(country: string, depart: string, ret: string, report: DestinationReport) {
-  const key = `${report.destinationId}|${depart}|${ret}`;
+  const key = tripKey(report, depart, ret);
   let p = briefingCache.get(key);
   if (!p) {
-    const call = getRiskBriefing({
-      data: {
-        country,
-        depart,
-        ret,
-        diseases: report.diseases.map((x) => ({
-          id: x.id, name: x.name, level: x.activityLevel, trend: x.trend,
-          latestCases: x.latestCases, reportingPeriod: x.reportingPeriod, description: x.description,
-        })),
-      },
-    });
+    const call = getRiskBriefing({ data: briefingRequest(country, depart, ret, report) });
     const timeout = new Promise<never>((_, reject) => setTimeout(() => reject(new Error("AI briefing timed out")), BRIEFING_TIMEOUT_MS));
     p = Promise.race([call, timeout]);
     p.catch(() => briefingCache.delete(key)); // let a later visit retry
@@ -196,12 +201,63 @@ function useBriefing(country: string, depart: string, ret: string, report: Desti
   return state;
 }
 
+// Brief Explanation: streamed word by word (streamBriefExplanation), runs alongside the structured briefing above.
+type ExplanationState = { status: "idle" | "loading" | "error" } | { status: "streaming" | "done"; text: string };
+const explanationCache = new Map<string, string>(); // finished text per trip, so revisiting doesn't regenerate it
+
+function useExplanation(country: string, depart: string, ret: string, report: DestinationReport): ExplanationState {
+  const [state, setState] = useState<ExplanationState>({ status: "idle" });
+  useEffect(() => {
+    if (report.isDemo || report.diseases.length === 0) return setState({ status: "idle" });
+    const key = tripKey(report, depart, ret);
+    const cached = explanationCache.get(key);
+    if (cached) return setState({ status: "done", text: cached });
+    let live = true;
+    let reader: ReadableStreamDefaultReader<string> | undefined;
+    // Stop on failure or timeout; keep whatever already arrived rather than blanking the card.
+    const stop = (err?: unknown) => {
+      if (!live) return;
+      live = false;
+      void reader?.cancel().catch(() => {});
+      if (err) console.warn("Brief explanation unavailable", err);
+      setState((s) => (s.status === "streaming" && s.text.trim() ? { status: "done", text: s.text } : { status: "error" }));
+    };
+    const timer = setTimeout(() => stop(new Error("Brief explanation timed out")), BRIEFING_TIMEOUT_MS);
+    setState({ status: "loading" });
+    (async () => {
+      const stream = await streamBriefExplanation({ data: briefingRequest(country, depart, ret, report) });
+      if (!live) return void stream.cancel().catch(() => {});
+      reader = stream.getReader();
+      let text = "";
+      for (;;) {
+        const { value, done } = await reader.read();
+        if (!live) return;
+        if (done) break;
+        text += value;
+        setState({ status: "streaming", text });
+      }
+      live = false;
+      clearTimeout(timer);
+      if (!text.trim()) return setState({ status: "error" });
+      explanationCache.set(key, text);
+      setState({ status: "done", text });
+    })().catch(stop);
+    return () => {
+      live = false;
+      clearTimeout(timer);
+      void reader?.cancel().catch(() => {});
+    };
+  }, [country, depart, ret, report]);
+  return state;
+}
+
 function Overview({
-  destination: d, report, briefing, onSelectDisease,
+  destination: d, report, briefing, explanation, onSelectDisease,
 }: {
   destination: Destination;
   report: DestinationReport;
   briefing: BriefingState;
+  explanation: ExplanationState;
   onSelectDisease: (id: string) => void;
 }) {
   const ai = briefing.status === "ready" ? briefing.data : null;
@@ -213,29 +269,34 @@ function Overview({
     <>
       {report.isDemo && <div className="mock-badge mb-3">Demo data — illustrative only, not live or current health information.</div>}
 
-      {/* Brief explanation: generated with Databricks ai_query (briefing.functions.ts) */}
-      {briefing.status !== "idle" && (
-        <div className="card-soft" aria-live="polite" aria-busy={briefing.status === "loading"}>
+      {/* Brief explanation: streamed from the Databricks model endpoint (streamBriefExplanation) */}
+      {explanation.status !== "idle" && (
+        // aria-busy while streaming so screen readers announce the finished text once, not every word.
+        <div className="card-soft" aria-live="polite" aria-busy={explanation.status === "loading" || explanation.status === "streaming"}>
           <h3 className="mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-muted-foreground">
             <Info className="size-4 text-accent" />Brief Explanation
           </h3>
-          {briefing.status === "loading" && (
-            <div className="grid gap-1.5" aria-label="Generating briefing">
+          {explanation.status === "loading" && (
+            <div className="grid gap-1.5" aria-label="Generating explanation">
               <div className="ai-shimmer h-4 w-4/5" /><div className="ai-shimmer h-3 w-full" /><div className="ai-shimmer h-3 w-11/12" />
             </div>
           )}
-          {briefing.status === "error" && <p className="text-xs text-muted-foreground">The explanation is unavailable right now. The risk levels below come straight from the surveillance data.</p>}
-          {ai && (
-            <>
-              <p className="font-medium leading-snug">{ai.headline}</p>
-              <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{ai.summary}</p>
-            </>
-          )}
+          {explanation.status === "error" && <p className="text-xs text-muted-foreground">The explanation is unavailable right now. The risk levels below come straight from the surveillance data.</p>}
+          {(explanation.status === "streaming" || explanation.status === "done") && (() => {
+            const { headline, summary } = splitExplanation(explanation.text);
+            const caret = explanation.status === "streaming" ? <span className="stream-caret" aria-hidden="true" /> : null;
+            return (
+              <>
+                <p className="font-medium leading-snug">{headline}{!summary && caret}</p>
+                {summary && <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{summary}{caret}</p>}
+              </>
+            );
+          })()}
         </div>
       )}
 
       {/* Risk breakdown: moderate and elevated only (low/unknown stay on the Diseases tab) */}
-      <h3 className={`${briefing.status === "idle" ? "" : "mt-5 "}mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-muted-foreground`}>
+      <h3 className={`${explanation.status === "idle" ? "" : "mt-5 "}mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-muted-foreground`}>
         <AlertTriangle className="size-4 text-accent" />Risks for your dates
       </h3>
       {notable.length === 0 ? (
@@ -305,6 +366,7 @@ export function Dashboard({
   const selected = report.diseases.find((x) => x.id === selectedDiseaseId) ?? report.diseases[0] ?? null;
 
   const briefing = useBriefing(d.name, depart, ret, report);
+  const explanation = useExplanation(d.name, depart, ret, report);
 
   const showDisease = (id: string) => {
     onSelectDisease(id);
@@ -337,7 +399,7 @@ export function Dashboard({
       <div className="mt-4 min-h-0 flex-1 overflow-y-auto pr-1">
         {tab === "overview" && (
           <div role="tabpanel" className="tab-panel">
-            <Overview destination={d} report={report} briefing={briefing} onSelectDisease={showDisease} />
+            <Overview destination={d} report={report} briefing={briefing} explanation={explanation} onSelectDisease={showDisease} />
           </div>
         )}
 

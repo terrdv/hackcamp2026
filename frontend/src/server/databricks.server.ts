@@ -88,3 +88,74 @@ export async function query<T>(statement: string, parameters: SqlParam[] = []): 
       Object.fromEntries(cols.map((c, i) => [c.name, convert(row[i] ?? null, c.type_name)])) as T,
   );
 }
+
+export interface ChatMessage {
+  role: "system" | "user" | "assistant";
+  content: string;
+}
+
+/**
+ * Stream a chat completion from a Databricks model serving endpoint (OpenAI-compatible, server-sent events).
+ * Returns the text as it is generated, one chunk per event. Same credentials as `query`.
+ */
+export async function streamChat(
+  model: string,
+  messages: ChatMessage[],
+  opts: { maxTokens?: number; temperature?: number } = {},
+): Promise<ReadableStream<string>> {
+  const { base, token } = config();
+  const res = await fetch(`${base}/serving-endpoints/${encodeURIComponent(model)}/invocations`, {
+    method: "POST",
+    headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
+    body: JSON.stringify({
+      messages,
+      stream: true,
+      max_tokens: opts.maxTokens ?? 300,
+      temperature: opts.temperature ?? 0.2,
+    }),
+  });
+  if (!res.ok || !res.body) {
+    throw new Error(`Databricks model ${model} failed: ${res.status} ${await res.text().catch(() => "")}`.trim());
+  }
+  const reader = res.body.pipeThrough(new TextDecoderStream()).getReader();
+  let buffer = "";
+  return new ReadableStream<string>({
+    async pull(controller) {
+      // Read until at least one event with text arrives (or the stream ends).
+      for (;;) {
+        const { value, done } = await reader.read();
+        if (done) {
+          controller.close();
+          return;
+        }
+        buffer += value;
+        const events = buffer.split("\n");
+        buffer = events.pop() ?? ""; // keep a partial line for the next read
+        let emitted = false;
+        for (const line of events) {
+          const data = line.startsWith("data:") ? line.slice(5).trim() : "";
+          if (!data) continue;
+          if (data === "[DONE]") {
+            controller.close();
+            await reader.cancel().catch(() => {});
+            return;
+          }
+          try {
+            const delta = (JSON.parse(data) as { choices?: { delta?: { content?: unknown } }[] }).choices?.[0]?.delta
+              ?.content;
+            if (typeof delta === "string" && delta) {
+              controller.enqueue(delta);
+              emitted = true;
+            }
+          } catch {
+            // ignore keep-alives and malformed lines
+          }
+        }
+        if (emitted) return;
+      }
+    },
+    cancel() {
+      return reader.cancel().catch(() => {});
+    },
+  });
+}

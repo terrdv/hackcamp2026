@@ -70,3 +70,11 @@ export const getLiveReport = createServerFn({ method: "GET" })
       points,
     });
   });
+
+// Warm-up: a trivial query sent when the page loads, so a cold serverless warehouse starts waking up while the
+// visitor is still choosing a destination and the first real report query doesn't pay the full start-up time.
+export const warmUpWarehouse = createServerFn({ method: "POST" }).handler(async (): Promise<{ ok: boolean }> => {
+  const { query } = await import("@/server/databricks.server");
+  await query("SELECT 1");
+  return { ok: true };
+});

@@ -1,11 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { ArrowRight } from "lucide-react";
 import { GlobeMap, type GlobeHandle, type GlobeOutbreak } from "@/components/GlobeMap";
 import { SearchForm, type ExternalPick, type SearchValues } from "@/components/SearchForm";
 import { Dashboard } from "@/components/Dashboard";
 import { destinations, type Destination } from "@/data/destinations";
 import { getDestinationReport } from "@/data/service";
+import { warmUpWarehouse } from "@/data/report.functions";
 import type { DestinationReport } from "@/data/types";
 
 export const Route = createFileRoute("/")({
@@ -23,6 +24,11 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
+  // Wake the SQL warehouse once per page load (SELECT 1). Fire-and-forget: failures don't affect the page.
+  useEffect(() => {
+    warmUpWarehouse().catch((err) => console.warn("Warehouse warm-up failed", err));
+  }, []);
+
   const globe = useRef<GlobeHandle>(null);
   const request = useRef(0);
   const [phase, setPhase] = useState<"intro" | "search" | "flying" | "results">("intro");

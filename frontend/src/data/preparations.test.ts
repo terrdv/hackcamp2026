@@ -19,8 +19,6 @@ const act = (topic: BriefingAction["topic"], title: string): BriefingAction => (
   detail: `${title}.`,
 });
 const briefing = (risks: Record<string, BriefingAction[]>): RiskBriefing => ({
-  headline: "",
-  summary: "",
   model: "m",
   risks: Object.entries(risks).map(([id, actions]) => ({ id, meaning: "", actions })),
 });
