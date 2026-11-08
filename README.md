@@ -1,97 +1,624 @@
-PreZero Devpost Write-up
-Nov 8, 2026 
-Devpost fields
-Paste each section below into the matching Devpost box; Devpost's story editor accepts Markdown, so headings and bullets carry over.
-• Project name: PreZero
-• Tagline (under 200 characters): Stop the outbreak before patient zero. Travel health outlooks for your exact destination and dates, built from public WHO data on Databricks.
-• Built with: databricks, lakeflow-jobs, unity-catalog, delta-lake, databricks-sql, ai-query, llama, python, pandas, pytest, typescript, react, tanstack-start, tailwindcss, shadcn-ui, three.js, recharts, vitest, lovable
-• Try it out: GitHub repo and [live app link]
-Inspiration
-Canada eliminated measles in 1998. In October 2024, an outbreak began with international travel to an event, then spread through under-vaccinated communities. By November 2025, after more than 5,000 cases, Canada had lost its measles-free status. 85% of the 2025 cases were unvaccinated.
-Travel is the spark. Gaps in vaccination are the fuel.
-The people most likely to carry that spark are often families going home to visit relatives. Compared with tourists, they can face up to 4.5 times the malaria risk, yet they are the least likely to get advice before they go: in one Canadian study, only 26% of children visiting relatives had any pre-travel advice. Going home just doesn't feel like a trip you need a clinic for.
-The information exists, but it's scattered across surveillance databases built for experts, and travel pages written for the whole year rather than your trip. We wanted one place that answers a family's real question: what should we do before this trip, to these places, on these dates?
-This isn't about blaming travellers. It's about closing the gap before the trip, so the spark never lands.
-What it does
-PreZero turns global disease surveillance data into a travel health outlook for one trip. You enter a country and your travel dates, and PreZero shows how four diseases are likely to look while you're there.
-• Measles: the outbreak Canada is fighting now. Action: check for two MMR doses.
-• Influenza: one of the most common vaccine-preventable illnesses in travellers. Action: get this season's flu shot.
-• Dengue: strong seasonal swings, so your dates matter. Action: prevent mosquito bites.
-• Malaria: highest risk for people visiting family. Action: ask a clinic about prevention pills.
+<p align="center">
+  <img src="frontend/public/prezero-mark.svg" width="72" alt="PreZero logo" />
+</p>
+
+<h1 align="center">PreZero</h1>
+
+<p align="center"><b>Stop the outbreak before patient zero.</b><br/>
+A travel health outlook for your exact destination and dates, built from public WHO data on Databricks.</p>
+
+<p align="center">
+  <img alt="Databricks" src="https://img.shields.io/badge/Databricks-Lakeflow%20%7C%20Unity%20Catalog%20%7C%20SQL-FF3621?logo=databricks&logoColor=white">
+  <img alt="TanStack Start" src="https://img.shields.io/badge/TanStack%20Start-React%2019-blue">
+  <img alt="Lovable" src="https://img.shields.io/badge/Built%20with-Lovable-ff69b4">
+  <img alt="Python" src="https://img.shields.io/badge/Python-pandas%20%7C%20pytest-3776AB?logo=python&logoColor=white">
+</p>
+
+> PreZero describes disease activity at a destination, not personal medical risk. It is not medical advice.
+> Talk to a doctor or travel clinic before you travel.
+
+---
+
+## Contents
+
+1. [Why PreZero](#1-why-prezero)
+2. [What it does](#2-what-it-does)
+3. [Architecture at a glance](#3-architecture-at-a-glance)
+4. [The data pipeline](#4-the-data-pipeline)
+5. [How a level is decided](#5-how-a-level-is-decided)
+6. [Databricks usage](#6-databricks-usage)
+7. [The web app (backend + frontend)](#7-the-web-app-backend--frontend)
+8. [AI: where it is used, and where it isn't](#8-ai-where-it-is-used-and-where-it-isnt)
+9. [Lovable usage](#9-lovable-usage)
+10. [Repository layout](#10-repository-layout)
+11. [Running it locally](#11-running-it-locally)
+12. [Testing](#12-testing)
+13. [Limitations and roadmap](#13-limitations-and-roadmap)
+14. [Data sources](#14-data-sources)
+
+---
+
+## 1. Why PreZero
+
+Canada eliminated measles in 1998. In October 2024 an outbreak began with international travel to an event,
+then spread through under-vaccinated communities. By November 2025, after more than 5,000 cases, Canada had lost
+its measles-free status.
+
+**Travel is the spark. Gaps in vaccination are the fuel.**
+
+The people most likely to carry that spark are often families going home to visit relatives. They can face up to
+4.5× the malaria risk of tourists, yet only about a quarter get pre-travel advice. The information exists, but it's
+scattered across surveillance databases built for experts, and travel pages written for the whole year rather than
+for *your* trip.
+
+PreZero answers one family's real question: **what should we do before this trip, to this place, on these dates?**
+
+## 2. What it does
+
+You pick a country (by search or by clicking the globe) and your travel dates. PreZero flies the globe to the
+destination and shows how four diseases are likely to look while you're there.
+
+| Disease | Why it's here | Key action |
+|---|---|---|
+| **Measles** | The outbreak Canada is fighting now | Check for two MMR doses |
+| **Influenza** | One of the most common vaccine-preventable illnesses in travellers | Get this season's flu shot |
+| **Dengue** | Strong seasonal swings, so your dates matter | Prevent mosquito bites |
+| **Malaria** | Highest risk for people visiting family | Ask a clinic about prevention pills |
+
 The results come in four tabs:
-1. Overview: a short plain-language briefing and the diseases that need attention.
-2. Diseases: each disease's level (low, moderate or elevated), its source, and the latest month of data.
-3. Charts: recent monthly cases, so you can see the pattern for yourself.
-4. Prepare: a checklist of vaccines to check, what to pack, and what to ask a travel clinic.
-Every level is computed from public data, not generated by AI. AI only rewrites those facts into plain language, and it is told never to add numbers, change a level or diagnose.
-How we built it
-PreZero has three layers: a daily data pipeline on Databricks, a small serverless backend, and a React frontend built with Lovable.
-Data pipeline (Python on Databricks)
-Our sources arrive in four different shapes, so a medallion pipeline makes them comparable:
-• Bronze keeps the raw downloads untouched: WHO FluNet (weekly lab tests), OpenDengue V1.3 (weekly cases), WHO measles (monthly cases), WHO malaria estimates (yearly), and World Bank population.
-• Silver cleans them and drops data too thin to trust: flu weeks with fewer than 20 specimens, dengue months less than 80% reported, and the COVID-distorted 2020 and 2021 flu seasons.
-• Gold turns everything into the same two measurements per country, disease and month, across 250 countries and territories. Every row keeps its source, data date and a SHA-256 hash of the file it came from.
-How a level is decided
-Every level answers two questions. Burden: how much disease is there for the population? Season: is your month usually busier than normal there? The seasonal index is a month's cases divided by that year's monthly average, taken as the median over at least five years. An index of 1.5 or more is a peak; under 1.0 is a quiet month.
-We only use a question where the data can answer it:
-Disease
-Burden (unit)
-Season
-Level comes from
-Dengue
-Cases per 100,000 a year, averaged over up to 5 recent years
-Yes
-Burden × season
-Influenza
-Fixed (it circulates everywhere)
-Yes
-Season, or this week's lab data for trips within 21 days
-Measles
-Cases per million in the past year
-No reliable season
-Burden
-Malaria
-WHO cases per 1,000 at risk, yearly
-No monthly data yet
-Burden, never below moderate
-Burden tiers step up by ten times, because disease rates differ by hundreds of times between countries. For measles, "low" means under 1 case per million, which matches the incidence goal WHO's African Region set for elimination. For live flu, we compare this week's percent positive with the same week in past years: above the 75th percentile is higher than usual, above the 90th is much higher. All cut-offs are starting values, flagged in the code for review by public health experts.
-Architecture
-• Data: a Databricks Lakeflow Job runs the pipeline every day at 06:00 UTC on serverless compute, with retries and failure emails. It writes bronze, silver and gold Delta tables into Unity Catalog with MERGE, and is deployed from code as a Databricks Asset Bundle.
-• Backend: TanStack Start server functions run parameterized SQL against a Databricks SQL warehouse through the Statement Execution API. A second function calls ai_query() with Llama 3.3 70B to write the briefing. Databricks credentials never reach the browser, and the app falls back to clearly labelled demo data if Databricks is offline.
-• Frontend: React 19 with TanStack Router, Tailwind CSS and shadcn/ui, a Three.js globe and Recharts charts. We generated the first version with Lovable and built on it.
-Testing
-About 109 automated tests: 77 pytest tests cover cleaning, seasonality, live flu, the level rules and the gold tables, and 32 Vitest tests cover how rows map to the screen, the checklist and search.
-Challenges we ran into
-• Four sources, four shapes. Flu comes as weekly lab test positivity, dengue as weekly cases, measles as monthly cases and malaria as yearly estimates. Comparing them meant reducing each one to the same two questions, burden and season, instead of forcing one formula on all four.
-• Missing data looks like safety. A blank or a zero can read as "nothing to worry about" when it really means "nobody reported." We set minimum-data rules and leave out a level rather than guess one.
-• COVID broke flu seasons. Lockdowns made 2020 and 2021 look nothing like normal years, so we excluded them from every flu baseline.
-• Not every disease has a season we can measure. Measles outbreaks don't follow a reliable calendar, so we use the past year's cases, and drop the level if WHO's latest report is over six months old. Malaria is only published yearly and nationally, so it never drops below moderate where there's real burden.
-• Data that lags. OpenDengue runs to about early 2025, so we present dengue as a seasonal outlook, not a live count.
-• Keeping AI honest in a health app. We let the model rewrite facts, never decide them. Levels come straight from the tables, the prompt forbids new numbers, level changes and diagnoses, and the levels still show if the AI call fails.
-• Choosing what to leave out. We wanted hepatitis A and typhoid, but there's no country-by-month data to compare, so we left them out rather than show made-up levels.
-Accomplishments that we're proud of
-• A real pipeline, end to end. Public WHO and OpenDengue files go in every morning, and a dated, sourced answer comes out on screen, with no hand-entered levels.
-• Global coverage. Outlooks for 250 countries and territories, with province-level dengue seasons where the data allows.
-• Every level is traceable. Each one carries its source, its data date and the SHA-256 hash of the exact file it came from.
-• Honest by design. Thin or stale data is left out, AI never sets a level, and every cut-off is flagged for expert review.
-• Tested. About 109 automated tests across the pipeline and the app.
-What we learned
-• No data is not the same as no disease. The most important design decision in a health app is what you show when you don't know.
-• Public health data is messy for good reasons. Countries report on different schedules, in different units, with gaps. Cleaning it well means deciding, and writing down, what counts as enough.
-• Season and size are different questions. A peak month in a country with almost no dengue is still low risk, so we had to measure burden and timing separately before combining them.
-• The medallion pattern pays off. Keeping raw bronze files untouched meant we could change a cleaning rule and rebuild everything without downloading again.
-• AI works best as a translator. Using an LLM only to rewrite computed facts gave us readable briefings without giving up accuracy.
-• Design for the person, not the dataset. Families visiting home don't want an epidemiology dashboard; they want to know what to do before they fly.
-What's next for PreZero
-• Pilot first: one travel clinic and one community organization before Lunar New Year travel, with a public health partner reviewing our cut-offs.
-• More diseases, only where data exists: chikungunya and Zika from PAHO data; hepatitis A and typhoid as year-round reminders.
-• Regional detail: province-level dengue seasons are already in our tables; regional burden comes next.
-• Outbreak alerts for every disease: official alerts already raise measles to high, and we want that everywhere.
-• Community languages: Vietnamese, Chinese, Punjabi, Tagalog and more, so the whole family can read it.
-• Clinic handoff and after-trip check-in: send the checklist to a travel clinic before you leave, and a reminder after you return: if you get a fever, tell your doctor where you travelled.
-PreZero describes disease activity at a destination, not personal medical risk. It is not medical advice; talk to a doctor or travel clinic before you travel.
-Sources
-Paste this list at the end of the Devpost story. Add the exact article links your team used for the CDC, PHAC and news citations.
-• Statistics: CDC MMWR, GeoSentinel analysis of travellers, 1997–2011 (1 in 12 seek care); PHAC CATMAT statement on travellers visiting friends and relatives, 2015 (4.5× malaria risk, 26% pre-travel advice); PHAC measles surveillance report, 2019; The Canadian Press fact-check citing PHAC, 2025; Global News, Nov 10, 2025.
-• Elimination goal: Progress toward measles elimination, African Region 2013–2016
-• Data: WHO FluNet; WHO provisional measles data; WHO Global Health Observatory malaria estimates; OpenDengue V1.3; World Bank population.
+
+| Tab | Content |
+|---|---|
+| **Overview** | A streamed plain-language briefing, plus the diseases that need attention |
+| **Diseases** | Each disease's level (low / moderate / elevated), trend, source and latest month of data |
+| **Charts** | The last 24 months of reported cases, so you can see the pattern yourself |
+| **Prepare** | A merged checklist of vaccines to check, what to pack, and what to ask a travel clinic |
+
+```mermaid
+journey
+    title A family planning a trip to visit relatives
+    section Landing
+      See the globe: 5: Traveller
+      Search "Vietnam" or click it: 5: Traveller
+      Pick dates (Tet, late Jan to Feb): 4: Traveller
+    section Results
+      Globe flies to the country: 5: Traveller
+      Read the Overview briefing: 5: Traveller
+      Check disease levels and charts: 4: Traveller
+    section Before the trip
+      Work through the Prepare checklist: 5: Traveller
+      Book a travel clinic visit: 4: Traveller
+```
+
+**Every level is computed from public data, not generated by AI.** AI only rewrites those facts into plain
+language, and is told never to add numbers, change a level, or diagnose.
+
+## 3. Architecture at a glance
+
+PreZero has three layers: a daily **data pipeline on Databricks**, a small **serverless backend** (TanStack Start
+server functions), and a **React frontend** that started life in **Lovable**.
+
+```mermaid
+flowchart LR
+    subgraph SRC["Public sources"]
+        FN["WHO FluNet<br/>weekly lab tests"]
+        OD["OpenDengue V1.3<br/>weekly cases"]
+        MS["WHO measles<br/>monthly cases"]
+        ML["WHO GHO malaria<br/>yearly estimates"]
+        WB["World Bank<br/>population"]
+    end
+
+    subgraph DBX["Databricks"]
+        JOB["Lakeflow Job<br/>visitwell-daily-refresh<br/>06:00 UTC, serverless"]
+        subgraph UC["Unity Catalog: visitwell"]
+            VOL[("Volume<br/>bronze.landing")]
+            BR[("bronze.*")]
+            SI[("silver.*")]
+            GO[("gold.*")]
+        end
+        WH["SQL Warehouse<br/>Statement Execution API"]
+        LLM["Model Serving<br/>Llama 3.3 70B"]
+    end
+
+    subgraph APP["Web app (TanStack Start)"]
+        SF["Server functions<br/>getLiveReport<br/>getRiskBriefing<br/>streamBriefExplanation"]
+        UI["React 19 UI<br/>globe · tabs · charts"]
+    end
+
+    SRC --> JOB
+    JOB --> VOL --> BR --> SI --> GO
+    GO --> WH
+    SF -- "parameterized SQL" --> WH
+    SF -- "ai_query() / SSE stream" --> LLM
+    UI <-- "RPC (no credentials in browser)" --> SF
+```
+
+Request flow when a traveller asks for a report:
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor U as Traveller
+    participant UI as React UI
+    participant SF as Server functions
+    participant WH as Databricks SQL Warehouse
+    participant LLM as Llama 3.3 70B (Databricks)
+
+    UI->>SF: warmUpWarehouse() on page load (SELECT 1)
+    SF->>WH: wake a cold serverless warehouse early
+    U->>UI: choose country + dates
+    UI->>UI: globe flyTo(destination)
+    UI->>SF: getLiveReport(iso3, start, end)
+    par 4 queries in parallel
+        SF->>WH: gold.destination_outlook
+        SF->>WH: gold.disease_trend
+        SF->>WH: gold.monthly_cases
+        SF->>WH: gold.map_points
+    end
+    WH-->>SF: rows
+    SF->>SF: buildReport(): trip window, 21-day flu rule, level mapping
+    SF-->>UI: DestinationReport (levels, charts, map dots)
+    par AI wording (levels already on screen)
+        UI->>SF: streamBriefExplanation(facts)
+        SF->>LLM: /serving-endpoints/.../invocations (stream)
+        LLM-->>UI: headline + summary, token by token
+    and
+        UI->>SF: getRiskBriefing(facts)
+        SF->>WH: SELECT ai_query(model, prompt, responseFormat => STRUCT...)
+        WH-->>UI: per-disease meaning + "Do" actions (JSON)
+    end
+    Note over UI,SF: If Databricks is offline, a clearly labelled demo report is shown instead.
+```
+
+## 4. The data pipeline
+
+Our sources arrive in four different shapes (weekly lab positivity, weekly cases, monthly cases, yearly
+estimates). A **medallion pipeline** (bronze → silver → gold) makes them comparable. The code lives in
+[`pipeline/`](pipeline/) and is plain Python + pandas, so exactly the same functions run on a laptop and inside
+Databricks.
+
+```mermaid
+flowchart TB
+    subgraph RAW["Raw downloads (archived in the UC volume)"]
+        r1[flunet_full.csv]
+        r2[OpenDengue extracts .zip]
+        r3[WHO measles epi-curve .xlsx]
+        r4[GHO malaria .json]
+        r5[World Bank population .json]
+    end
+
+    subgraph BRONZE["BRONZE · unchanged values + provenance"]
+        b0[ingest_log]
+        b1[flunet_raw]
+        b2["opendengue_{national,spatial,temporal}_raw"]
+        b3[measles_raw]
+        b4[malaria_who_raw]
+        b5[population_raw]
+    end
+
+    subgraph SILVER["SILVER · clean, long format, one row per disease × place × period"]
+        s1["influenza_weekly → influenza_monthly<br/>drop weeks < 20 specimens"]
+        s2["dengue_monthly<br/>weeks split into months by day<br/>month kept if ≥ 80% covered"]
+        s3["measles_monthly<br/>rolling 12-month incidence per million"]
+        s4[malaria_annual]
+        s5[population]
+        s6[quality_report]
+    end
+
+    subgraph GOLD["GOLD · app-ready"]
+        g1["seasonal_profile<br/>median monthly index ≥ 5 yrs"]
+        g2["flu_realtime<br/>this week vs p50/p75/p90"]
+        g3[measles_status]
+        g4[presence]
+        g5[["destination_outlook ★"]]
+        g6[["monthly_cases ★"]]
+        g7[["disease_trend ★"]]
+        g8[["map_points ★"]]
+    end
+
+    r1 --> b1 --> s1
+    r2 --> b2 --> s2
+    r3 --> b3 --> s3
+    r4 --> b4 --> s4
+    r5 --> b5 --> s5
+    s5 --> s3
+    s1 --> g1 & g2
+    s2 --> g1
+    s3 --> g3
+    s4 --> g4
+    g1 & g2 & g3 & g4 --> g5
+    s1 & s2 & s3 --> g6 --> g7
+    g6 --> g8
+```
+
+★ = tables read by the web app.
+
+### Bronze: keep the raw truth
+[`ingest.py`](pipeline/visitwell_pipeline/ingest.py) downloads every source and stores values **unchanged** (as
+strings). Every row carries `_source`, `_source_url`, `_file`, `_file_sha256` and `_retrieved_at`, and
+`bronze.ingest_log` records one row per file per run. Because bronze is never modified, any cleaning rule can be
+changed and everything rebuilt without downloading again.
+
+### Silver: clean and drop what's too thin to trust
+[`clean/`](pipeline/visitwell_pipeline/clean/) produces long-format tables with `source`, `data_as_of`,
+`is_complete_year` and `low_sample_flag` on every row.
+
+| Rule | Why |
+|---|---|
+| Flu weeks with **< 20 specimens** are flagged and excluded | Percent-positive from 3 tests is noise |
+| **2020 and 2021** are excluded from every flu baseline | COVID lockdowns broke normal seasons |
+| Dengue months are kept only if **≥ 80% of days** are covered by reports | A half-reported month looks like a drop |
+| When several dengue extracts overlap, only the best-covered one is kept | No double counting |
+| Unreported measles months stay **null, never 0** | Missing data must not look like safety |
+| FluNet's column mapping is checked against the WHO data dictionary at runtime | Catch upstream schema changes |
+
+### Gold: one vocabulary for every disease
+[`gold/`](pipeline/visitwell_pipeline/gold/) reduces everything to the same two questions per country, disease and
+month, across **~250 countries and territories**:
+
+* **`seasonal_profile`** (flu, dengue): for each complete year, `index = month / that year's monthly mean`, then
+  the median over at least 5 years. ≥ 1.5 = peak, 1.0–1.5 = moderate, < 1.0 = low. A consistency score records how
+  often the month was in that year's top 3.
+* **`flu_realtime`**: the latest valid week vs. the same ISO week in past years (p75 = higher than usual,
+  p90 = much higher). Falls back to seasonal if the data is > 4 weeks old or there are < 5 baseline years.
+* **`measles_status`**: 12-month incidence per million; becomes `unknown` if WHO's latest month is > 6 months old.
+* **`destination_outlook`**: the final level per disease × month, with `based_on`, `data_as_of`, `source`,
+  `source_url` and a JSON `details` column explaining the method.
+* **`monthly_cases`**, **`disease_trend`**, **`map_points`**: 24-month chart series, a 3-vs-3-month trend, and
+  dots for the globe (province-level for dengue where coordinates exist).
+
+Every threshold lives in one file, [`config/pipeline.yaml`](pipeline/config/pipeline.yaml), and every
+placeholder cut-off is marked `needs_review: true` for public-health experts.
+
+For the full step-by-step reference see [`pipeline/README.md`](pipeline/README.md).
+
+## 5. How a level is decided
+
+Every level answers two separate questions:
+
+* **Burden:** how much disease is there for the population? (absolute, yearly)
+* **Season:** is your month usually busier than normal *there*? (relative, monthly)
+
+A peak month in a country with almost no dengue is still low risk, so the two are measured separately and then
+combined by one shared rule in [`gold/levels.py`](pipeline/visitwell_pipeline/gold/levels.py).
+
+```mermaid
+flowchart TD
+    A[Disease × country × month] --> B{Burden tier}
+    B -- unknown --> U[unknown<br/>hidden in app]
+    B -- none --> N[not reported → low]
+    B -- low --> L[low, every month]
+    B -- moderate --> M{Season label}
+    B -- high --> H{Season label}
+    M -- peak --> E1[elevated]
+    M -- moderate --> M1[moderate]
+    M -- low --> L1[low]
+    M -- no season data --> M2[moderate]
+    H -- peak --> E2[elevated]
+    H -- moderate --> E3[elevated]
+    H -- low --> M3[moderate]
+    H -- no season data --> E4[elevated]
+    M1 & L1 & M3 -.-> F{{"Malaria floor:<br/>never below moderate<br/>when burden ≥ moderate"}}
+```
+
+| Disease | Burden (unit) | Season | Level comes from |
+|---|---|---|---|
+| Dengue | Cases per 100,000 per year, averaged over 3–5 recent complete years | Yes | Burden × season |
+| Influenza | Fixed at *moderate* (it circulates everywhere) | Yes | Season, or **live lab data for trips within 21 days** |
+| Measles | Cases per million, past 12 months | No reliable season | Burden |
+| Malaria | WHO cases per 1,000 at risk, latest year | No monthly data | Burden, never below moderate |
+
+Burden tiers step up by roughly 10× because disease rates differ by hundreds of times between countries. For
+measles, "low" means under 1 case per million, matching the WHO African Region's elimination incidence goal.
+
+The frontend maps the pipeline's vocabularies onto four display levels
+([`report-mapping.ts`](frontend/src/data/report-mapping.ts)):
+
+| Display | Pipeline values |
+|---|---|
+| 🔴 **elevated** | peak · much_higher · high · outbreak · widespread |
+| 🟠 **moderate** | moderate · higher_than_usual · circulating · present |
+| 🟢 **low** | low · typical · not_reported · some_areas |
+| ⚪ **unknown** | everything else; the disease is **left out** rather than shown as low |
+
+For a trip spanning several months, a disease's level is the **highest** level across the months in the window.
+
+## 6. Databricks usage
+
+Databricks is the backbone of PreZero: storage, scheduling, compute, SQL serving, and the LLM all run there.
+
+```mermaid
+flowchart LR
+    subgraph Deploy["Deployed from code"]
+        DAB["Databricks Asset Bundle<br/>pipeline/databricks.yml"]
+        YML["resources/visitwell_daily.job.yml"]
+        NB["databricks/visitwell_pipeline_job.py<br/>(notebook)"]
+    end
+    DAB --> YML --> J
+    NB --> J
+    J["Lakeflow Job<br/>cron 0 0 6 * * ? UTC<br/>serverless · 1 retry after 10 min<br/>email on failure"]
+    J --> S["SparkSink<br/>MERGE by row hash"]
+    S --> UC[("Unity Catalog<br/>visitwell.bronze / silver / gold<br/>Delta tables")]
+    UC --> W["Serverless SQL Warehouse"]
+    W --> API["Statement Execution API<br/>/api/2.0/sql/statements"]
+    W --> AIQ["ai_query()"]
+    MS["Model Serving<br/>databricks-meta-llama-3-3-70b-instruct"]
+    AIQ --> MS
+    API --> APP["PreZero server functions"]
+    MS -- "streaming invocations" --> APP
+```
+
+| Feature | How PreZero uses it |
+|---|---|
+| **Unity Catalog** | Catalog `visitwell` with schemas `bronze`, `silver`, `gold`, plus volume `/Volumes/visitwell/bronze/landing/` that archives every raw download and its `_manifest.json` |
+| **Delta Lake** | All ~25 tables are Delta. `DESCRIBE HISTORY visitwell.gold.destination_outlook` shows each day's `MERGE` |
+| **Lakeflow Jobs** | `visitwell-daily-refresh` runs the pipeline notebook every day at 06:00 UTC on serverless job compute, with retries, a 1-hour timeout and failure emails |
+| **Asset Bundles** | The job, notebook and code are deployed with `databricks bundle deploy`, no clicking in the UI |
+| **Serverless SQL Warehouse** | Serves the gold tables to the app through the Statement Execution REST API (plain `fetch`, works on edge runtimes) |
+| **`ai_query()`** | Generates the structured per-disease briefing as typed JSON (`responseFormat => STRUCT<...>`) from SQL |
+| **Model Serving** | Llama 3.3 70B foundation model endpoint, streamed over server-sent events for the Overview headline |
+
+### Incremental daily runs
+
+The job doesn't rebuild blindly:
+
+```mermaid
+flowchart TD
+    A[Job starts 06:00 UTC] --> B["Fetch sources<br/>(OpenDengue is versioned: downloaded once)"]
+    B --> C["Bronze: hash every file (sha256)<br/>append to ingest_log"]
+    C --> D{"Any source hash, config,<br/>code or seed changed since<br/>last successful run?"}
+    D -- no --> G
+    D -- "yes (or force=true)" --> E[Rebuild silver]
+    E --> G["Rebuild gold<br/>(always: freshness depends on run date)"]
+    G --> H["MERGE each table<br/>row identity = sha256 of business columns"]
+    H --> I["insert new hashes · delete vanished hashes<br/>leave unchanged rows untouched"]
+    I --> J["Schema drift: add new columns, cast compatible types,<br/>fail on dropped columns"]
+    J --> K["Save work/_last_run.json"]
+```
+
+There are two ways to write to Databricks:
+
+* **From a laptop**: `python dt_preproc.py --sink databricks` stages each table as parquet in the volume, then runs
+  `CREATE OR REPLACE TABLE … AS SELECT * FROM read_files(...)` on the SQL warehouse (`DatabricksSqlSink`).
+* **Inside Databricks** (the scheduled job): the notebook uses `SparkSink`, which MERGEs into existing tables.
+
+## 7. The web app (backend + frontend)
+
+The app lives in [`frontend/`](frontend/). It is a single **TanStack Start** project: React on the client, and
+**server functions** (`createServerFn`) that only ever execute on the server. There is no separate API service.
+
+### Backend: server functions
+
+| Function | File | What it does |
+|---|---|---|
+| `getLiveReport` | [`report.functions.ts`](frontend/src/data/report.functions.ts) | Validates input (ISO3, dates), runs 4 parameterized queries on the gold tables in parallel, then `buildReport()` |
+| `warmUpWarehouse` | same | `SELECT 1` on page load, so a cold serverless warehouse is awake by the time the user submits |
+| `streamBriefExplanation` | [`briefing.functions.ts`](frontend/src/data/briefing.functions.ts) | Streams the Overview headline + summary from the model serving endpoint |
+| `getRiskBriefing` | same | Calls `ai_query()` for per-disease meaning + "Do" actions as validated JSON |
+
+[`databricks.server.ts`](frontend/src/server/databricks.server.ts) is a small client with no dependencies: it
+submits a statement, polls while the warehouse is `PENDING/RUNNING`, converts typed columns, and parses SSE chunks
+for streaming chat.
+
+**Security:** `DATABRICKS_*` variables have no `VITE_` prefix, so they are never bundled into the browser. All
+SQL uses named parameters (`:iso`), never string interpolation of user input.
+
+**Resilience:** [`service.ts`](frontend/src/data/service.ts) is the only entry point components use. If the live
+call fails and a demo dataset exists for that destination, the demo is returned with `isDemo: true` and the UI
+labels it. If the AI calls fail, the levels still show.
+
+### Frontend
+
+```mermaid
+flowchart TB
+    R["routes/index.tsx<br/>phase: intro → search → flying → results"]
+    R --> G["GlobeMap.tsx<br/>MapLibre GL globe · country outlines · outbreak dots"]
+    R --> SF["SearchForm.tsx<br/>destination search + date range"]
+    R --> D["Dashboard.tsx<br/>Overview · Diseases · Charts · Prepare"]
+    SF --> DS["lib/destination-search.ts<br/>names + aliases"]
+    D --> RC["Recharts<br/>24-month series"]
+    D --> PR["data/preparations.ts<br/>merge + dedupe AI actions"]
+    D --> EX["data/explanation.ts<br/>split streamed headline/summary"]
+    G --> SH["public/shapes/*.json<br/>Natural Earth outlines (lazy)"]
+    R --> SV["data/service.ts"]
+    SV --> LR["getLiveReport"]
+    SV -.fallback.-> MK["data/mockReports.ts"]
+```
+
+| Layer | Tech |
+|---|---|
+| Framework | TanStack Start + TanStack Router (file-based routes), React 19, TypeScript |
+| Styling | Tailwind CSS v4, shadcn/ui (Radix primitives), lucide icons |
+| Globe | MapLibre GL in globe projection with custom layers; an experimental Three.js glass Earth (`GlassEarth.tsx`) is kept separately |
+| Charts | Recharts |
+| Build | Vite 8 via `@lovable.dev/vite-tanstack-config`, Nitro server output (Cloudflare Worker target by default) |
+| Tests | Vitest + Testing Library + jsdom |
+
+The destination list ([`destinations.generated.ts`](frontend/src/data/destinations.generated.ts)) and the
+per-country outlines in `public/shapes/` are **generated by the pipeline** (`build_geo.py frontend`), so the app
+only offers countries that have at least one known disease level.
+
+## 8. AI: where it is used, and where it isn't
+
+```mermaid
+flowchart LR
+    T[(gold tables)] --> L["Levels, trends, case counts<br/><b>deterministic</b>"]
+    L --> UI1["Disease cards · charts · globe dots"]
+    L --> P["Prompt: facts only<br/>+ rules"]
+    P --> M["Llama 3.3 70B"]
+    M --> V["Validation<br/>known disease ids only · clipped lengths<br/>topic whitelist · max 3 actions"]
+    V --> UI2["Plain-language briefing<br/>+ Prepare checklist"]
+```
+
+The model is a **translator, not a decision-maker**:
+
+* Levels are computed in the pipeline and rendered straight from the tables.
+* The prompt contains only the computed facts, and forbids inventing numbers, dates, regions or diseases,
+  changing any level, or diagnosing. It must point to a doctor or travel clinic for vaccines and medication.
+* Output is validated server-side: unknown disease ids are dropped, strings are clipped, action topics are
+  restricted to a fixed list, and the Prepare tab merges duplicate advice across diseases (max 6 items).
+* If the model is unavailable, the report still works without the wording.
+
+## 9. Lovable usage
+
+The frontend was **generated with [Lovable](https://lovable.dev)** and then extended by hand and with coding
+agents. The repo is still connected to the Lovable project, so changes sync both ways.
+
+```mermaid
+flowchart LR
+    LV["Lovable editor<br/>prompt → code"] <-- "two-way Git sync" --> GH["GitHub main branch"]
+    GH <--> DEV["Local dev / coding agents<br/>Databricks integration, tests"]
+    LV --> PV["Lovable preview + hosting"]
+```
+
+What Lovable gave us:
+
+* **Scaffold:** the `tanstack_start_ts_current` template (`frontend/.lovable/project.json`) with TanStack Start,
+  Tailwind, shadcn/ui, the Vite config (`@lovable.dev/vite-tanstack-config`), and error reporting.
+* **UI iterations by prompt:** the landing page, globe styling (illustrated → luminous → glass Earth experiments),
+  the dashboard, disease cards, globe markers with popups and legend, Recharts charts, and the printable
+  preparation checklist. These are tracked in [`frontend/roadmap.md`](frontend/roadmap.md).
+* **Product framing:** a north-star statement and metric in
+  [`frontend/.lovable/north-star/north-star.md`](frontend/.lovable/north-star/north-star.md):
+  *"Travellers arrive at their destination protected against the local health risks."*
+* **Hosted assets:** Earth textures and models referenced through `src/assets/*.asset.json`.
+
+What we built on top: the Databricks client and server functions, report mapping, AI briefing + streaming, the
+Prepare merge logic, search, the globe interactions, and all tests.
+
+Ground rules for working in a Lovable-connected repo (from [`frontend/AGENTS.md`](frontend/AGENTS.md)):
+don't force-push or rewrite pushed history, don't hand-edit generated files (e.g. `routeTree.gen.ts`), and keep
+secrets out of the repo.
+
+## 10. Repository layout
+
+```
+hackcamp2026/
+├── README.md                     ← you are here
+├── .env.example                  DATABRICKS_HOST / TOKEN / HTTP_PATH (shared by pipeline + app)
+├── docs/DEVPOST.md               hackathon submission write-up
+│
+├── pipeline/                     Python data pipeline (runs locally and on Databricks)
+│   ├── config/pipeline.yaml      every source URL, threshold and cut-off
+│   ├── dt_preproc.py             CLI entry point
+│   ├── build_geo.py              Natural Earth → map centroids + frontend destinations/shapes
+│   ├── databricks.yml            Databricks Asset Bundle
+│   ├── resources/                Lakeflow Job definition
+│   ├── databricks/               notebook run by the job
+│   ├── visitwell_pipeline/
+│   │   ├── ingest.py             bronze
+│   │   ├── clean/                silver (influenza, dengue, measles, malaria, population)
+│   │   ├── gold/                 seasonal, flu_realtime, measles_status, levels, outlook, app_tables
+│   │   ├── quality.py            data quality report
+│   │   ├── sinks.py              Local / DatabricksSql / Spark (MERGE) sinks
+│   │   ├── run.py                orchestrator (full + incremental)
+│   │   └── api.py                get_outlook() for ad-hoc queries
+│   └── tests/                    pytest, synthetic data, no network
+│
+└── frontend/                     TanStack Start app (Lovable project)
+    ├── src/routes/               index.tsx (page), __root.tsx
+    ├── src/components/           GlobeMap, Dashboard, SearchForm, GlassEarth
+    ├── src/data/                 server functions, report mapping, briefing, preparations, types
+    ├── src/server/               databricks.server.ts (SQL + streaming chat client)
+    ├── src/lib/                  search, globe layers/styles, world grid
+    └── public/                   country shapes, world outline, Earth assets
+```
+
+> The pipeline package is called `visitwell_pipeline` and the Databricks catalog `visitwell`: VisitWell was
+> the project's working name before it became PreZero.
+
+## 11. Running it locally
+
+### Prerequisites
+* Python 3.11+, Node.js 20+
+* A Databricks workspace with a SQL warehouse (optional: the app falls back to demo data without it)
+
+### Credentials
+```bash
+cp .env.example .env
+# DATABRICKS_HOST=https://<workspace>.cloud.databricks.com
+# DATABRICKS_TOKEN=<personal access token>
+# DATABRICKS_HTTP_PATH=/sql/1.0/warehouses/<id>
+```
+
+### Pipeline
+```bash
+cd pipeline
+python -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt
+
+python dt_preproc.py                                   # bronze → silver → gold, local parquet in data/
+python dt_preproc.py --sink databricks                 # same + Delta tables in Unity Catalog
+python dt_preproc.py outlook VNM 2027-01-25 2027-02-20 # ad-hoc outlook for a Tet trip
+python -m pytest                                       # offline tests
+```
+
+Deploy the daily job:
+```bash
+databricks auth login --host $DATABRICKS_HOST
+databricks bundle validate && databricks bundle deploy
+databricks bundle run visitwell_daily                  # optional: run now
+```
+
+Refresh the app's destination list and country outlines after a gold rebuild:
+```bash
+python build_geo.py centroids   # after silver
+python build_geo.py frontend    # after gold → frontend/src/data/destinations.generated.ts + public/shapes/
+```
+
+### Web app
+```bash
+cd frontend
+npm install
+npm run dev        # reads DATABRICKS_* from the repo-root .env into the dev server only
+npm test           # vitest
+npm run build      # production build
+```
+
+In production, set `DATABRICKS_HOST`, `DATABRICKS_TOKEN` and `DATABRICKS_HTTP_PATH` (or
+`DATABRICKS_WAREHOUSE_ID`) as server-side secrets on the host.
+
+## 12. Testing
+
+| Suite | Count | Covers |
+|---|---|---|
+| **pytest** (`pipeline/tests/`) | 77 tests | seasonal index and labels, insufficient and excluded years, consistency, flu percentile boundaries and freshness fallback, the 21-day switch, measles thresholds/staleness/alert override, burden × season matrix and malaria floor, missing data → unknown, week-to-month splitting, FluNet dictionary check, MERGE planning and schema drift, app tables |
+| **Vitest** (`frontend/src/`) | ~36 tests | row → UI report mapping, level vocabulary, Prepare merge/dedupe rules, streamed explanation parsing, destination search, globe grid/surface helpers, app routing |
+
+All pipeline tests use synthetic fixtures and make no network calls.
+
+## 13. Limitations and roadmap
+
+**Known limitations**
+* OpenDengue V1.3 runs to about early 2025, so dengue is presented as a **seasonal outlook**, not a live count.
+* Malaria is yearly and national only (Malaria Atlas Project admin-1 data is supported but needs a manual export).
+* Hepatitis A, typhoid and yellow fever have no country-by-month source, so they are left out rather than guessed.
+* Some countries show `unknown` for a disease (e.g. India's dengue has too few complete years; stale measles
+  reports become unknown after 6 months).
+* All cut-offs are starting values flagged `needs_review` in the config.
+
+**What's next**
+* Pilot with one travel clinic and one community organization before Lunar New Year travel, with a public-health
+  partner reviewing cut-offs.
+* Chikungunya and Zika from PAHO data; hepatitis A and typhoid as year-round reminders.
+* Province-level burden (province-level dengue seasons are already in the tables).
+* Official outbreak alerts for every disease (the measles `outbreak` override is already wired).
+* Community languages: Vietnamese, Chinese, Punjabi, Tagalog and more.
+* Clinic hand-off and an after-trip check-in: "if you get a fever, tell your doctor where you travelled."
+
+## 14. Data sources
+
+| Source | Used for | Cadence |
+|---|---|---|
+| [WHO FluNet](https://www.who.int/tools/flunet) | Influenza lab positivity (seasonal + real-time) | Weekly |
+| [OpenDengue V1.3](https://opendengue.org/) | Dengue cases, national and admin-1 | Versioned release |
+| [WHO provisional measles and rubella data](https://immunizationdata.who.int/global?topic=Provisional-measles-and-rubella-data&location=) | Measles monthly cases | Monthly |
+| [WHO Global Health Observatory](https://www.who.int/data/gho) `MALARIA_EST_INCIDENCE` | Malaria burden | Yearly |
+| [World Bank WDI](https://data.worldbank.org/indicator/SP.POP.TOTL) `SP.POP.TOTL` | Population denominators | Yearly |
+| [Natural Earth](https://www.naturalearthdata.com/) | Country outlines and map label points | Static |
+
+Every gold row keeps its source, data date, and the SHA-256 hash of the exact file it came from.
+
+---
+
+<p align="center">Built at HackCamp 2026 · see <a href="docs/DEVPOST.md">docs/DEVPOST.md</a> for the submission write-up.</p>
