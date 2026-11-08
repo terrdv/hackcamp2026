@@ -15,6 +15,8 @@ export function SearchForm({ onSubmit, hidden }: { onSubmit: (v: SearchValues) =
   const [depart, setDepart] = useState("");
   const [ret, setRet] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const now = new Date();
+  const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
 
   const matches = destinations.filter((d) => d.name.toLowerCase().includes(query.toLowerCase()));
 
@@ -31,9 +33,9 @@ export function SearchForm({ onSubmit, hidden }: { onSubmit: (v: SearchValues) =
     <div className={`overlay-fade pointer-events-none absolute inset-0 flex flex-col items-center justify-end px-4 pb-10 md:justify-center md:pb-0 ${hidden ? "is-hidden" : ""}`}>
       <div className="search-platform pointer-events-auto w-full max-w-5xl rounded-3xl px-5 py-7 md:px-8 md:py-9">
       <div className="mb-6 text-center">
-        <h1 className="font-display text-4xl font-semibold tracking-tight text-foreground md:text-6xl">Go places. Know before you go.</h1>
+        <h1 className="font-display text-4xl font-semibold tracking-tight text-foreground md:text-6xl">Know before you go.</h1>
         <p className="mx-auto mt-3 max-w-xl text-sm text-muted-foreground md:text-base">
-          Destination-specific health advisories, seasonal risks and a packing list — matched to your travel dates.
+          Explore destination-specific disease outbreaks, seasonal health risks, and practical precautions before your trip.
         </p>
       </div>
       <form onSubmit={submit} className="w-full">
@@ -74,7 +76,7 @@ export function SearchForm({ onSubmit, hidden }: { onSubmit: (v: SearchValues) =
             <Calendar className="size-4 text-accent" />
             <span className="flex-1">
               <span className="field-label">Departure</span>
-              <input type="date" value={depart} onChange={(e) => setDepart(e.target.value)} className="field-input" aria-label="Departure date" />
+              <input type="date" value={depart} min={today} onChange={(e) => setDepart(e.target.value)} className="field-input" aria-label="Departure date" />
             </span>
           </label>
           <label className="field">
@@ -90,7 +92,6 @@ export function SearchForm({ onSubmit, hidden }: { onSubmit: (v: SearchValues) =
         </div>
         {error && <p className="px-3 pt-2 text-sm text-destructive" role="alert">{error}</p>}
       </form>
-      <p className="mt-4 text-center text-xs text-muted-foreground">Live surveillance data for {destinations.length} destinations</p>
       </div>
     </div>
   );

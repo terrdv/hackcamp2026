@@ -1,4 +1,4 @@
-# BugVoyage — appearance-only globe update
+# PreZero — appearance-only globe update
 
 Updated `src/components/GlassEarth.tsx` and `src/lib/earth-appearance.ts`.
 

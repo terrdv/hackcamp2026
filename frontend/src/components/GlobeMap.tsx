@@ -95,11 +95,19 @@ export const GlobeMap = forwardRef<GlobeHandle, GlobeMapProps>(function GlobeMap
 ) {
   const container = useRef<HTMLDivElement>(null);
   const map = useRef<import("maplibre-gl").Map | null>(null);
+  const zoomLimits = useRef({ min: 0, max: 22 });
   const ready = useRef(false);
   const onSelectRef = useRef(onSelectDisease);
   onSelectRef.current = onSelectDisease;
   const dataRef = useRef({ outbreaks, selectedDiseaseId, selectedDestinationId });
   dataRef.current = { outbreaks, selectedDiseaseId, selectedDestinationId };
+
+  function setSearchZoom(m: import("maplibre-gl").Map, locked: boolean) {
+    // Camera bounds also cover pinch, double-click and keyboard zoom while
+    // leaving drag and touch rotation enabled.
+    m.setMinZoom(locked ? WORLD.zoom : zoomLimits.current.min);
+    m.setMaxZoom(locked ? WORLD.zoom : zoomLimits.current.max);
+  }
 
   function applyOutbreaks(m: import("maplibre-gl").Map) {
     const { outbreaks: obs, selectedDiseaseId: sel } = dataRef.current;
@@ -140,6 +148,7 @@ export const GlobeMap = forwardRef<GlobeHandle, GlobeMapProps>(function GlobeMap
       const finish = () => { if (!done) { done = true; onDone?.(); } };
       setTimeout(finish, 3600);
       if (!m) return;
+      setSearchZoom(m, false);
       container.current?.classList.remove("globe-search-canvas");
       m.resize();
       m.once("moveend", finish);
@@ -149,6 +158,7 @@ export const GlobeMap = forwardRef<GlobeHandle, GlobeMapProps>(function GlobeMap
       container.current?.classList.add("globe-search-canvas");
       map.current?.resize();
       map.current?.jumpTo({ ...WORLD, padding: searchPadding() });
+      if (map.current) setSearchZoom(map.current, true);
     },
   }));
 
@@ -261,6 +271,8 @@ export const GlobeMap = forwardRef<GlobeHandle, GlobeMapProps>(function GlobeMap
         } as never,
       });
 
+      zoomLimits.current = { min: m.getMinZoom(), max: m.getMaxZoom() };
+      setSearchZoom(m, !dataRef.current.selectedDestinationId);
       m.setPadding(searchPadding());
       m.on("load", () => {
         ready.current = true;
@@ -270,6 +282,7 @@ export const GlobeMap = forwardRef<GlobeHandle, GlobeMapProps>(function GlobeMap
         applyCountry(m);
         const destination = destinations.find((d) => d.id === dataRef.current.selectedDestinationId);
         if (destination) {
+          setSearchZoom(m, false);
           container.current?.classList.remove("globe-search-canvas");
           m.resize();
           m.jumpTo({ center: destination.coords, zoom: destination.zoom, padding: { right: window.innerWidth > 900 ? 420 : 0, left: 0, top: 0, bottom: 0 } });

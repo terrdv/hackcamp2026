@@ -296,7 +296,7 @@ export const GlassEarth = forwardRef<GlobeHandle, Props>(function GlassEarth(pro
               .replace("#include <common>", "#include <common>\n" + geographicMaterialShader)
               .replace("#include <map_fragment>", geographicMapFragment);
           };
-          material.customProgramCacheKey = () => "bugvoyage-graphic-atlas-v3";
+          material.customProgramCacheKey = () => "prezero-graphic-atlas-v3";
           oldMaterials.forEach((m) => m.dispose());
           o.material = material;
         });
