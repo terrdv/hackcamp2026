@@ -1,8 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useRef, useState } from "react";
 import { GlobeMap, type GlobeHandle, type GlobeOutbreak } from "@/components/GlobeMap";
-import { SearchForm, type SearchValues } from "@/components/SearchForm";
+import { SearchForm, type ExternalPick, type SearchValues } from "@/components/SearchForm";
 import { Dashboard } from "@/components/Dashboard";
+import { destinations, type Destination } from "@/data/destinations";
 import { getDestinationReport } from "@/data/service";
 import type { DestinationReport } from "@/data/types";
 
@@ -27,6 +28,8 @@ function Index() {
   const [search, setSearch] = useState<SearchValues | null>(null);
   const [report, setReport] = useState<DestinationReport | null>(null);
   const [selectedDiseaseId, setSelectedDiseaseId] = useState<string | null>(null);
+  const [formDestination, setFormDestination] = useState<Destination | null>(null);
+  const [pick, setPick] = useState<ExternalPick | null>(null);
 
   function go(v: SearchValues) {
     setSearch(v);
@@ -38,6 +41,13 @@ function Index() {
     getDestinationReport(v.destination, v.depart, v.ret)
       .then((r) => { if (id === request.current) setReport(r); })
       .catch(() => { if (id === request.current) setReport(null); });
+  }
+  // A country clicked on the globe: same as choosing it in the search, keeping the trip dates.
+  function selectCountry(id: string) {
+    const destination = destinations.find((d) => d.id === id);
+    if (!destination) return;
+    if (phase === "results" && search) go({ ...search, destination });
+    else if (phase === "search") setPick({ destination, seq: Date.now() });
   }
   function back() {
     request.current++;
@@ -59,13 +69,21 @@ function Index() {
 
   return (
     <main className="relative h-dvh w-full overflow-hidden">
-      <GlobeMap ref={globe} outbreaks={globeOutbreaks} selectedDiseaseId={selectedDiseaseId} selectedDestinationId={search && phase !== "search" ? search.destination.id : null} onSelectDisease={setSelectedDiseaseId} />
+      <GlobeMap
+        ref={globe}
+        outbreaks={globeOutbreaks}
+        selectedDiseaseId={selectedDiseaseId}
+        selectedDestinationId={search && phase !== "search" ? search.destination.id : null}
+        highlightedCountryId={phase === "search" ? (formDestination?.id ?? null) : null}
+        onSelectDisease={setSelectedDiseaseId}
+        onSelectCountry={selectCountry}
+      />
       <div className="pointer-events-none absolute inset-0">
         <header className="pointer-events-auto absolute left-4 top-4 flex items-center gap-2 no-print md:left-6 md:top-6">
           <img src="/prezero-mark.svg" alt="" width={34} height={34} />
           <span className="font-display text-2xl font-semibold tracking-tight" style={{ color: "#F3F0E8" }}>PreZero</span>
         </header>
-        <SearchForm onSubmit={go} hidden={phase !== "search"} />
+        <SearchForm onSubmit={go} hidden={phase !== "search"} pick={pick} onDestinationChange={setFormDestination} />
         {search && report && (
           <Dashboard
             {...search}

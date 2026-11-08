@@ -47,10 +47,15 @@ class RawStore:
     def save_manifest(self):
         (self.root / MANIFEST).write_text(json.dumps(self.manifest, indent=2))
 
-    def fetch(self, source: str, url: str | None, rel: str, manual: bool = False) -> Path | None:
-        """Return local path to the raw file, downloading it if needed. None if unavailable."""
+    def fetch(self, source: str, url: str | None, rel: str, manual: bool = False,
+              static: bool = False) -> Path | None:
+        """Return local path to the raw file, downloading it if needed. None if unavailable.
+
+        `static` sources (versioned releases) are never re-downloaded once present, even with refresh.
+        """
         p = self.root / rel
-        if url and not manual and not self.offline and (self.refresh or not p.exists()):
+        wanted = not p.exists() or (self.refresh and not static)
+        if url and not manual and not self.offline and wanted:
             p.parent.mkdir(parents=True, exist_ok=True)
             log.info("download %s -> %s", url, p)
             try:
@@ -129,9 +134,10 @@ def ingest(cfg, sink=None, offline: bool = False, refresh: bool = False) -> dict
     for key, stem in s["extracts"].items():
         rel_zip, rel_csv = f"{s['dir']}/{stem}.zip", f"{s['dir']}/{stem}.csv"
         url = f"{s['base_url']}/{stem}.zip"
-        zp = store.fetch(f"opendengue_{key}", url, rel_zip)
+        static = bool(s.get("static", False))
+        zp = store.fetch(f"opendengue_{key}", url, rel_zip, static=static)
         csv = store.root / rel_csv
-        if zp and (not csv.exists() or store.refresh):
+        if zp and (not csv.exists() or (store.refresh and not static)):
             with zipfile.ZipFile(zp) as z:
                 member = next(n for n in z.namelist() if n.endswith(".csv"))
                 with z.open(member) as fin, open(csv, "wb") as fout:
@@ -209,3 +215,23 @@ def ingest(cfg, sink=None, offline: bool = False, refresh: bool = False) -> dict
         for name, df in out.items():
             sink.write("bronze", name, df, comment=f"VisitWell bronze: {name}")
     return out
+
+
+# --- change detection (daily job) ---------------------------------------------------------------
+def previous_hashes(raw_root: Path) -> dict[str, str]:
+    """{raw file: sha256} recorded by the previous run's manifest (empty on the first run)."""
+    mp = Path(raw_root) / MANIFEST
+    if not mp.exists():
+        return {}
+    return {rel: m["sha256"] for rel, m in json.loads(mp.read_text()).items() if m.get("sha256")}
+
+
+def changed_sources(prev: dict[str, str], ingest_log: pd.DataFrame) -> list[str]:
+    """Sources whose raw file is new, changed or went missing since the previous run."""
+    changed = []
+    for r in ingest_log.itertuples(index=False):
+        before = prev.get(r.file)
+        now = r.sha256 if isinstance(r.sha256, str) else None
+        if before != now and not (before is None and now is None):
+            changed.append(r.source)
+    return sorted(set(changed))

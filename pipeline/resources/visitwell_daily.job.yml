@@ -1,0 +1,30 @@
+# Daily refresh: re-download sources, rebuild only what changed, MERGE into visitwell.{bronze,silver,gold}.
+resources:
+  jobs:
+    visitwell_daily:
+      name: visitwell-daily-refresh
+      description: Fetch WHO / OpenDengue / World Bank sources and MERGE new rows into Unity Catalog.
+      schedule:
+        quartz_cron_expression: "0 0 6 * * ?"   # 06:00 every day
+        timezone_id: UTC
+        pause_status: UNPAUSED
+      max_concurrent_runs: 1
+      timeout_seconds: 3600
+      email_notifications:
+        on_failure:
+          - ${workspace.current_user.userName}
+      tasks:
+        - task_key: pipeline
+          # no cluster -> serverless job compute; dependencies are installed by the notebook's %pip cell
+          notebook_task:
+            notebook_path: ../databricks/visitwell_pipeline_job.py
+            base_parameters:
+              steps: bronze,silver,gold
+              offline: "false"
+              refresh: "true"
+              write_mode: merge
+              force: "false"
+              as_of: ""
+          max_retries: 1
+          min_retry_interval_millis: 600000   # 10 min, for flaky WHO endpoints
+          timeout_seconds: 3600

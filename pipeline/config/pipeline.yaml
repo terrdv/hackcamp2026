@@ -34,6 +34,7 @@ sources:
   opendengue:
     name: OpenDengue V1.3
     version: V1.3
+    static: true         # versioned release: download once, never re-download on --refresh
     base_url: "https://raw.githubusercontent.com/OpenDengue/master-repo/main/data/releases/V1.3"
     dir: opendengue
     extracts:            # name -> file stem (zip + csv share the stem)

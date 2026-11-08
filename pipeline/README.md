@@ -215,7 +215,23 @@ runs on the SQL warehouse. Catalog, schemas and volume are created if missing (`
 
 **Inside Databricks:** open `databricks/visitwell_pipeline_job.py` from a Git folder or workspace folder that
 contains the repo, and run it, or add it as a Job task with parameters `steps`, `offline` and `as_of`. It reads
-raw files from the volume, calls the same `run_all()`, and writes with `saveAsTable`.
+raw files from the volume, calls the same pipeline functions, and writes Delta tables.
+
+### Daily job (Lakeflow Job, `databricks.yml`)
+`resources/visitwell_daily.job.yml` defines the `visitwell_daily` job, which runs the notebook on serverless every day
+at 06:00 UTC and emails the deploying user on failure. Deploy it from this folder:
+```bash
+brew install databricks/tap/databricks
+databricks auth login --host $DATABRICKS_HOST
+databricks bundle validate && databricks bundle deploy
+databricks bundle run visitwell_daily          # optional: run now
+```
+Each run is incremental:
+* **Fetch.** Sources are re-downloaded (`refresh=true`). The OpenDengue release is versioned (`static: true`), so it is downloaded only once.
+* **Gate.** Silver is rebuilt only if a source file's sha256 changed, or if the config, code or seeds changed, compared with the last successful run (`work/_last_run.json` in the volume). Gold is always rebuilt because its freshness labels depend on the run date.
+* **MERGE, never replace.** Existing tables are kept. A row's identity is a sha256 of its business columns; volatile columns (`built_on`, `computed_on`, `_retrieved_at`, ...) are left out. New rows are inserted, rows that disappeared from the source are deleted, and unchanged rows are not touched. A revised row therefore shows up as delete + insert. `built_on`/`computed_on` mean "the date this row last changed". `bronze.ingest_log` is append-only and records every run's source hashes.
+* **Schema changes.** Added columns are added with `ALTER TABLE`. Compatible type differences (int/bigint, timestamp/timestamp_ntz) are cast. A dropped column or an incompatible type fails the run. To rebuild deliberately, run once with `write_mode=overwrite`.
+* **Other parameters.** `force=true` rebuilds silver even when nothing changed. The notebook prints per-table `inserted` / `deleted` counts. `DESCRIBE HISTORY visitwell.gold.destination_outlook` shows `MERGE` operations.
 
 ## How the web app reads the data
 The frontend calls the TanStack Start server function `getLiveReport` (`frontend/src/data/report.functions.ts`).

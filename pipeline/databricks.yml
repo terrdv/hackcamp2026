@@ -1,0 +1,23 @@
+# Databricks Asset Bundle for the VisitWell pipeline.
+#   databricks bundle validate
+#   databricks bundle deploy            # syncs this folder to the workspace and creates/updates the job
+#   databricks bundle run visitwell_daily
+# Host/token come from your Databricks CLI profile (`databricks auth login --host $DATABRICKS_HOST`).
+bundle:
+  name: visitwell
+
+include:
+  - resources/*.yml
+
+sync:
+  exclude:            # .gitignore is honoured too (data/raw, data/bronze, ...)
+    - .venv
+    - .pytest_cache
+    - tests
+    - reports
+
+targets:
+  prod:
+    default: true     # no `mode: development`: it would pause the schedule and rename the job
+    workspace:
+      root_path: /Workspace/Users/${workspace.current_user.userName}/.bundle/${bundle.name}/${bundle.target}

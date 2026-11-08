@@ -1,13 +1,15 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
-  ArrowLeft, BarChart3, Bug, CalendarDays, Check, ClipboardList, ExternalLink, Info,
-  LineChart as LineChartIcon, Minus, Printer, TrendingDown, TrendingUp,
+  AlertTriangle, ArrowLeft, BarChart3, Bug, CalendarDays, ChevronRight, ClipboardList, ExternalLink, Info,
+  LineChart as LineChartIcon, Minus, TrendingDown, TrendingUp,
 } from "lucide-react";
 import {
   Bar, BarChart, CartesianGrid, Cell, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis,
 } from "recharts";
 import type { Destination } from "@/data/destinations";
-import type { DestinationReport, Disease, Trend } from "@/data/types";
+import type { ActivityLevel, DestinationReport, Disease, Trend } from "@/data/types";
+import { getRiskBriefing, type RiskBriefing } from "@/data/briefing.functions";
+import { buildPreparations, notableDiseases } from "@/data/preparations";
 
 const fmt = (s: string) => new Date(s + "T00:00:00").toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" });
 const fmtMonth = (m: string) => new Date(m + "-01T00:00:00").toLocaleDateString(undefined, { month: "short", year: "2-digit" });
@@ -105,44 +107,176 @@ function ComparisonChart({ report, selectedId, onSelect }: { report: Destination
   );
 }
 
-const CATEGORY_LABELS = { "before-departure": "Before you leave", precaution: "Health precautions", packing: "Pack these" } as const;
-
-function PrepChecklist({ report, onSelectDisease }: { report: DestinationReport; onSelectDisease: (id: string) => void }) {
-  const [done, setDone] = useState<Set<string>>(new Set());
-  const toggle = (id: string) => setDone((p) => { const n = new Set(p); n.has(id) ? n.delete(id) : n.add(id); return n; });
-  const groups = (["before-departure", "precaution", "packing"] as const).map((c) => ({
-    category: c,
-    items: report.recommendations.filter((r) => r.category === c),
-  }));
-  return (
-    <div>
-      <div className="mb-3 flex items-center justify-between gap-2">
-        <p className="text-xs text-muted-foreground">{done.size} of {report.recommendations.length} done</p>
-        <button type="button" onClick={() => window.print()} className="btn-ghost no-print"><Printer className="size-3.5" /> Print list</button>
+function PrepareList({ report, briefing }: { report: DestinationReport; briefing: BriefingState }) {
+  if (notableDiseases(report.diseases).length === 0) {
+    return (
+      <div className="prep-empty">
+        <p className="text-sm">Nothing to prepare for :) Pack your clothes and enjoy the trip</p>
       </div>
-      {groups.map((g) => g.items.length > 0 && (
-        <div key={g.category} className="mb-4">
-          <p className="mb-1.5 text-xs font-semibold uppercase tracking-widest text-muted-foreground">{CATEGORY_LABELS[g.category]}</p>
-          <ul className="grid gap-1.5">
-            {g.items.map((r) => (
-              <li key={r.id} className="card-soft !p-2.5">
-                <label className="check-row !p-0">
-                  <input type="checkbox" className="sr-only" checked={done.has(r.id)} onChange={() => toggle(r.id)} />
-                  <span className={`check-box ${done.has(r.id) ? "is-on" : ""}`}>{done.has(r.id) && <Check className="size-3" />}</span>
-                  <span className={done.has(r.id) ? "text-muted-foreground line-through" : ""}>{r.title}</span>
-                </label>
-                <p className="mt-1 pl-7 text-xs text-muted-foreground">{r.explanation}</p>
-                {r.relatedDiseaseIds[0] && (
-                  <button type="button" onClick={() => onSelectDisease(r.relatedDiseaseIds[0]!)} className="link mt-1 ml-7 inline-block text-xs no-print">
-                    View supporting data
-                  </button>
-                )}
-              </li>
-            ))}
-          </ul>
-        </div>
+    );
+  }
+  if (briefing.status === "loading") {
+    return (
+      <ul className="grid gap-2" aria-busy="true" aria-label="Loading preparations">
+        {[0, 1, 2].map((i) => (
+          <li key={i} className="card-soft grid gap-1.5"><div className="ai-shimmer h-4 w-1/2" /><div className="ai-shimmer h-3 w-11/12" /></li>
+        ))}
+      </ul>
+    );
+  }
+  const items = briefing.status === "ready" ? buildPreparations(report.diseases, briefing.data) : [];
+  if (items.length === 0) {
+    return <p className="card-soft text-sm text-muted-foreground">Preparation advice is unavailable right now. Check the official sources on the Overview tab before you go.</p>;
+  }
+  return (
+    <ul className="grid gap-2">
+      {items.map((p) => (
+        <li key={p.key} className="card-soft">
+          <p className="font-medium leading-snug">{p.title}</p>
+          {p.detail && <p className="mt-1 text-xs leading-relaxed text-muted-foreground">{p.detail}</p>}
+          <div className="mt-2 flex flex-wrap items-center gap-1.5">
+            <span className="text-xs text-muted-foreground">For:</span>
+            {p.diseases.map((x) => <span key={x.id} className={`dtag ${SEV_CLASS[x.level]}`}>{x.name}</span>)}
+          </div>
+        </li>
       ))}
-    </div>
+    </ul>
+  );
+}
+
+// Fallback wording used until (or if) the explanation arrives. Levels themselves always come from the data.
+const LEVEL_MEANING: Partial<Record<ActivityLevel, string>> = {
+  elevated: "Higher activity than usual for your dates. Take precautions seriously.",
+  moderate: "Some activity reported. Standard precautions are worthwhile.",
+};
+
+type BriefingState = { status: "idle" | "loading" | "error" } | { status: "ready"; data: RiskBriefing };
+
+// One LLM call per trip, shared by the Overview and Prepare tabs: cache the promise by destination + dates.
+const briefingCache = new Map<string, Promise<RiskBriefing>>();
+const BRIEFING_TIMEOUT_MS = 45_000;
+
+function fetchBriefing(country: string, depart: string, ret: string, report: DestinationReport) {
+  const key = `${report.destinationId}|${depart}|${ret}`;
+  let p = briefingCache.get(key);
+  if (!p) {
+    const call = getRiskBriefing({
+      data: {
+        country,
+        depart,
+        ret,
+        diseases: report.diseases.map((x) => ({
+          id: x.id, name: x.name, level: x.activityLevel, trend: x.trend,
+          latestCases: x.latestCases, reportingPeriod: x.reportingPeriod, description: x.description,
+        })),
+      },
+    });
+    const timeout = new Promise<never>((_, reject) => setTimeout(() => reject(new Error("AI briefing timed out")), BRIEFING_TIMEOUT_MS));
+    p = Promise.race([call, timeout]);
+    p.catch(() => briefingCache.delete(key)); // let a later visit retry
+    briefingCache.set(key, p);
+  }
+  return p;
+}
+
+function useBriefing(country: string, depart: string, ret: string, report: DestinationReport): BriefingState {
+  const [state, setState] = useState<BriefingState>({ status: "idle" });
+  useEffect(() => {
+    if (report.isDemo || report.diseases.length === 0) return setState({ status: "idle" });
+    let live = true;
+    setState({ status: "loading" });
+    fetchBriefing(country, depart, ret, report)
+      .then((data) => live && setState({ status: "ready", data }))
+      .catch((err) => {
+        console.warn("AI briefing unavailable", err);
+        if (live) setState({ status: "error" });
+      });
+    return () => { live = false; };
+  }, [country, depart, ret, report]);
+  return state;
+}
+
+function Overview({
+  destination: d, report, briefing, onSelectDisease,
+}: {
+  destination: Destination;
+  report: DestinationReport;
+  briefing: BriefingState;
+  onSelectDisease: (id: string) => void;
+}) {
+  const ai = briefing.status === "ready" ? briefing.data : null;
+  const aiById = new Map(ai?.risks.map((r) => [r.id, r]) ?? []);
+
+  const notable = notableDiseases(report.diseases);
+
+  return (
+    <>
+      {report.isDemo && <div className="mock-badge mb-3">Demo data — illustrative only, not live or current health information.</div>}
+
+      {/* Brief explanation: generated with Databricks ai_query (briefing.functions.ts) */}
+      {briefing.status !== "idle" && (
+        <div className="card-soft" aria-live="polite" aria-busy={briefing.status === "loading"}>
+          <h3 className="mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+            <Info className="size-4 text-accent" />Brief Explanation
+          </h3>
+          {briefing.status === "loading" && (
+            <div className="grid gap-1.5" aria-label="Generating briefing">
+              <div className="ai-shimmer h-4 w-4/5" /><div className="ai-shimmer h-3 w-full" /><div className="ai-shimmer h-3 w-11/12" />
+            </div>
+          )}
+          {briefing.status === "error" && <p className="text-xs text-muted-foreground">The explanation is unavailable right now. The risk levels below come straight from the surveillance data.</p>}
+          {ai && (
+            <>
+              <p className="font-medium leading-snug">{ai.headline}</p>
+              <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{ai.summary}</p>
+            </>
+          )}
+        </div>
+      )}
+
+      {/* Risk breakdown: moderate and elevated only (low/unknown stay on the Diseases tab) */}
+      <h3 className={`${briefing.status === "idle" ? "" : "mt-5 "}mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-muted-foreground`}>
+        <AlertTriangle className="size-4 text-accent" />Risks for your dates
+      </h3>
+      {notable.length === 0 ? (
+        <p className="card-soft text-sm text-muted-foreground">No notable disease risks for your dates.</p>
+      ) : (
+        <ul className="grid gap-1.5">
+          {notable.map((x) => (
+            <li key={x.id}>
+              <button type="button" onClick={() => onSelectDisease(x.id)} className={`risk-row risk-${SEV_CLASS[x.activityLevel]}`}>
+                <div className="flex items-center justify-between gap-2">
+                  <span className="font-medium">{x.name}</span>
+                  <span className="flex items-center gap-2">
+                    <TrendBadge trend={x.trend} />
+                    <span className={`sev ${SEV_CLASS[x.activityLevel]}`}>{x.activityLevel}</span>
+                    <ChevronRight className="size-4 text-muted-foreground" />
+                  </span>
+                </div>
+                <p className="mt-1 text-xs text-muted-foreground">{aiById.get(x.id)?.meaning || LEVEL_MEANING[x.activityLevel]}</p>
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
+
+      <div className="mt-4 grid grid-cols-2 gap-2 text-center">
+        <div className="card-soft !p-3">
+          <p className="text-lg font-semibold">{report.diseases.length}</p>
+          <p className="text-xs text-muted-foreground">health concerns tracked</p>
+        </div>
+        <div className="card-soft !p-3">
+          <p className="text-lg font-semibold">{fmt(report.surveillanceDate)}</p>
+          <p className="text-xs text-muted-foreground">latest surveillance report</p>
+        </div>
+      </div>
+      <p className="mt-3 text-xs leading-relaxed text-muted-foreground">{d.overview} Levels describe disease activity at the destination, not your personal risk.</p>
+
+      <h3 className="mt-5 mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+        <ExternalLink className="size-4 text-accent" />Official sources
+      </h3>
+      <ul className="grid gap-1.5 text-sm">{d.sources.map((s) => <li key={s.url}><a href={s.url} target="_blank" rel="noreferrer" className="link">{s.label} ↗</a></li>)}</ul>
+    </>
   );
 }
 
@@ -169,6 +303,8 @@ export function Dashboard({
 }) {
   const [tab, setTab] = useState<TabId>("overview");
   const selected = report.diseases.find((x) => x.id === selectedDiseaseId) ?? report.diseases[0] ?? null;
+
+  const briefing = useBriefing(d.name, depart, ret, report);
 
   const showDisease = (id: string) => {
     onSelectDisease(id);
@@ -201,24 +337,7 @@ export function Dashboard({
       <div className="mt-4 min-h-0 flex-1 overflow-y-auto pr-1">
         {tab === "overview" && (
           <div role="tabpanel" className="tab-panel">
-            {report.isDemo
-              ? <div className="mock-badge">Demo data — illustrative only, not live or current health information.</div>
-              : <p className="text-xs text-muted-foreground">Surveillance data from WHO and OpenDengue. Describes disease activity at the destination, not your personal risk.</p>}
-            <p className="mt-4 text-sm leading-relaxed">{d.overview}</p>
-            <div className="mt-4 grid grid-cols-2 gap-2 text-center">
-              <div className="card-soft !p-3">
-                <p className="text-lg font-semibold">{report.diseases.length}</p>
-                <p className="text-xs text-muted-foreground">health concerns tracked</p>
-              </div>
-              <div className="card-soft !p-3">
-                <p className="text-lg font-semibold">{fmt(report.surveillanceDate)}</p>
-                <p className="text-xs text-muted-foreground">latest surveillance report</p>
-              </div>
-            </div>
-            <h3 className="mt-6 mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-              <ExternalLink className="size-4 text-accent" />Official sources
-            </h3>
-            <ul className="grid gap-1.5 text-sm">{d.sources.map((s) => <li key={s.url}><a href={s.url} target="_blank" rel="noreferrer" className="link">{s.label} ↗</a></li>)}</ul>
+            <Overview destination={d} report={report} briefing={briefing} onSelectDisease={showDisease} />
           </div>
         )}
 
@@ -257,7 +376,7 @@ export function Dashboard({
 
         {tab === "prepare" && (
           <div role="tabpanel" className="tab-panel">
-            <PrepChecklist key={d.id + depart} report={report} onSelectDisease={showDisease} />
+            <PrepareList report={report} briefing={briefing} />
           </div>
         )}
       </div>

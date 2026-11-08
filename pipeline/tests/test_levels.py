@@ -13,7 +13,7 @@ from visitwell_pipeline.gold.levels import (combine_level, dengue_burden, dengue
 from visitwell_pipeline.gold.measles_status import measles_level
 
 REMOVED = {"yellow_fever", "hepatitis_a", "typhoid"}
-MAPPING_TS = Path(__file__).resolve().parents[3] / "frontend" / "src" / "data" / "report-mapping.ts"
+MAPPING_TS = Path(__file__).resolve().parents[2] / "frontend" / "src" / "data" / "report-mapping.ts"
 
 
 # ---------------------------------------------------------------------------- combination matrix

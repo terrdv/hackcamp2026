@@ -1,4 +1,4 @@
-import { useId, useState } from "react";
+import { useEffect, useId, useState } from "react";
 import { Calendar, MapPin, Plane, Search } from "lucide-react";
 import { destinations, validateDates, type Destination } from "@/data/destinations";
 import { highlightParts, searchDestinations } from "@/lib/destination-search";
@@ -9,7 +9,23 @@ export interface SearchValues {
   ret: string;
 }
 
-export function SearchForm({ onSubmit, hidden }: { onSubmit: (v: SearchValues) => void; hidden: boolean }) {
+/** A destination picked outside the form (a country clicked on the globe); `seq` makes repeat picks count. */
+export interface ExternalPick {
+  destination: Destination;
+  seq: number;
+}
+
+export function SearchForm({
+  onSubmit,
+  hidden,
+  pick,
+  onDestinationChange,
+}: {
+  onSubmit: (v: SearchValues) => void;
+  hidden: boolean;
+  pick?: ExternalPick | null;
+  onDestinationChange?: (d: Destination | null) => void;
+}) {
   const [query, setQuery] = useState("");
   const [selected, setSelected] = useState<Destination | null>(null);
   const [open, setOpen] = useState(false);
@@ -30,6 +46,15 @@ export function SearchForm({ onSubmit, hidden }: { onSubmit: (v: SearchValues) =
     setOpen(false);
     setError(null);
   }
+
+  useEffect(() => {
+    if (pick) choose(pick.destination);
+  }, [pick]);
+
+  useEffect(() => {
+    onDestinationChange?.(selected);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selected]);
 
   function onKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
     if (e.key === "ArrowDown" || e.key === "ArrowUp") {

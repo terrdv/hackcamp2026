@@ -12,3 +12,6 @@ data/gold/
 data/push_log.txt
 data/reports/*.parquet
 # data/seeds/ and data/reports/*.{csv,md} are committed
+
+# Databricks Asset Bundle local state
+.databricks/

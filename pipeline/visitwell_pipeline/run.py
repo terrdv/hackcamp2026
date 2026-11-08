@@ -2,7 +2,10 @@
 from __future__ import annotations
 
 import datetime as dt
+import hashlib
+import json
 import logging
+from pathlib import Path
 
 import pandas as pd
 
@@ -15,7 +18,7 @@ from .gold.flu_realtime import flu_realtime
 from .gold.measles_status import measles_status
 from .gold.outlook import build_alerts, build_outlook, build_presence
 from .gold.seasonal import seasonal_profile
-from .ingest import ingest
+from .ingest import changed_sources, ingest, previous_hashes
 from .quality import quality_markdown, quality_report
 
 log = logging.getLogger(__name__)
@@ -110,3 +113,52 @@ def run_all(cfg, sink, steps=STEPS, offline=False, refresh=False, as_of=None):
     silver = run_silver(cfg, sink, bronze) if "silver" in steps else None
     gold = run_gold(cfg, sink, silver, as_of) if "gold" in steps else None
     return bronze, silver, gold
+
+
+STATE_FILE = "_last_run.json"
+
+
+def code_fingerprint(root) -> str:
+    """Hash of everything besides raw data that silver depends on: config, pipeline code, seed files."""
+    root = Path(root)
+    files = [root / "config" / "pipeline.yaml", *sorted((root / "visitwell_pipeline").rglob("*.py")),
+             *sorted((root / "data" / "seeds").glob("*"))]
+    h = hashlib.sha256()
+    for f in files:
+        if f.is_file():
+            h.update(str(f.relative_to(root)).encode())
+            h.update(f.read_bytes())
+    return h.hexdigest()
+
+
+def needs_silver(changed: list[str], code_changed: bool, silver_present: bool, force: bool) -> bool:
+    return bool(force or changed or code_changed or not silver_present)
+
+
+def run_incremental(cfg, sink, *, refresh=True, offline=False, as_of=None, force=False) -> dict:
+    """Daily job: re-fetch sources, rebuild silver only if a source / the code changed, always rebuild gold
+    (its freshness labels depend on the run date). With a merging sink only changed rows are written."""
+    state_path = cfg.path("silver").parent / STATE_FILE
+    state = json.loads(state_path.read_text()) if state_path.exists() else {}
+    # baseline = hashes of the last *successful* run (state is written last); the manifest is only a fallback
+    # because ingest rewrites it even when a later step fails.
+    prev = state.get("source_hashes") or previous_hashes(cfg.path("raw"))
+    fp = code_fingerprint(cfg["_root"])
+
+    bronze = run_bronze(cfg, sink, offline, refresh)
+    changed = changed_sources(prev, bronze["ingest_log"])
+    silver_present = (cfg.path("silver") / "influenza_monthly.parquet").exists()
+    rebuild = needs_silver(changed, state.get("code_fingerprint") != fp, silver_present, force)
+    log.info("changed sources: %s | code changed: %s | rebuild silver: %s",
+             changed or "none", state.get("code_fingerprint") != fp, rebuild)
+    silver = run_silver(cfg, sink, bronze) if rebuild else None
+    gold = run_gold(cfg, sink, silver, as_of)
+
+    summary = {"run_at": dt.datetime.now(dt.timezone.utc).replace(microsecond=0).isoformat(),
+               "as_of": str(as_of or dt.date.today()), "changed_sources": changed,
+               "silver_rebuilt": rebuild, "code_fingerprint": fp,
+               "source_hashes": {r.file: r.sha256 for r in bronze["ingest_log"].itertuples(index=False)
+                                 if isinstance(r.sha256, str)}}
+    state_path.parent.mkdir(parents=True, exist_ok=True)
+    state_path.write_text(json.dumps(summary, indent=2))
+    return {**summary, "bronze": bronze, "silver": silver, "gold": gold}

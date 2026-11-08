@@ -4,8 +4,9 @@
 * DatabricksSqlSink -> Unity Catalog Delta tables via a SQL warehouse (local push; uses .env)
 * SparkSink         -> Unity Catalog Delta tables from inside a Databricks notebook/job
 
-Both Databricks sinks create the catalog / schemas / volume on first use, then write each table
-with CREATE OR REPLACE, so no table has to exist beforehand.
+Both Databricks sinks create the catalog / schemas / volume on first use, so no table has to exist
+beforehand. DatabricksSqlSink writes each table with CREATE OR REPLACE. SparkSink (the daily job) MERGEs by
+default: existing tables are kept and only new / changed rows are written.
 """
 from __future__ import annotations
 
@@ -102,9 +103,9 @@ class DatabricksSqlSink(_UCBase):
     def __init__(self, cfg, env_file: str | Path | None = None):
         super().__init__(cfg)
         from dotenv import load_dotenv
-        # pipeline/.env wins, then backend/.env, then the repo-root .env shared with the app
+        # pipeline/.env wins, then the repo-root .env shared with the app
         root = Path(cfg["_root"])
-        for p in ([Path(env_file)] if env_file else []) + [root / ".env", root.parent / ".env", root.parent.parent / ".env"]:
+        for p in ([Path(env_file)] if env_file else []) + [root / ".env", root.parent / ".env"]:
             if p.exists():
                 load_dotenv(p)
         for k in ("DATABRICKS_HOST", "DATABRICKS_TOKEN", "DATABRICKS_HTTP_PATH"):
@@ -172,12 +173,97 @@ class DatabricksSqlSink(_UCBase):
             self._conn = None
 
 
-class SparkSink(_UCBase):
-    """Inside Databricks: pandas -> parquet on the (FUSE-mounted) volume -> spark saveAsTable."""
+# --- incremental (MERGE) writes ------------------------------------------------------------
+# Columns that change on every run without the data changing. They are stored but left out of the
+# row hash, so an unchanged row is not rewritten (after a merge they mean "date this row last changed").
+VOLATILE_COLUMNS = frozenset({"_retrieved_at", "_file_sha256", "_file", "built_on", "computed_on",
+                              "ingested_at"})
+# Columns Databricks adds itself (read_files in the laptop push adds _rescued_data). They exist only in the
+# target table; the merge leaves them null for new rows and never treats them as dropped.
+SYSTEM_COLUMNS = frozenset({"_rescued_data"})
+# Run logs: every run appends its rows (history of source hashes), never merged.
+APPEND_TABLES = frozenset({"ingest_log"})
 
-    def __init__(self, cfg, spark):
+
+class SchemaDriftError(RuntimeError):
+    """Incoming table drops or retypes a column; refuse to merge instead of silently rebuilding."""
+
+
+def hash_columns(columns) -> list[str]:
+    """Business columns that define row identity, in a stable (sorted) order."""
+    return sorted(c for c in columns if c not in VOLATILE_COLUMNS)
+
+
+def row_hash_sql(columns, alias: str | None = None) -> str:
+    """Spark SQL expression: sha256 over the business columns. Same expression for source and target."""
+    pre = f"{alias}." if alias else ""
+    parts = ", ".join(f"coalesce(cast({pre}`{c}` as string), '<null>')" for c in hash_columns(columns))
+    return f"sha2(concat_ws(char(31), {parts}), 256)"
+
+
+_TYPE_FAMILIES = (
+    {"tinyint", "smallint", "int", "bigint", "float", "double"},
+    {"date", "timestamp", "timestamp_ntz"},
+)
+
+
+def _compatible(old: str, new: str) -> bool:
+    """Incoming type `new` can be cast to the existing column type `old` without losing meaning."""
+    if old == "string":
+        return True
+    fam = lambda t: next((i for i, f in enumerate(_TYPE_FAMILIES)
+                          if t in f or (i == 0 and t.startswith("decimal"))), None)
+    return fam(old) is not None and fam(old) == fam(new)
+
+
+def plan_merge(existing: dict[str, str] | None, incoming: dict[str, str]) -> dict:
+    """Decide how to write. Schemas are {column: spark simpleString type}.
+
+    Returns {"action": "create"} or {"action": "merge", "add_columns": {col: type}, "casts": {col: type}}.
+    `casts` aligns compatible type differences (e.g. int vs bigint) to the existing table's type.
+    Raises SchemaDriftError when the incoming frame drops a column or changes a type incompatibly.
+    """
+    if existing is None:
+        return {"action": "create"}
+    dropped = sorted(set(existing) - set(incoming) - SYSTEM_COLUMNS)
+    casts = {c: existing[c] for c in incoming if c in existing and existing[c] != incoming[c]}
+    bad = {c: (existing[c], incoming[c]) for c in casts if not _compatible(existing[c], incoming[c])}
+    if dropped or bad:
+        raise SchemaDriftError(
+            f"dropped columns {dropped}, incompatible type changes {bad} - "
+            "run the job once with write_mode=overwrite to rebuild this table")
+    return {"action": "merge", "casts": casts,
+            "add_columns": {c: t for c, t in incoming.items() if c not in existing}}
+
+
+def merge_sql(target: str, source_view: str, columns, casts: dict[str, str] | None = None) -> str:
+    """MERGE that inserts rows whose hash is new and deletes rows whose hash is gone; untouched otherwise."""
+    cols, casts = list(columns), casts or {}
+    select = ", ".join(f"cast(`{c}` as {casts[c]}) AS `{c}`" if c in casts else f"`{c}`" for c in cols)
+    col_list = ", ".join(f"`{c}`" for c in cols)
+    val_list = ", ".join(f"s.`{c}`" for c in cols)
+    return (f"MERGE INTO {target} AS t\n"
+            f"USING (SELECT *, {row_hash_sql(cols)} AS __row_hash FROM (SELECT {select} FROM {source_view})) AS s\n"
+            f"ON {row_hash_sql(cols, 't')} = s.__row_hash\n"
+            f"WHEN NOT MATCHED THEN INSERT ({col_list}) VALUES ({val_list})\n"
+            f"WHEN NOT MATCHED BY SOURCE THEN DELETE")
+
+
+class SparkSink(_UCBase):
+    """Inside Databricks: pandas -> parquet on the (FUSE-mounted) volume -> Delta table.
+
+    write_mode="merge" (default): existing tables are kept; only new / changed rows are inserted and rows
+    that disappeared from the source are deleted (row identity = hash of the business columns).
+    write_mode="overwrite": full rebuild of every table (manual escape hatch).
+    """
+
+    def __init__(self, cfg, spark, write_mode: str = "merge"):
         super().__init__(cfg)
+        if write_mode not in ("merge", "overwrite"):
+            raise ValueError(f"write_mode must be merge or overwrite, got {write_mode!r}")
         self.spark = spark
+        self.write_mode = write_mode
+        self.stats: list[dict] = []
 
     def ensure(self):
         if not self._ready:
@@ -185,16 +271,52 @@ class SparkSink(_UCBase):
                 self.spark.sql(s)
             self._ready = True
 
+    def _schema(self, sdf) -> dict[str, str]:
+        return {f.name: f.dataType.simpleString() for f in sdf.schema.fields}
+
+    def _last_metrics(self, table: str) -> dict:
+        row = self.spark.sql(f"DESCRIBE HISTORY {table} LIMIT 1").collect()[0]
+        return dict(row["operationMetrics"] or {})
+
     def write(self, layer: str, name: str, df: pd.DataFrame, comment: str | None = None):
         self.ensure()
         path = Path(f"{self.volume_root}/_staging/{layer}/{name}.parquet")
         path.parent.mkdir(parents=True, exist_ok=True)
         prepare_for_parquet(df).to_parquet(path, index=False)
-        (self.spark.read.parquet(str(path)).write.format("delta").mode("overwrite")
-         .option("overwriteSchema", "true").saveAsTable(self.fqn(layer, name).replace("`", "")))
+        sdf = self.spark.read.parquet(str(path))
+        table = self.fqn(layer, name)
+        plain = table.replace("`", "")
+        exists = self.spark.catalog.tableExists(plain)
+
+        if self.write_mode == "overwrite":
+            action = "overwrite"
+            sdf.write.format("delta").mode("overwrite").option("overwriteSchema", "true").saveAsTable(plain)
+        elif name in APPEND_TABLES:
+            action = "append"
+            sdf.write.format("delta").mode("append").option("mergeSchema", "true").saveAsTable(plain)
+        else:
+            plan = plan_merge(self._schema(self.spark.table(plain)) if exists else None, self._schema(sdf))
+            action = plan["action"]
+            if action == "create":
+                sdf.write.format("delta").saveAsTable(plain)
+            else:
+                if plan["add_columns"]:
+                    cols = ", ".join(f"`{c}` {t}" for c, t in plan["add_columns"].items())
+                    self.spark.sql(f"ALTER TABLE {table} ADD COLUMNS ({cols})")
+                view = f"_visitwell_src_{layer}_{name}"
+                sdf.createOrReplaceTempView(view)
+                self.spark.sql(merge_sql(table, view, sdf.columns, plan["casts"]))
+                self.spark.catalog.dropTempView(view)
+
         if comment:
-            self.spark.sql(f"COMMENT ON TABLE {self.fqn(layer, name)} IS '{comment.replace(chr(39), '')}'")
-        log.info("delta  %-6s %-28s %8d rows", layer, name, len(df))
+            self.spark.sql(f"COMMENT ON TABLE {table} IS '{comment.replace(chr(39), '')}'")
+        m = self._last_metrics(table) if action in ("merge", "append") else {}
+        stat = dict(layer=layer, table=name, action=action, rows=len(df),
+                    inserted=int(m.get("numTargetRowsInserted", m.get("numOutputRows", 0)) or 0),
+                    deleted=int(m.get("numTargetRowsDeleted", 0) or 0))
+        self.stats.append(stat)
+        log.info("delta  %-6s %-28s %8d rows  %-9s +%d -%d", layer, name, len(df), action,
+                 stat["inserted"], stat["deleted"])
 
     def upload_raw(self, local: Path, rel: str):
         return None  # in the notebook raw files are already read from the volume
