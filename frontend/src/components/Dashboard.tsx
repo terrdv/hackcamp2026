@@ -12,7 +12,7 @@ import type { DestinationReport, Disease, Trend } from "@/data/types";
 const fmt = (s: string) => new Date(s + "T00:00:00").toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" });
 const fmtMonth = (m: string) => new Date(m + "-01T00:00:00").toLocaleDateString(undefined, { month: "short", year: "2-digit" });
 
-const SEV_CLASS: Record<string, string> = { low: "sev-low", moderate: "sev-moderate", elevated: "sev-high", unknown: "sev-low" };
+const SEV_CLASS: Record<string, string> = { low: "sev-low", moderate: "sev-moderate", elevated: "sev-high", unknown: "sev-unknown" };
 
 function TrendBadge({ trend }: { trend: Trend }) {
   const Icon = trend === "increasing" ? TrendingUp : trend === "decreasing" ? TrendingDown : Minus;
@@ -23,7 +23,7 @@ function TrendBadge({ trend }: { trend: Trend }) {
   );
 }
 
-function DiseaseCard({ d, selected, onSelect }: { d: Disease; selected: boolean; onSelect: () => void }) {
+function DiseaseCard({ d, selected, demo, onSelect }: { d: Disease; selected: boolean; demo: boolean; onSelect: () => void }) {
   return (
     <button type="button" onClick={onSelect} className={`card-soft card-selectable text-left ${selected ? "is-selected" : ""}`}>
       <div className="flex items-start justify-between gap-2">
@@ -37,7 +37,7 @@ function DiseaseCard({ d, selected, onSelect }: { d: Disease; selected: boolean;
           <span className="font-semibold">{d.latestCases.toLocaleString()} cases <span className="font-normal text-muted-foreground">({d.reportingPeriod})</span></span>
         )}
       </div>
-      <p className="mt-2 text-xs text-muted-foreground">{d.source} · illustrative classification</p>
+      <p className="mt-2 text-xs text-muted-foreground">{d.source}{demo ? " · illustrative classification" : ""}</p>
     </button>
   );
 }
@@ -61,7 +61,7 @@ function ActivityChart({ report, disease }: { report: DestinationReport; disease
   return (
     <div className="card-soft">
       <p className="mb-1 text-sm font-medium">{disease.name} — reported cases by month</p>
-      <p className="mb-3 text-xs text-muted-foreground">Source: {disease.source} · last 12 months (demo data)</p>
+      <p className="mb-3 text-xs text-muted-foreground">Source: {disease.source} · {report.isDemo ? "last 12 months (demo data)" : "monthly reports up to the latest available month"}</p>
       <div className="h-48">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={data} margin={{ top: 4, right: 8, bottom: 0, left: -14 }}>
@@ -83,7 +83,7 @@ function ComparisonChart({ report, selectedId, onSelect }: { report: Destination
   return (
     <div className="card-soft">
       <p className="mb-1 text-sm font-medium">Reported cases by disease</p>
-      <p className="mb-3 text-xs text-muted-foreground">Same destination and reporting period ({data[0]?.reportingPeriod}); counts are illustrative.</p>
+      <p className="mb-3 text-xs text-muted-foreground">{report.isDemo ? `Same destination and reporting period (${data[0]?.reportingPeriod}); counts are illustrative.` : "Latest month reported for each disease. Periods and counting methods differ between sources."}</p>
       <div className="h-44">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart data={data} margin={{ top: 4, right: 8, bottom: 0, left: -14 }}>
@@ -200,7 +200,9 @@ export function Dashboard({
       <div className="mt-4 min-h-0 flex-1 overflow-y-auto pr-1">
         {tab === "overview" && (
           <div role="tabpanel" className="tab-panel">
-            <div className="mock-badge">Demo data — illustrative only, not live or current health information.</div>
+            {report.isDemo
+              ? <div className="mock-badge">Demo data — illustrative only, not live or current health information.</div>
+              : <p className="text-xs text-muted-foreground">Surveillance data from WHO and OpenDengue. Describes disease activity at the destination, not your personal risk.</p>}
             <p className="mt-4 text-sm leading-relaxed">{d.overview}</p>
             <div className="mt-4 grid grid-cols-2 gap-2 text-center">
               <div className="card-soft !p-3">
@@ -223,7 +225,7 @@ export function Dashboard({
           <div role="tabpanel" className="tab-panel">
             <div className="grid gap-2">
               {report.diseases.map((x) => (
-                <DiseaseCard key={x.id} d={x} selected={selected?.id === x.id} onSelect={() => onSelectDisease(x.id === selectedDiseaseId ? null : x.id)} />
+                <DiseaseCard key={x.id} d={x} demo={!!report.isDemo} selected={selected?.id === x.id} onSelect={() => onSelectDisease(x.id === selectedDiseaseId ? null : x.id)} />
               ))}
             </div>
             <p className="mt-2 text-xs text-muted-foreground">Select a card to filter the globe markers and charts.</p>

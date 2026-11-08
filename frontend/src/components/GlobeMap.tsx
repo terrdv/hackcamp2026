@@ -82,8 +82,11 @@ function makeGridPattern() {
 const WORLD = { center: [10, 20] as [number, number], zoom: 3.5 };
 
 // MapLibre paint colors must be hex/rgba (no oklch); these match the --sev-* tokens in styles.css.
+const esc = (v: unknown) =>
+  String(v ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c] ?? c);
+
 function markerColors() {
-  return { elevated: "#e06454", moderate: "#e5b45a", low: "#4ec9a0" };
+  return { elevated: "#e06454", moderate: "#e5b45a", low: "#4ec9a0", unknown: "#8a96a3" };
 }
 
 export const GlobeMap = forwardRef<GlobeHandle, GlobeMapProps>(function GlobeMap(
@@ -238,7 +241,7 @@ export const GlobeMap = forwardRef<GlobeHandle, GlobeMapProps>(function GlobeMap
               source: "outbreaks",
               paint: {
                 "circle-radius": ["interpolate", ["linear"], ["get", "cases"], 0, 12, 500, 20, 2000, 30, 8000, 40],
-                "circle-color": ["match", ["get", "level"], "elevated", colors.elevated, "moderate", colors.moderate, colors.low],
+                "circle-color": ["match", ["get", "level"], "elevated", colors.elevated, "moderate", colors.moderate, "low", colors.low, colors.unknown],
                 "circle-opacity": 0.18,
               },
             },
@@ -248,7 +251,7 @@ export const GlobeMap = forwardRef<GlobeHandle, GlobeMapProps>(function GlobeMap
               source: "outbreaks",
               paint: {
                 "circle-radius": ["interpolate", ["linear"], ["get", "cases"], 0, 5, 500, 9, 2000, 13, 8000, 18],
-                "circle-color": ["match", ["get", "level"], "elevated", colors.elevated, "moderate", colors.moderate, colors.low],
+                "circle-color": ["match", ["get", "level"], "elevated", colors.elevated, "moderate", colors.moderate, "low", colors.low, colors.unknown],
                 "circle-opacity": 0.9,
                 "circle-stroke-width": 1.5,
                 "circle-stroke-color": "rgba(255, 255, 255, 0.6)",
@@ -282,9 +285,9 @@ export const GlobeMap = forwardRef<GlobeHandle, GlobeMapProps>(function GlobeMap
           .setLngLat([p.longitude, p.latitude])
           .setHTML(
             `<div class="globe-popup-inner">` +
-            `<strong>${p.locationName}</strong>` +
-            `<span>${p.diseaseName} — ${Number(p.cases).toLocaleString()} reported cases</span>` +
-            `<em>Reported ${p.reportDate} · ${p.source} (demo data)</em>` +
+            `<strong>${esc(p.locationName)}</strong>` +
+            `<span>${esc(p.diseaseName)} — ${Number(p.cases).toLocaleString()} reported in ${esc(String(p.reportDate).slice(0, 7))}</span>` +
+            `<em>${esc(p.source)}</em>` +
             `</div>`,
           )
           .addTo(m);
@@ -320,13 +323,14 @@ export const GlobeMap = forwardRef<GlobeHandle, GlobeMapProps>(function GlobeMap
       <div ref={container} className="h-full w-full" />
       {outbreaks.length > 0 && (
         <div className="glass-solid pointer-events-auto absolute bottom-4 left-4 z-10 rounded-2xl px-4 py-3 text-xs">
-          <p className="mb-2 font-semibold uppercase tracking-widest text-muted-foreground">Reported activity (demo)</p>
+          <p className="mb-2 font-semibold uppercase tracking-widest text-muted-foreground">Reported activity</p>
           <div className="grid gap-1.5">
             <span className="flex items-center gap-2"><span className="legend-dot legend-dot-elevated" /> Elevated</span>
             <span className="flex items-center gap-2"><span className="legend-dot legend-dot-moderate" /> Moderate</span>
             <span className="flex items-center gap-2"><span className="legend-dot legend-dot-low" /> Low</span>
+            <span className="flex items-center gap-2"><span className="legend-dot legend-dot-unknown" /> Unknown</span>
           </div>
-          <p className="mt-2 text-muted-foreground">Circle size ≈ reported cases</p>
+          <p className="mt-2 text-muted-foreground">Circle size ≈ latest monthly count</p>
         </div>
       )}
     </div>

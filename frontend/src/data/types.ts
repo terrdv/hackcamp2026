@@ -50,4 +50,5 @@ export interface DestinationReport {
   outbreaks: OutbreakObservation[];
   timeSeries: TimeSeriesPoint[];
   recommendations: TravelRecommendation[];
+  isDemo?: boolean; // true when the mock dataset is shown instead of live Databricks data
 }

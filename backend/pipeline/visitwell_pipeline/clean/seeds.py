@@ -20,6 +20,7 @@ SCHEMAS = {
     "yellow_fever_entry": ["location_iso3", "certificate_required", "condition", "min_age_years", *COMMON],
     "vaccines": ["disease", "location_iso3", "recommendation", "audience", *COMMON],
     "alerts": ["disease", "location_iso3", "admin1", "level", "title", "url", "issued", "expires", *COMMON],
+    "centroids": ["location_iso3", "admin1", "latitude", "longitude", *COMMON],
 }
 DISEASES = {"influenza", "covid19", "dengue", "malaria", "yellow_fever", "measles", "hepatitis_a", "typhoid"}
 
@@ -63,6 +64,12 @@ def clean_seed(df: pd.DataFrame, kind: str, cfg) -> pd.DataFrame:
     if kind == "yellow_fever_entry":
         df["certificate_required"] = df.certificate_required.fillna("unknown").str.strip().str.lower()
         df.loc[~df.certificate_required.isin(YF_VALUES), "certificate_required"] = "unknown"
+    if kind == "centroids":
+        for c, lim in (("latitude", 90), ("longitude", 180)):
+            df[c] = pd.to_numeric(df[c], errors="coerce")
+            for i, v in enumerate(df[c]):
+                if pd.isna(v) or abs(v) > lim:
+                    issues[i].append(f"invalid {c}")
     for c in ("issued", "expires"):
         if c in df:
             df[c] = pd.to_datetime(df[c], errors="coerce")
@@ -74,7 +81,8 @@ def clean_seed(df: pd.DataFrame, kind: str, cfg) -> pd.DataFrame:
             issues[i].append("verified row lacks source_url/checked_on -> treated as unverified")
     df.loc[df.source_url.isna() | df.checked_on.isna(), "verified"] = False
     df["validation_issues"] = ["; ".join(x) or None for x in issues]
-    valid = pd.Series([not any(("unresolved" in x) or ("unknown disease" in x) for x in iss) for iss in issues],
+    fatal = ("unresolved", "unknown disease", "invalid latitude", "invalid longitude")
+    valid = pd.Series([not any(f in x for x in iss for f in fatal) for iss in issues],
                       index=df.index, dtype=bool)
     df["is_valid"] = valid
     df = apply_usability(df, cfg)

@@ -7,7 +7,16 @@
 // the build fails. Never add compression (compressPublicAssets, vite-plugin-compression):
 // hosting already compresses at the edge.
 // You can pass additional config via defineConfig({ vite: { ... }, etc... }) if needed.
+import { resolve } from "node:path";
+import { loadEnv } from "vite";
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
+
+// Server-only secrets: copy DATABRICKS_* from the repo-root .env (shared with the pipeline) into process.env for
+// the dev server, where the getLiveReport server function reads them. They have no VITE_ prefix, so they are
+// never injected into the browser bundle. In production, set them as environment secrets on the host instead.
+for (const [key, value] of Object.entries(loadEnv("development", resolve(import.meta.dirname, ".."), "DATABRICKS_"))) {
+  process.env[key] ??= value;
+}
 
 export default defineConfig({
   tanstackStart: {

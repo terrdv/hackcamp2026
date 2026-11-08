@@ -90,7 +90,7 @@ export function SearchForm({ onSubmit, hidden }: { onSubmit: (v: SearchValues) =
         </div>
         {error && <p className="px-3 pt-2 text-sm text-destructive" role="alert">{error}</p>}
       </form>
-      <p className="mt-4 text-center text-xs text-muted-foreground">Demo data available for Japan, Thailand and Brazil</p>
+      <p className="mt-4 text-center text-xs text-muted-foreground">Live surveillance data for {destinations.length} destinations</p>
       </div>
     </div>
   );

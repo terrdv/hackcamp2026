@@ -69,7 +69,8 @@ tests/                        pytest, synthetic fixtures, no network
 | Hepatitis A | static presence | presence seed | food_water |
 | Typhoid | static presence | presence seed | food_water |
 
-Destinations: `VNM, PHL, IND, CHN, MEX, BRA` (edit `destinations:` in the config).
+Destinations: `VNM, PHL, IND, CHN, MEX, BRA, THA, JPN` (edit `destinations:` in the config; keep it in sync with
+`frontend/src/data/destinations.ts`, where each destination carries its `iso3`).
 
 ## Data sources
 
@@ -98,6 +99,7 @@ via the CSVs in `data/seeds/`:
 | `yellow_fever_entry_seed.csv` | location_iso3, certificate_required ∈ yes / no / conditional / unknown, condition, min_age_years |
 | `vaccine_recommendations_seed.csv` | disease, location_iso3, recommendation, audience |
 | `alerts_seed.csv` | disease, location_iso3, admin1, level, title, url, issued, expires (PHAC travel health notices) |
+| `admin1_centroids_seed.csv` | location_iso3, admin1 (empty = national), latitude, longitude: map dot positions from Natural Earth 10m label points |
 
 All seed files also have `source_name, source_url, checked_on, verified, needs_review, notes`.
 
@@ -158,7 +160,19 @@ gives the first and last period, % missing months, complete years and data as of
   status kept in `notes`. An active official alert overrides the status to `outbreak`.
 * **presence**: from the presence seed. Malaria rows carry the WHO/MAP incidence as `supporting_*` only.
 * **alerts**: usable seed alerts active on the run date.
-* **destination_outlook**: the only table the app reads.
+* **destination_outlook**: disease levels per destination (read by the app, see below).
+* **monthly_cases**: one row per disease × location × admin1 × month for the last `app.series_months` (24) months of
+  each series, counted back from that series' latest reported month. `metric` is `lab_confirmed_positives`
+  (influenza, FluNet positives) or `reported_cases` (dengue, measles). Unreported months stay null. The month
+  holding FluNet's latest week is dropped until that week reaches the month's end, so a partial month never
+  looks like a drop.
+* **disease_trend**: latest month's count plus a trend: the last `app.trend_window_months` (3) months against the
+  3 before, `increasing` at a ratio ≥ 1.25, `decreasing` at ≤ 0.8, otherwise `stable` (**placeholder thresholds
+  that need review**). A gap in those 6 months, or a latest month older than `app.trend_max_age_months` (12),
+  gives `unknown` with the reason in `trend_note`.
+* **map_points**: one dot per disease × place for the map, using the latest month's count. Admin1 dots are used when
+  the admin1 series is no older than `app.map_max_age_months` (24) and has coordinates in the centroids seed
+  (today: dengue in Brazil's states). Otherwise there is one national dot.
 
 | column | meaning |
 |---|---|
@@ -195,8 +209,8 @@ Tables are created automatically in Unity Catalog:
 | schema | tables |
 |---|---|
 | `visitwell.bronze` | ingest_log, flunet_raw, flunet_dictionary, opendengue_{national,spatial,temporal}_raw, measles_raw, population_raw, malaria_who_raw (+ malaria_map_raw) |
-| `visitwell.silver` | influenza_weekly, influenza_monthly, dengue_monthly, measles_monthly, malaria_annual, population, seed_presence, seed_yellow_fever_entry, seed_vaccines, seed_alerts, quality_report |
-| `visitwell.gold` | seasonal_profile, flu_realtime, measles_status, presence, alerts, **destination_outlook** |
+| `visitwell.silver` | influenza_weekly, influenza_monthly, dengue_monthly, measles_monthly, malaria_annual, population, seed_presence, seed_yellow_fever_entry, seed_vaccines, seed_alerts, seed_centroids, quality_report |
+| `visitwell.gold` | seasonal_profile, flu_realtime, measles_status, presence, alerts, **destination_outlook**, **monthly_cases**, **disease_trend**, **map_points** |
 
 Volume `/Volumes/visitwell/bronze/landing/` holds `raw/` (archived source files + `_manifest.json`) and `_staging/` (parquet used to load the tables).
 
@@ -214,6 +228,15 @@ runs on the SQL warehouse. Catalog, schemas and volume are created if missing (`
 contains the repo, and run it, or add it as a Job task with parameters `steps`, `offline` and `as_of`. It reads
 raw files from the volume, calls the same `run_all()`, and writes with `saveAsTable`.
 
+## How the web app reads the data
+The frontend calls the TanStack Start server function `getLiveReport` (`frontend/src/data/report.functions.ts`).
+It queries `destination_outlook`, `disease_trend`, `monthly_cases` and `map_points` for one `location_iso3`
+through the Databricks SQL Statement Execution API (`frontend/src/server/databricks.server.ts`). Then
+`frontend/src/data/report-mapping.ts` maps them to the UI shape. It applies the trip window and the 21-day
+real-time influenza rule, and maps each level to elevated / moderate / low / unknown. The server needs the same
+`DATABRICKS_HOST`, `DATABRICKS_TOKEN` and `DATABRICKS_HTTP_PATH` variables in its environment. If the live call
+fails, destinations that have a demo dataset fall back to it, labelled as demo data.
+
 ## Tests
 `python -m pytest`: seasonal index and labels, insufficient years, excluded years, consistency, percentile
 labels and boundaries, freshness fallback (at build time and at query time), presence gate (none and unknown),
@@ -228,3 +251,6 @@ The tests do no network or file I/O beyond pytest's tmp dir.
 * India has no sub-annual national dengue data in OpenDengue V1.3, so its dengue card shows presence only.
 * Admin1 dengue profiles mostly cover older years (e.g. VNM/PHL up to 2010); `data_as_of` shows this.
 * MAP admin1 malaria is not included until a manual export is added.
+* THA and JPN have no presence seed rows yet, so malaria / yellow fever / hepatitis A / typhoid (and Thai dengue,
+  which is presence-gated) show as `unknown` there until rows are added and verified.
+* Mexico's state-level dengue series end more than 24 months ago, so Mexico shows a national dengue dot.

@@ -10,6 +10,7 @@ from .clean.dengue import clean_dengue
 from .clean.influenza import clean_influenza
 from .clean.measles import clean_malaria, clean_measles, clean_population
 from .clean.seeds import apply_usability, load_seeds
+from .gold.app_tables import disease_trend, map_points, monthly_cases
 from .gold.flu_realtime import flu_realtime
 from .gold.measles_status import measles_status
 from .gold.outlook import build_alerts, build_outlook, build_presence
@@ -19,6 +20,7 @@ from .quality import quality_markdown, quality_report
 
 log = logging.getLogger(__name__)
 STEPS = ("bronze", "silver", "gold")
+APP_TABLES = {"destination_outlook", "monthly_cases", "disease_trend", "map_points"}
 
 
 def _read(sink, layer, name):
@@ -90,11 +92,15 @@ def run_gold(cfg, sink, silver: dict | None = None, as_of: dt.date | None = None
                             dengue_seasonal=dengue_seasonal, dengue_monthly=dm, measles=measles,
                             presence=presence, alerts=alerts, yf_entry=get("seed_yellow_fever_entry"))
     outlook["built_on"] = as_of
+    cases = monthly_cases(fm, dm, get("measles_monthly"), cfg)
+    trend = disease_trend(cases, cfg, as_of)
+    points = map_points(trend, get("seed_centroids"), cfg, as_of)
     gold = {"seasonal_profile": seasonal, "flu_realtime": rt, "measles_status": measles,
-            "presence": presence, "alerts": alerts, "destination_outlook": outlook}
+            "presence": presence, "alerts": alerts, "destination_outlook": outlook,
+            "monthly_cases": cases, "disease_trend": trend, "map_points": points}
     for name, df in gold.items():
         sink.write("gold", name, df, comment=f"VisitWell gold: {name}" +
-                   (" (the only table the app reads)" if name == "destination_outlook" else ""))
+                   (" (read by the app)" if name in APP_TABLES else ""))
     outlook.to_csv(cfg.path("gold") / "destination_outlook.csv", index=False)
     return gold
 

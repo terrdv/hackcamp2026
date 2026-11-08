@@ -2,7 +2,7 @@
 # Every threshold used by the pipeline lives here. Values marked `needs_review: true`
 # are placeholders chosen by the dev team, NOT official cut-offs.
 
-destinations: [VNM, PHL, IND, CHN, MEX, BRA]
+destinations: [VNM, PHL, IND, CHN, MEX, BRA, THA, JPN]
 
 paths:            # relative to the repo root (overridden in the Databricks notebook)
   raw: data/raw
@@ -108,6 +108,16 @@ seeds:
     yellow_fever_entry: yellow_fever_entry_seed.csv
     vaccines: vaccine_recommendations_seed.csv
     alerts: alerts_seed.csv
+    centroids: admin1_centroids_seed.csv   # map coordinates (Natural Earth label points)
+
+app:          # tables shaped for the web app: monthly_cases, disease_trend, map_points
+  series_months: 24                 # months of history kept per series (counted back from its latest month)
+  trend_window_months: 3            # trend = last N observed months vs the N months before
+  trend_increase_ratio: 1.25        # needs_review: recent/prior >= this -> increasing
+  trend_decrease_ratio: 0.8         # needs_review: recent/prior <= this -> decreasing ; in between -> stable
+  trend_max_age_months: 12          # latest month older than this (vs run date) -> trend unknown
+  map_max_age_months: 24            # admin1 map points older than this are dropped (national point used instead)
+  needs_review: true
 
 card_groups:
   influenza: respiratory

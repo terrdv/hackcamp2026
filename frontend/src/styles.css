@@ -96,6 +96,7 @@
   --sev-low: oklch(0.78 0.13 160);
   --sev-moderate: oklch(0.82 0.14 80);
   --sev-high: oklch(0.7 0.19 25);
+  --sev-unknown: oklch(0.7 0.02 240);
   --glass: oklch(0.18 0.045 255 / 55%);
   --glass-solid: oklch(0.17 0.045 255 / 88%);
   --gradient-primary: linear-gradient(135deg, var(--primary), var(--accent));
@@ -124,6 +125,7 @@
   --earth-marker-high: #e06454;
   --earth-marker-moderate: #e5b45a;
   --earth-marker-low: #4ec9a0;
+  --earth-marker-unknown: #8a96a3;
   --shadow-search: 0 24px 70px oklch(0 0 0 / 40%), inset 0 1px 0 var(--search-glass-highlight);
 }
 
@@ -166,6 +168,7 @@ body { font-family: var(--font-sans); }
 .sev-low { color: var(--sev-low); background: color-mix(in oklab, var(--sev-low) 18%, transparent); }
 .sev-moderate { color: var(--sev-moderate); background: color-mix(in oklab, var(--sev-moderate) 18%, transparent); }
 .sev-high { color: var(--sev-high); background: color-mix(in oklab, var(--sev-high) 18%, transparent); }
+.sev-unknown { color: var(--sev-unknown); background: color-mix(in oklab, var(--sev-unknown) 18%, transparent); }
 .mock-badge { font-size: .75rem; padding: .5rem .75rem; border-radius: .75rem; color: var(--sev-moderate); background: color-mix(in oklab, var(--sev-moderate) 12%, transparent); border: 1px solid color-mix(in oklab, var(--sev-moderate) 30%, transparent); }
 .check-row { display: flex; align-items: center; gap: .65rem; font-size: .9rem; padding: .45rem .6rem; border-radius: .6rem; cursor: pointer; }
 .check-row:hover { background: oklch(1 0 0 / 6%); }
@@ -194,6 +197,7 @@ body { font-family: var(--font-sans); }
 .legend-dot-elevated { background: var(--sev-high); }
 .legend-dot-moderate { background: var(--sev-moderate); }
 .legend-dot-low { background: var(--sev-low); }
+.legend-dot-unknown { background: var(--sev-unknown); }
 .globe-popup .maplibregl-popup-content { background: var(--glass-solid); backdrop-filter: blur(14px); border: 1px solid var(--border); border-radius: var(--radius); color: var(--foreground); padding: .7rem .9rem; box-shadow: var(--shadow-float); }
 .globe-popup .maplibregl-popup-tip { border-top-color: var(--border) !important; }
 .globe-popup-inner { display: grid; gap: .15rem; font-size: .8rem; }

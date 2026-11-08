@@ -26,6 +26,7 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   const globe = useRef<GlobeHandle>(null);
+  const request = useRef(0);
   const [phase, setPhase] = useState<"search" | "flying" | "results">("search");
   const [search, setSearch] = useState<SearchValues | null>(null);
   const [report, setReport] = useState<DestinationReport | null>(null);
@@ -38,9 +39,13 @@ function Index() {
     setSelectedDiseaseId(null);
     setPhase("flying");
     globe.current?.flyTo(v.destination.coords, v.destination.zoom, () => setPhase("results"));
-    getDestinationReport(v.destination.id).then(setReport).catch(() => setReport(null));
+    const id = ++request.current;
+    getDestinationReport(v.destination, v.depart, v.ret)
+      .then((r) => { if (id === request.current) setReport(r); })
+      .catch(() => { if (id === request.current) setReport(null); });
   }
   function back() {
+    request.current++;
     setPhase("search");
     setReport(null);
     setSelectedDiseaseId(null);

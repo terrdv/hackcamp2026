@@ -102,9 +102,9 @@ class DatabricksSqlSink(_UCBase):
     def __init__(self, cfg, env_file: str | Path | None = None):
         super().__init__(cfg)
         from dotenv import load_dotenv
-        # pipeline/.env wins, then the repo-root .env shared with the app
+        # pipeline/.env wins, then backend/.env, then the repo-root .env shared with the app
         root = Path(cfg["_root"])
-        for p in ([Path(env_file)] if env_file else []) + [root / ".env", root.parent / ".env"]:
+        for p in ([Path(env_file)] if env_file else []) + [root / ".env", root.parent / ".env", root.parent.parent / ".env"]:
             if p.exists():
                 load_dotenv(p)
         for k in ("DATABRICKS_HOST", "DATABRICKS_TOKEN", "DATABRICKS_HTTP_PATH"):

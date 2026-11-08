@@ -12,6 +12,7 @@ export interface Advisory {
 
 export interface Destination {
   id: string;
+  iso3: string; // matches location_iso3 in the Databricks gold tables
   name: string;
   region: string;
   coords: [number, number]; // [lng, lat]
@@ -29,9 +30,14 @@ const commonSources = [
   { label: "WHO International Travel & Health", url: "https://www.who.int/health-topics/travel-and-health" },
 ];
 
+// Destinations added with the live pipeline carry no hand-written advice; their content comes from the data.
+const SURVEILLANCE_OVERVIEW =
+  "Disease activity for this destination comes from WHO and OpenDengue surveillance data, compared with what is normal there for your travel dates. Always check official travel health advice before you go.";
+
 export const destinations: Destination[] = [
   {
     id: "japan",
+    iso3: "JPN",
     name: "Japan",
     region: "East Asia",
     coords: [138.25, 36.2],
@@ -54,6 +60,7 @@ export const destinations: Destination[] = [
   },
   {
     id: "thailand",
+    iso3: "THA",
     name: "Thailand",
     region: "Southeast Asia",
     coords: [100.99, 15.87],
@@ -77,6 +84,7 @@ export const destinations: Destination[] = [
   },
   {
     id: "brazil",
+    iso3: "BRA",
     name: "Brazil",
     region: "South America",
     coords: [-51.93, -14.24],
@@ -96,6 +104,76 @@ export const destinations: Destination[] = [
     prevention: ["Get yellow fever vaccine at least 10 days before travel", "Use repellent and sleep under screens", "Practice food and water hygiene", "Seek shade at midday"],
     packing: ["Yellow fever certificate", "Insect repellent", "Permethrin-treated clothing", "High-SPF sunscreen", "Wide-brimmed hat", "First-aid kit"],
     sources: [...commonSources, { label: "PAHO – Yellow Fever", url: "https://www.paho.org/en/topics/yellow-fever" }],
+  },
+  {
+    id: "vietnam",
+    iso3: "VNM",
+    name: "Vietnam",
+    region: "Southeast Asia",
+    coords: [106.3, 16.2],
+    zoom: 4.8,
+    overview: SURVEILLANCE_OVERVIEW,
+    advisories: [],
+    seasonal: [],
+    prevention: [],
+    packing: [],
+    sources: [...commonSources, { label: "Government of Canada – Vietnam travel advice", url: "https://travel.gc.ca/destinations/vietnam" }],
+  },
+  {
+    id: "philippines",
+    iso3: "PHL",
+    name: "Philippines",
+    region: "Southeast Asia",
+    coords: [122.0, 12.5],
+    zoom: 4.8,
+    overview: SURVEILLANCE_OVERVIEW,
+    advisories: [],
+    seasonal: [],
+    prevention: [],
+    packing: [],
+    sources: [...commonSources, { label: "Government of Canada – Philippines travel advice", url: "https://travel.gc.ca/destinations/philippines" }],
+  },
+  {
+    id: "india",
+    iso3: "IND",
+    name: "India",
+    region: "South Asia",
+    coords: [79.0, 22.0],
+    zoom: 3.8,
+    overview: SURVEILLANCE_OVERVIEW,
+    advisories: [],
+    seasonal: [],
+    prevention: [],
+    packing: [],
+    sources: [...commonSources, { label: "Government of Canada – India travel advice", url: "https://travel.gc.ca/destinations/india" }],
+  },
+  {
+    id: "china",
+    iso3: "CHN",
+    name: "China",
+    region: "East Asia",
+    coords: [104.2, 35.9],
+    zoom: 3.2,
+    overview: SURVEILLANCE_OVERVIEW,
+    advisories: [],
+    seasonal: [],
+    prevention: [],
+    packing: [],
+    sources: [...commonSources, { label: "Government of Canada – China travel advice", url: "https://travel.gc.ca/destinations/china" }],
+  },
+  {
+    id: "mexico",
+    iso3: "MEX",
+    name: "Mexico",
+    region: "North America",
+    coords: [-102.5, 23.6],
+    zoom: 4.0,
+    overview: SURVEILLANCE_OVERVIEW,
+    advisories: [],
+    seasonal: [],
+    prevention: [],
+    packing: [],
+    sources: [...commonSources, { label: "Government of Canada – Mexico travel advice", url: "https://travel.gc.ca/destinations/mexico" }],
   },
 ];
 
