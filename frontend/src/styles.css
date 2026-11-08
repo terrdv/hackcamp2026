@@ -150,6 +150,11 @@ body { font-family: var(--font-sans); }
 .glass-earth-canvas canvas { display: block; touch-action: none; }
 .globe-search-canvas { height: 200dvh; }
 .globe-bg .maplibregl-canvas { filter: contrast(1.05); }
+/* Hologram map style (src/lib/map-config.ts): soft cyan rim glow (#38BDF8) around the globe. A circle behind the
+   transparent map canvas, moved/scaled with a transform to track the globe (GlobeMap), so its shadow is rasterised
+   once instead of blurring the whole canvas every frame. Values mirror HOLOGRAM.atmosphere in src/lib/globe-style.ts. */
+.globe-rim { position: absolute; left: 0; top: 0; width: 1000px; height: 1000px; border-radius: 50%; pointer-events: none;
+  transform-origin: 0 0; box-shadow: 0 0 24px 4px rgba(56, 189, 248, 0.35); will-change: transform; }
 .search-platform { background: var(--search-glass); backdrop-filter: blur(24px) saturate(.65); border: 1px solid var(--search-glass-border); box-shadow: var(--shadow-search); }
 .glass { background: var(--glass); backdrop-filter: blur(18px) saturate(1.3); border: 1px solid var(--border); box-shadow: var(--shadow-float); }
 .glass-solid { background: var(--glass-solid); backdrop-filter: blur(22px); border: 1px solid var(--border); box-shadow: var(--shadow-float); }

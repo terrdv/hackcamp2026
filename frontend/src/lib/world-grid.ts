@@ -10,7 +10,14 @@
 // Earth splits countries at the antimeridian (Russia, Fiji), so each part is clipped on its own side of ±180° and
 // no line ever wraps around the globe.
 
-import type { Feature, FeatureCollection, MultiLineString, MultiPolygon, Position } from "geojson";
+import type {
+  Feature,
+  FeatureCollection,
+  MultiLineString,
+  MultiPolygon,
+  Point,
+  Position,
+} from "geojson";
 
 export const GRID_SPACING_DEG = 1;
 export const GRID_LEVELS = [4, 2, 1] as const;
@@ -134,4 +141,152 @@ export function buildWorldGrid(
     }
   }
   return { type: "FeatureCollection", features };
+}
+
+/** Furthest latitude for the whole-globe grid: meridians converge near the poles and would just add clutter. */
+export const GRATICULE_MAX_LAT = 80;
+
+/**
+ * The same whole-degree grid over the entire globe (oceans included), one MultiLineString per level. Its lines are
+ * the ones buildWorldGrid clips to countries, so the ocean and land grids line up exactly.
+ */
+export function buildGraticule(
+  spacing = GRID_SPACING_DEG,
+  maxLat = GRATICULE_MAX_LAT,
+): FeatureCollection<MultiLineString, { s: GridLevel }> {
+  const byLevel = new Map<GridLevel, Position[][]>();
+  const push = (level: GridLevel, line: Position[]) => {
+    const list = byLevel.get(level);
+    if (list) list.push(line);
+    else byLevel.set(level, [line]);
+  };
+  const n = Math.floor(maxLat / spacing);
+  for (let i = -n; i <= n; i++) {
+    const lat = i * spacing;
+    // Split each parallel into 10° pieces so it follows the curve of the globe.
+    const line: Position[] = [];
+    for (let lon = -180; lon <= 180; lon += 10) line.push([lon, lat]);
+    push(levelOf(i), line);
+  }
+  for (let i = Math.ceil(-180 / spacing); i * spacing < 180; i++) {
+    if (i * spacing === -180) continue; // the antimeridian seam
+    push(levelOf(i), [
+      [i * spacing, -n * spacing],
+      [i * spacing, n * spacing],
+    ]);
+  }
+  return {
+    type: "FeatureCollection",
+    features: GRID_LEVELS.filter((s) => byLevel.has(s)).map((s) => ({
+      type: "Feature",
+      properties: { s },
+      geometry: { type: "MultiLineString", coordinates: byLevel.get(s)! },
+    })),
+  };
+}
+
+function insidePolygon(rings: Position[][], x: number, y: number): boolean {
+  let inside = false;
+  for (const ring of rings) {
+    for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) {
+      const [xi, yi] = ring[i]!;
+      const [xj, yj] = ring[j]!;
+      if (yi! > y !== yj! > y && x < ((xj! - xi!) * (y - yi!)) / (yj! - yi!) + xi!)
+        inside = !inside;
+    }
+  }
+  return inside;
+}
+
+/** Deterministic pseudo-random numbers (mulberry32), so the particles sit in the same places on every load. */
+function random(seed: number) {
+  return () => {
+    seed |= 0;
+    seed = (seed + 0x6d2b79f5) | 0;
+    let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+/** `count` points spread evenly over the oceans (not on any country), within ±60° latitude. */
+export function oceanParticles(
+  countries: FeatureCollection<MultiPolygon, CountryProps>,
+  count: number,
+  seed = 7,
+): FeatureCollection<Point, { r: number }> {
+  const polys = countries.features.flatMap((f) =>
+    f.geometry.coordinates.map((rings) => {
+      let [minX, minY, maxX, maxY] = [Infinity, Infinity, -Infinity, -Infinity];
+      for (const [x, y] of rings[0] ?? []) {
+        minX = Math.min(minX, x!);
+        maxX = Math.max(maxX, x!);
+        minY = Math.min(minY, y!);
+        maxY = Math.max(maxY, y!);
+      }
+      return { rings, minX, minY, maxX, maxY };
+    }),
+  );
+  const rnd = random(seed);
+  const features: Feature<Point, { r: number }>[] = [];
+  const maxSin = Math.sin((60 * Math.PI) / 180);
+  for (let tries = 0; features.length < count && tries < count * 20; tries++) {
+    const x = rnd() * 360 - 180;
+    const y = (Math.asin((rnd() * 2 - 1) * maxSin) * 180) / Math.PI; // area-uniform on the sphere
+    const onLand = polys.some(
+      (p) =>
+        x >= p.minX && x <= p.maxX && y >= p.minY && y <= p.maxY && insidePolygon(p.rings, x, y),
+    );
+    if (!onLand) {
+      features.push({
+        type: "Feature",
+        properties: { r: 0.6 + rnd() * 0.8 }, // size multiplier so the dots don't all look identical
+        geometry: { type: "Point", coordinates: [x, y] },
+      });
+    }
+  }
+  return { type: "FeatureCollection", features };
+}
+
+/** True when a ring edge runs along the ±180° cut Natural Earth uses to split countries such as Russia and Fiji. */
+const onSeam = (a: Position, b: Position) => Math.abs(a[0]!) >= 179.99 && Math.abs(b[0]!) >= 179.99;
+
+/**
+ * Polygon rings as outline lines, minus the edges along the antimeridian cut, so countries split at ±180° get no
+ * fake border down the middle (e.g. through Chukotka). Fills and hit-testing keep using the polygons.
+ */
+export function outlineLines(polygons: Position[][][]): Position[][] {
+  const lines: Position[][] = [];
+  for (const rings of polygons) {
+    for (const ring of rings) {
+      let line: Position[] = [];
+      for (let i = 0; i + 1 < ring.length; i++) {
+        const a = ring[i]!;
+        const b = ring[i + 1]!;
+        if (onSeam(a, b)) {
+          if (line.length > 1) lines.push(line);
+          line = [];
+          continue;
+        }
+        if (line.length === 0) line.push(a);
+        line.push(b);
+      }
+      if (line.length > 1) lines.push(line);
+    }
+  }
+  return lines;
+}
+
+/** Outline lines for every country (same properties as the polygons). */
+export function worldOutlines(
+  countries: FeatureCollection<MultiPolygon, CountryProps>,
+): FeatureCollection<MultiLineString, CountryProps> {
+  return {
+    type: "FeatureCollection",
+    features: countries.features.map((f) => ({
+      type: "Feature",
+      properties: f.properties,
+      geometry: { type: "MultiLineString", coordinates: outlineLines(f.geometry.coordinates) },
+    })),
+  };
 }

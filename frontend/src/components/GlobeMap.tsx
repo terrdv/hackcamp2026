@@ -5,7 +5,17 @@ import workerUrl from "maplibre-gl/dist/maplibre-gl-worker.mjs?url";
 import type { ActivityLevel, OutbreakObservation } from "@/data/types";
 import { getCountryShape, loadCountryShape } from "@/data/countryShapes";
 import { loadWorld } from "@/data/worldShapes";
-import { COUNTRY_STYLE, GRID_LOD, SELECT_FADE_MS, rgba } from "@/lib/globe-style";
+import { outlineLines } from "@/lib/world-grid";
+import { HOLOGRAM, SELECT_FADE_MS } from "@/lib/globe-style";
+import {
+  GRID_BIG_ENOUGH,
+  byDestination,
+  countryLayers,
+  gridLodOpacity,
+  notDestination,
+  selectedGridOpacity,
+} from "@/lib/globe-layers";
+import { HOLOGRAM_SELECTED_PULSE, MAP_STYLE } from "@/lib/map-config";
 import { destinations } from "@/data/destinations";
 
 export interface GlobeHandle {
@@ -54,33 +64,28 @@ function smoothRing(ring: number[][]): number[][] {
   return rounded;
 }
 
-// Country layers. Unselected borders/grid cover every country; hover and selected layers draw the same geometry on
-// top, filtered to one country. All grid layers share one source, so lines line up across borders.
-const S = COUNTRY_STYLE;
-const SELECTED_LAYERS = [
-  ["sel-fill", "fill-opacity"],
-  ["sel-glow", "line-opacity"],
-  ["sel-border", "line-opacity"],
-] as const;
-const NONE = "\u0000"; // matches no destination id
-const byDestination = (id: string | null) => ["==", ["get", "d"], id ?? NONE];
-// Skip the grid on countries too small on screen to show it (tiny islands, microstates).
-const GRID_BIG_ENOUGH = [">=", ["zoom"], ["get", "mz"]];
-// Level of detail: 4° lines always, 2° then 1° lines fade in as the map zooms in.
-const GRID_LOD_OPACITY = [
-  "interpolate", ["linear"], ["zoom"],
-  GRID_LOD.twoDegree.from, ["match", ["get", "s"], 4, 1, 0],
-  GRID_LOD.twoDegree.to, ["match", ["get", "s"], 1, 0, 1],
-  GRID_LOD.oneDegree.from, ["match", ["get", "s"], 1, 0, 1],
-  GRID_LOD.oneDegree.to, 1,
-];
-// Selected grid: 2° when zoomed far out, 1° otherwise, times the selection fade `t` (zoom must stay top-level).
-const selectedGridOpacity = (t: number) => [
-  "interpolate", ["linear"], ["zoom"],
-  GRID_LOD.selectedOneDegree.from, ["match", ["get", "s"], 1, 0, t],
-  GRID_LOD.selectedOneDegree.to, t,
-];
-const instant = { duration: 0 };
+// Same rounding for an open line (an outline cut at the antimeridian): interior corners only, ends stay put.
+function smoothLine(line: number[][]): number[][] {
+  const first = line[0];
+  const last = line[line.length - 1];
+  if (!first || !last) return line;
+  if (first[0] === last[0] && first[1] === last[1]) return smoothRing(line);
+  if (line.length < 3) return line;
+  const out: number[][] = [first];
+  for (let i = 0; i + 1 < line.length; i++) {
+    const [ax, ay] = line[i]!;
+    const [bx, by] = line[i + 1]!;
+    if (ax === undefined || ay === undefined || bx === undefined || by === undefined) continue;
+    if (i > 0) out.push([ax * 0.85 + bx * 0.15, ay * 0.85 + by * 0.15]);
+    if (i + 2 < line.length) out.push([ax * 0.15 + bx * 0.85, ay * 0.15 + by * 0.85]);
+  }
+  out.push(last);
+  return out;
+}
+
+// Country borders, grids and highlight layers for the chosen look (src/lib/map-config.ts -> src/lib/globe-layers.ts).
+const LAYERS = countryLayers(MAP_STYLE);
+const easeOut = (t: number) => 1 - (1 - t) * (1 - t);
 
 const WORLD = { center: [10, 20] as [number, number], zoom: 3.5 };
 
@@ -104,6 +109,7 @@ export const GlobeMap = forwardRef<GlobeHandle, GlobeMapProps>(function GlobeMap
   ref,
 ) {
   const container = useRef<HTMLDivElement>(null);
+  const rim = useRef<HTMLDivElement>(null);
   const map = useRef<import("maplibre-gl").Map | null>(null);
   const zoomLimits = useRef({ min: 0, max: 22 });
   const ready = useRef(false);
@@ -114,7 +120,8 @@ export const GlobeMap = forwardRef<GlobeHandle, GlobeMapProps>(function GlobeMap
   const highlightId = selectedDestinationId ?? highlightedCountryId;
   const dataRef = useRef({ outbreaks, selectedDiseaseId, selectedDestinationId, highlightId });
   dataRef.current = { outbreaks, selectedDiseaseId, selectedDestinationId, highlightId };
-  const fade = useRef({ frame: 0, shownFor: null as string | null });
+  // Selection fade (value 0..1, also scales the pulsing glow) and hover fade, animated with requestAnimationFrame.
+  const fade = useRef({ frame: 0, hoverFrame: 0, value: 0, pulse: 1, shownFor: null as string | null });
 
   function setSearchZoom(m: import("maplibre-gl").Map, locked: boolean) {
     // Camera bounds also cover pinch, double-click and keyboard zoom while
@@ -138,8 +145,10 @@ export const GlobeMap = forwardRef<GlobeHandle, GlobeMapProps>(function GlobeMap
   }
 
   function setSelectedOpacity(m: import("maplibre-gl").Map, value: number) {
-    for (const [layer, prop] of SELECTED_LAYERS) m.setPaintProperty(layer, prop, value);
-    m.setPaintProperty("sel-grid", "line-opacity", selectedGridOpacity(value) as never);
+    fade.current.value = value;
+    for (const [layer, prop] of LAYERS.selectedFade) m.setPaintProperty(layer, prop, value);
+    m.setPaintProperty(LAYERS.selectedGrid, "line-opacity", selectedGridOpacity(value) as never);
+    if (LAYERS.pulsedGlow) m.setPaintProperty(LAYERS.pulsedGlow[0], LAYERS.pulsedGlow[1], value * fade.current.pulse);
   }
 
   // Unselected -> selected: fade the selected layers in (instant with reduced motion).
@@ -149,7 +158,7 @@ export const GlobeMap = forwardRef<GlobeHandle, GlobeMapProps>(function GlobeMap
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const step = () => {
       const t = reduce ? 1 : Math.min(1, (performance.now() - start) / SELECT_FADE_MS);
-      setSelectedOpacity(m, 1 - (1 - t) * (1 - t)); // ease-out
+      setSelectedOpacity(m, easeOut(t));
       if (t < 1) fade.current.frame = requestAnimationFrame(step);
     };
     step();
@@ -159,11 +168,13 @@ export const GlobeMap = forwardRef<GlobeHandle, GlobeMapProps>(function GlobeMap
     const id = dataRef.current.highlightId;
     const shape = getCountryShape(id);
     const src = m.getSource("country") as import("maplibre-gl").GeoJSONSource | undefined;
-    m.setFilter("sel-grid", byDestination(shape ? id : null) as never);
+    const lines = m.getSource("country-lines") as import("maplibre-gl").GeoJSONSource | undefined;
+    m.setFilter(LAYERS.selectedGrid, byDestination(shape ? id : null) as never);
     // The selected country draws its own detailed outline; hide the simplified one under it to avoid a double line.
-    m.setFilter("world-border-base", ["!=", ["coalesce", ["get", "d"], ""], shape && id ? id : NONE] as never);
+    for (const layer of LAYERS.hideUnderSelection) m.setFilter(layer, notDestination(shape ? id : null) as never);
     if (!shape) {
       src?.setData({ type: "FeatureCollection", features: [] });
+      lines?.setData({ type: "FeatureCollection", features: [] });
       fade.current.shownFor = null;
       return;
     }
@@ -174,12 +185,22 @@ export const GlobeMap = forwardRef<GlobeHandle, GlobeMapProps>(function GlobeMap
     }
     const feature = shape as Feature<Polygon | MultiPolygon>;
     const geometry = feature.geometry;
+    const polygons = (geometry.type === "Polygon" ? [geometry.coordinates] : geometry.coordinates).map((polygon) =>
+      polygon.map((ring) => smoothRing(smoothRing(ring))),
+    );
     src?.setData({
       ...feature,
       geometry: geometry.type === "Polygon"
-        ? { ...geometry, coordinates: geometry.coordinates.map((ring) => smoothRing(smoothRing(ring))) }
-        : { ...geometry, coordinates: geometry.coordinates.map((polygon) => polygon.map((ring) => smoothRing(smoothRing(ring)))) },
+        ? { ...geometry, coordinates: polygons[0]! }
+        : { ...geometry, coordinates: polygons },
     });
+    // Outline without the antimeridian cut (hologram line layers): cut the raw outline first, then round it, so
+    // no rounded corner leaves a stub along the cut.
+    if (lines) {
+      const raw = geometry.type === "Polygon" ? [geometry.coordinates] : geometry.coordinates;
+      const outline = outlineLines(raw).map((l) => smoothLine(smoothLine(l)));
+      lines.setData({ type: "Feature", properties: {}, geometry: { type: "MultiLineString", coordinates: outline } });
+    }
   }
 
   useImperativeHandle(ref, () => ({
@@ -206,6 +227,7 @@ export const GlobeMap = forwardRef<GlobeHandle, GlobeMapProps>(function GlobeMap
   useEffect(() => {
     let cancelled = false;
     let pulseTimer: ReturnType<typeof setInterval> | undefined;
+    let glowTimer: ReturnType<typeof setInterval> | undefined;
     const fadeState = fade.current;
     import("maplibre-gl").then((mod) => {
       const maplibregl = ("Map" in mod && mod.Map ? mod : (mod as unknown as { default: typeof mod }).default) as typeof mod;
@@ -221,6 +243,7 @@ export const GlobeMap = forwardRef<GlobeHandle, GlobeMapProps>(function GlobeMap
         style: {
           version: 8,
           projection: { type: "globe" },
+          ...(LAYERS.sky ? { sky: LAYERS.sky } : {}),
           sources: {
             earth: {
               type: "raster",
@@ -233,119 +256,12 @@ export const GlobeMap = forwardRef<GlobeHandle, GlobeMapProps>(function GlobeMap
             country: { type: "geojson", data: { type: "FeatureCollection", features: [] } },
             world: { type: "geojson", data: { type: "FeatureCollection", features: [] } },
             "world-grid": { type: "geojson", data: { type: "FeatureCollection", features: [] } },
+            ...LAYERS.sources,
           },
           layers: [
-            {
-              id: "earth",
-              type: "raster",
-              source: "earth",
-              paint: {
-                "raster-fade-duration": 0,
-                "raster-saturation": 0,
-                "raster-brightness-max": 1,
-                "raster-contrast": 0,
-              },
-            },
-            // Selected tint sits directly on the imagery, under every line.
-            {
-              id: "sel-fill",
-              type: "fill",
-              source: "country",
-              paint: {
-                "fill-color": rgba(S.selected.fill.color, S.selected.fill.opacity),
-                "fill-opacity": 0,
-                "fill-opacity-transition": instant,
-              },
-            },
-            // Every country: faint grid + border.
-            {
-              id: "world-grid-base",
-              type: "line",
-              source: "world-grid",
-              filter: GRID_BIG_ENOUGH,
-              paint: {
-                "line-color": rgba(S.unselected.grid.color, S.unselected.grid.opacity),
-                "line-width": S.unselected.grid.width,
-                "line-opacity": GRID_LOD_OPACITY,
-              },
-            },
-            {
-              id: "world-grid-hover",
-              type: "line",
-              source: "world-grid",
-              filter: ["all", byDestination(null), GRID_BIG_ENOUGH],
-              paint: {
-                "line-color": rgba(S.hover.grid.color, S.hover.grid.opacity),
-                "line-width": S.hover.grid.width,
-                "line-opacity": GRID_LOD_OPACITY,
-              },
-            },
-            {
-              id: "world-border-base",
-              type: "line",
-              source: "world",
-              layout: { "line-join": "round" },
-              paint: {
-                "line-color": rgba(S.unselected.border.color, S.unselected.border.opacity),
-                "line-width": S.unselected.border.width,
-              },
-            },
-            {
-              id: "world-border-hover",
-              type: "line",
-              source: "world",
-              filter: byDestination(null),
-              layout: { "line-join": "round" },
-              paint: {
-                "line-color": rgba(S.hover.border.color, S.hover.border.opacity),
-                "line-width": S.hover.border.width,
-              },
-            },
-            // Invisible fill used only for hover and click hit-testing.
-            {
-              id: "world-hit",
-              type: "fill",
-              source: "world",
-              paint: { "fill-color": "#000000", "fill-opacity": 0 },
-            },
-            // Selected country: full 1° grid, soft glow, bright border (detailed outline from public/shapes).
-            {
-              id: "sel-grid",
-              type: "line",
-              source: "world-grid",
-              filter: byDestination(null),
-              paint: {
-                "line-color": rgba(S.selected.grid.color, S.selected.grid.opacity),
-                "line-width": S.selected.grid.width,
-                "line-opacity": selectedGridOpacity(0),
-                "line-opacity-transition": instant,
-              },
-            },
-            {
-              id: "sel-glow",
-              type: "line",
-              source: "country",
-              layout: { "line-join": "round", "line-cap": "round" },
-              paint: {
-                "line-color": rgba(S.selected.glow.color, S.selected.glow.opacity),
-                "line-width": S.selected.glow.width,
-                "line-blur": S.selected.glow.blur,
-                "line-opacity": 0,
-                "line-opacity-transition": instant,
-              },
-            },
-            {
-              id: "sel-border",
-              type: "line",
-              source: "country",
-              layout: { "line-join": "round", "line-cap": "round" },
-              paint: {
-                "line-color": rgba(S.selected.border.color, S.selected.border.opacity),
-                "line-width": S.selected.border.width,
-                "line-opacity": 0,
-                "line-opacity-transition": instant,
-              },
-            },
+            ...LAYERS.below,
+            { id: "earth", type: "raster", source: "earth", paint: LAYERS.earthPaint },
+            ...LAYERS.layers,
             // Activity circles always render above every border and grid layer.
             {
               id: "outbreak-halo",
@@ -386,6 +302,9 @@ export const GlobeMap = forwardRef<GlobeHandle, GlobeMapProps>(function GlobeMap
           if (!world || map.current !== m) return;
           (m.getSource("world") as import("maplibre-gl").GeoJSONSource).setData(world.countries);
           (m.getSource("world-grid") as import("maplibre-gl").GeoJSONSource).setData(world.grid);
+          (m.getSource("world-lines") as import("maplibre-gl").GeoJSONSource | undefined)?.setData(world.outlines);
+          (m.getSource("graticule") as import("maplibre-gl").GeoJSONSource | undefined)?.setData(world.graticule);
+          (m.getSource("particles") as import("maplibre-gl").GeoJSONSource | undefined)?.setData(world.particles);
         });
         container.current?.setAttribute("data-globe-ready", "true");
         applyOutbreaks(m);
@@ -409,6 +328,17 @@ export const GlobeMap = forwardRef<GlobeHandle, GlobeMapProps>(function GlobeMap
               0, 5 * coreScale, 500, 9 * coreScale, 2000, 13 * coreScale, 8000, 18 * coreScale,
             ]);
             m.setPaintProperty("outbreak-dots", "circle-opacity", 0.72 + light * 0.28);
+          }, 50);
+        }
+        // Hologram: the selected country's glow breathes slowly (small opacity swing, ~20 updates/s).
+        if (LAYERS.pulsedGlow && HOLOGRAM_SELECTED_PULSE && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+          const [glowLayer, glowProp] = LAYERS.pulsedGlow;
+          const { periodMs, min } = HOLOGRAM.selected.pulse;
+          glowTimer = setInterval(() => {
+            if (document.hidden || !fade.current.shownFor) return;
+            const wave = (1 + Math.cos((performance.now() / periodMs) * Math.PI * 2)) / 2;
+            fade.current.pulse = min + (1 - min) * wave;
+            m.setPaintProperty(glowLayer, glowProp, fade.current.value * fade.current.pulse);
           }, 50);
         }
         const destination = destinations.find((d) => d.id === dataRef.current.selectedDestinationId);
@@ -445,11 +375,26 @@ export const GlobeMap = forwardRef<GlobeHandle, GlobeMapProps>(function GlobeMap
       };
       const canHover = window.matchMedia("(hover: hover)").matches;
       let hovered: string | null = null;
+      const setHoverOpacity = (t: number) => {
+        for (const [layer, prop] of LAYERS.hoverFade ?? []) m.setPaintProperty(layer, prop, t);
+        for (const layer of LAYERS.hover.grids) m.setPaintProperty(layer, "line-opacity", gridLodOpacity(t) as never);
+      };
       const setHover = (id: string | null) => {
         if (id === hovered) return;
         hovered = id;
-        m.setFilter("world-border-hover", byDestination(id) as never);
-        m.setFilter("world-grid-hover", ["all", byDestination(id), GRID_BIG_ENOUGH] as never);
+        for (const layer of LAYERS.hover.plain) m.setFilter(layer, byDestination(id) as never);
+        for (const layer of LAYERS.hover.grids) m.setFilter(layer, ["all", byDestination(id), GRID_BIG_ENOUGH] as never);
+        if (!LAYERS.hoverFade || !id) return;
+        // Default -> hover: fade the hover layers in.
+        cancelAnimationFrame(fade.current.hoverFrame);
+        const start = performance.now();
+        const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        const step = () => {
+          const t = reduce ? 1 : Math.min(1, (performance.now() - start) / SELECT_FADE_MS);
+          setHoverOpacity(easeOut(t));
+          if (t < 1) fade.current.hoverFrame = requestAnimationFrame(step);
+        };
+        step();
       };
       m.on("mousemove", (e) => {
         const { dot, country } = pick(e.point);
@@ -468,6 +413,33 @@ export const GlobeMap = forwardRef<GlobeHandle, GlobeMapProps>(function GlobeMap
       });
 
       map.current = m;
+      // Hologram rim glow: keep the circle behind the canvas on the globe's on-screen disc. The camera looks at the
+      // globe's centre, so that projects to the map centre. The visible edge is where points along a great circle
+      // from the centre reach their furthest on-screen distance (perspective makes it a little under 90°).
+      if (LAYERS.rim) {
+        const toRad = Math.PI / 180;
+        const placeRim = () => {
+          const el = rim.current;
+          if (!el) return;
+          const c = m.getCenter();
+          const p0 = m.project(c);
+          const phi = c.lat * toRad;
+          let r = 0;
+          for (let deg = 50; deg <= 90; deg += 2) {
+            const t = deg * toRad; // due east along a great circle
+            const lat = Math.asin(Math.sin(phi) * Math.cos(t));
+            const lng = c.lng + Math.atan2(Math.sin(t) * Math.cos(phi), Math.cos(t) - Math.sin(phi) * Math.sin(lat)) / toRad;
+            const p = m.project([lng, lat / toRad]);
+            r = Math.max(r, Math.hypot(p.x - p0.x, p.y - p0.y));
+          }
+          el.style.transform = `translate(${p0.x - r}px, ${p0.y - r}px) scale(${r / 500})`;
+        };
+        m.on("move", placeRim);
+        m.on("resize", placeRim);
+        m.once("load", placeRim);
+      }
+      // Dev-only handle for inspecting layers from the browser console.
+      if (import.meta.env.DEV) (window as unknown as { __globe?: unknown }).__globe = m;
       const resizeSearch = () => {
         if (container.current?.classList.contains("globe-search-canvas") && !m.isMoving()) m.setPadding(searchPadding());
       };
@@ -476,7 +448,9 @@ export const GlobeMap = forwardRef<GlobeHandle, GlobeMapProps>(function GlobeMap
     return () => {
       cancelled = true;
       cancelAnimationFrame(fadeState.frame);
+      cancelAnimationFrame(fadeState.hoverFrame);
       if (pulseTimer !== undefined) clearInterval(pulseTimer);
+      if (glowTimer !== undefined) clearInterval(glowTimer);
       ready.current = false;
       map.current?.remove();
       map.current = null;
@@ -505,7 +479,8 @@ export const GlobeMap = forwardRef<GlobeHandle, GlobeMapProps>(function GlobeMap
   }, [highlightId]);
 
   return (
-    <div className={`globe-bg absolute inset-0 ${selectedDestinationId ? "" : "globe-search"}`}>
+    <div className={`globe-bg absolute inset-0 ${selectedDestinationId ? "" : "globe-search"} ${LAYERS.wrapperClass}`}>
+      {LAYERS.rim && <div ref={rim} className="globe-rim" aria-hidden="true" />}
       <div ref={container} className="h-full w-full" />
       {outbreaks.length > 0 && (
         <div className="glass pointer-events-auto absolute bottom-4 left-4 z-10 rounded-2xl px-4 py-3 text-xs">

@@ -25,7 +25,52 @@ export const COUNTRY_STYLE = {
   },
 } as const;
 
-/** Unselected → selected fade. */
+// ---------------------------------------------------------------------------------------------------------------
+// Hologram style (MAP_STYLE = 'hologram'): ice-blue glowing outlines over darkened, navy-tinted imagery.
+// Cyan/blue for every country, brand teal only for the selected one; still no red, amber or green.
+export const NAVY_950 = "#0B1B33";
+export const SKY_400 = "#38BDF8";
+export const SKY_300 = "#7DD3FC";
+export const CYAN_300 = "#67E8F9";
+export const CYAN_50 = "#E0F7FF";
+
+export const HOLOGRAM = {
+  /** Imagery is drawn at `imageryOpacity` over a navy background, i.e. a navy tint of (1 - imageryOpacity). */
+  base: {
+    tint: NAVY_950,
+    imageryOpacity: 0.55,
+    saturation: -0.35,
+    brightnessMax: 0.9,
+    contrast: 0.1,
+  },
+  /** Rim glow around the globe edge: `.globe-rim` in styles.css (box-shadow on a 1000px circle scaled to the globe). */
+  atmosphere: { color: SKY_400, opacity: 0.35, blurPx: 24, spreadPx: 4 },
+  /** Lat/long grid over the whole globe, oceans included. */
+  oceanGrid: { color: SKY_400, opacity: 0.12, width: 0.75 },
+  default: {
+    border: { color: SKY_300, opacity: 0.45, width: 0.75 },
+    glow: { color: SKY_400, opacity: 0.15, width: 3.5, blur: 2 },
+    grid: { color: SKY_300, opacity: 0.16, width: 0.75 }, // land grid, a step brighter than the ocean grid
+  },
+  hover: {
+    border: { color: CYAN_50, opacity: 0.9, width: 1.25 },
+    glow: { color: CYAN_300, opacity: 0.35, width: 6, blur: 3 },
+    grid: { color: SKY_300, opacity: 0.3, width: 0.75 },
+    fill: { color: CYAN_300, opacity: 0.05 },
+  },
+  selected: {
+    border: { color: TEAL_300, opacity: 1, width: 2 },
+    glow: { color: TEAL_400, opacity: 0.45, width: 9, blur: 5 },
+    grid: { color: TEAL_300, opacity: 0.3, width: 0.75 },
+    fill: { color: TEAL_400, opacity: 0.08 },
+    /** Breathing glow: opacity multiplier swings between `min` and 1 every `periodMs`. */
+    pulse: { periodMs: 2600, min: 0.7 },
+  },
+  /** Sparse static dots over the oceans (HOLOGRAM_PARTICLES). Kept under the activity circles. */
+  particles: { color: SKY_300, opacity: 0.55, radius: 1.4, blur: 0.5, count: 160 },
+} as const;
+
+/** Default → hover → selected fades. */
 export const SELECT_FADE_MS = 200;
 
 /**

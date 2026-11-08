@@ -109,22 +109,37 @@ def _read_csv_filtered(path: Path, iso_col: str, keep: list[str]) -> pd.DataFram
     return pd.concat(parts, ignore_index=True)
 
 
-def ingest(cfg, sink=None, offline: bool = False, refresh: bool = False) -> dict[str, pd.DataFrame]:
-    """Run bronze ingestion. Returns {table_name: DataFrame}; also writes them through `sink`."""
+def ingest(cfg, sink=None, offline: bool = False, refresh: bool = False,
+           prev_hashes: dict[str, str] | None = None) -> dict[str, pd.DataFrame]:
+    """Run bronze ingestion. Returns {table_name: DataFrame}; also writes them through `sink`.
+
+    With `prev_hashes` ({raw file: sha256} of the last successful run), a source whose file(s) did not change
+    is neither parsed nor written: its bronze table is left as is and later steps read the stored copy.
+    """
     src = cfg["sources"]
     dest = cfg["destinations"]
     store = RawStore(cfg, offline=offline, refresh=refresh)
     out: dict[str, pd.DataFrame] = {}
     archive: list[tuple[Path, str]] = []
+    skipped: list[str] = []
+
+    def unchanged(table: str, *rels: str) -> bool:
+        """True (and recorded) when every raw file of `table` matches the last run and a stored copy exists."""
+        if not prev_hashes or not (cfg.path("bronze") / f"{table}.parquet").exists():
+            return False
+        same = all(store.meta(r).get("sha256") and prev_hashes.get(r) == store.meta(r)["sha256"] for r in rels)
+        if same:
+            skipped.append(table)
+        return same
 
     # --- FluNet + dictionary -------------------------------------------------------------
     s = src["flunet"]
     p = store.fetch("flunet_dictionary", s["dictionary_url"], s["dictionary_file"])
-    if p:
+    if p and not unchanged("flunet_dictionary", s["dictionary_file"]):
         out["flunet_dictionary"] = _tag(pd.read_csv(p, dtype=str), store, s["name"], s["dictionary_url"], s["dictionary_file"])
         archive.append((p, s["dictionary_file"]))
     p = store.fetch("flunet", s["url"], s["file"])
-    if p:
+    if p and not unchanged("flunet_raw", s["file"]):
         out["flunet_raw"] = _tag(pd.read_csv(p, dtype=str, keep_default_na=False, na_values=[""]),
                                  store, s["name"], s["url"], s["file"])
         archive.append((p, s["file"]))
@@ -145,6 +160,9 @@ def ingest(cfg, sink=None, offline: bool = False, refresh: bool = False) -> dict
         if csv.exists():
             store.manifest.setdefault(rel_csv, {**store.meta(rel_zip), "method": "unzipped"})
             store.manifest[rel_csv]["sha256"] = sha256(csv)
+            # the run log (and so the baseline) records the downloaded zip; the csv is derived from it
+            if unchanged(f"opendengue_{key}_raw", rel_zip if zp else rel_csv):
+                continue
             df = _read_csv_filtered(csv, "ISO_A0", dest) if key != "national" else \
                 pd.read_csv(csv, dtype=str, keep_default_na=False, na_values=["", "NA"])
             df = df.replace({"NA": None})
@@ -155,14 +173,16 @@ def ingest(cfg, sink=None, offline: bool = False, refresh: bool = False) -> dict
     # --- Measles (WHO primary, TidyTuesday fallback) -------------------------------------
     s = src["measles"]
     p = store.fetch("measles_who", s["url"], s["file"])
-    if p:
+    if p and unchanged("measles_raw", s["file"]):
+        pass
+    elif p:
         df = pd.read_excel(p, sheet_name=s["sheet"], dtype=str)
         df.columns = [" ".join(str(c).split()) for c in df.columns]
         out["measles_raw"] = _tag(df, store, s["name"], s["url"], s["file"])
         archive.append((p, s["file"]))
     else:
         p = store.fetch("measles_tidytuesday", s["fallback_url"], s["fallback_file"])
-        if p:
+        if p and not unchanged("measles_raw", s["fallback_file"]):
             df = pd.read_csv(p, dtype=str)
             df = df.rename(columns={"iso3": "ISO3", "year": "Year", "month": "Month",
                                     "country": "Country", "region": "Region",
@@ -173,7 +193,7 @@ def ingest(cfg, sink=None, offline: bool = False, refresh: bool = False) -> dict
     # --- Population (World Bank JSON) ----------------------------------------------------
     s = src["population"]
     p = store.fetch("population", s["url"], s["file"])
-    if p:
+    if p and not unchanged("population_raw", s["file"]):
         j = json.loads(p.read_text(encoding="utf-8"))
         recs = [{"countryiso3code": r.get("countryiso3code"), "country": (r.get("country") or {}).get("value"),
                  "indicator": (r.get("indicator") or {}).get("id"), "date": r.get("date"),
@@ -185,20 +205,21 @@ def ingest(cfg, sink=None, offline: bool = False, refresh: bool = False) -> dict
     # --- Malaria: WHO GHO (auto) + MAP (manual, optional) --------------------------------
     s = src["malaria_who"]
     p = store.fetch("malaria_who", s["url"], s["file"])
-    if p:
+    if p and not unchanged("malaria_who_raw", s["file"]):
         df = pd.DataFrame(json.loads(p.read_text(encoding="utf-8"))["value"]).astype(str).replace({"None": None, "nan": None})
         out["malaria_who_raw"] = _tag(df, store, s["name"], s["url"], s["file"])
         archive.append((p, s["file"]))
     s = src["malaria_map"]
     map_files = sorted(glob.glob(str(store.root / s["file_glob"])))
     if map_files:
-        parts = []
-        for f in map_files:
-            rel = str(Path(f).relative_to(store.root)).replace("\\", "/")
+        rels = [str(Path(f).relative_to(store.root)).replace("\\", "/") for f in map_files]
+        for rel in rels:
             store.fetch("malaria_map", None, rel, manual=True)
-            parts.append(_tag(pd.read_csv(f, dtype=str), store, s["name"], s["page_url"], rel))
-            archive.append((Path(f), rel))
-        out["malaria_map_raw"] = pd.concat(parts, ignore_index=True)
+        if not unchanged("malaria_map_raw", *rels):
+            parts = [_tag(pd.read_csv(f, dtype=str), store, s["name"], s["page_url"], rel)
+                     for f, rel in zip(map_files, rels)]
+            archive.extend((Path(f), rel) for f, rel in zip(map_files, rels))
+            out["malaria_map_raw"] = pd.concat(parts, ignore_index=True)
     else:
         store.log_rows.append(dict(source="malaria_map", url=s["page_url"], file=s["file_glob"],
                                    status="missing (manual download, optional)", retrieved_at=None,
@@ -207,6 +228,8 @@ def ingest(cfg, sink=None, offline: bool = False, refresh: bool = False) -> dict
     store.save_manifest()
     archive.append((store.root / MANIFEST, MANIFEST))
     out["ingest_log"] = pd.DataFrame(store.log_rows).assign(ingested_at=_now())
+    if skipped:
+        log.info("bronze: unchanged since last run, not reprocessed: %s", ", ".join(skipped))
 
     if sink is not None:
         if cfg["databricks"].get("upload_raw_files", True):

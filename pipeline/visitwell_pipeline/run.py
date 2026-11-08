@@ -33,8 +33,8 @@ def _read(sink, layer, name):
         return None
 
 
-def run_bronze(cfg, sink, offline=False, refresh=False):
-    return ingest(cfg, sink, offline=offline, refresh=refresh)
+def run_bronze(cfg, sink, offline=False, refresh=False, prev_hashes=None):
+    return ingest(cfg, sink, offline=offline, refresh=refresh, prev_hashes=prev_hashes)
 
 
 def run_silver(cfg, sink, bronze: dict | None = None) -> dict[str, pd.DataFrame]:
@@ -145,7 +145,7 @@ def run_incremental(cfg, sink, *, refresh=True, offline=False, as_of=None, force
     prev = state.get("source_hashes") or previous_hashes(cfg.path("raw"))
     fp = code_fingerprint(cfg["_root"])
 
-    bronze = run_bronze(cfg, sink, offline, refresh)
+    bronze = run_bronze(cfg, sink, offline, refresh, prev_hashes=prev)
     changed = changed_sources(prev, bronze["ingest_log"])
     silver_present = (cfg.path("silver") / "influenza_monthly.parquet").exists()
     rebuild = needs_silver(changed, state.get("code_fingerprint") != fp, silver_present, force)

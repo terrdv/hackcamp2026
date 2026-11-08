@@ -176,7 +176,8 @@ class DatabricksSqlSink(_UCBase):
 # --- incremental (MERGE) writes ------------------------------------------------------------
 # Columns that change on every run without the data changing. They are stored but left out of the
 # row hash, so an unchanged row is not rewritten (after a merge they mean "date this row last changed").
-VOLATILE_COLUMNS = frozenset({"_retrieved_at", "_file_sha256", "_file", "built_on", "computed_on",
+# sanitize_columns strips leading underscores, so the stored names are listed (not _retrieved_at etc.).
+VOLATILE_COLUMNS = frozenset({"retrieved_at", "file_sha256", "file", "built_on", "computed_on",
                               "ingested_at"})
 # Columns Databricks adds itself (read_files in the laptop push adds _rescued_data). They exist only in the
 # target table; the merge leaves them null for new rows and never treats them as dropped.
@@ -191,7 +192,7 @@ class SchemaDriftError(RuntimeError):
 
 def hash_columns(columns) -> list[str]:
     """Business columns that define row identity, in a stable (sorted) order."""
-    return sorted(c for c in columns if c not in VOLATILE_COLUMNS)
+    return sorted(c for c in columns if c.lstrip("_") not in VOLATILE_COLUMNS)
 
 
 def row_hash_sql(columns, alias: str | None = None) -> str:
@@ -282,7 +283,9 @@ class SparkSink(_UCBase):
         self.ensure()
         path = Path(f"{self.volume_root}/_staging/{layer}/{name}.parquet")
         path.parent.mkdir(parents=True, exist_ok=True)
-        prepare_for_parquet(df).to_parquet(path, index=False)
+        # Spark cannot read pandas' nanosecond timestamps: store them as microseconds
+        prepare_for_parquet(df).to_parquet(path, index=False, coerce_timestamps="us",
+                                           allow_truncated_timestamps=True)
         sdf = self.spark.read.parquet(str(path))
         table = self.fqn(layer, name)
         plain = table.replace("`", "")

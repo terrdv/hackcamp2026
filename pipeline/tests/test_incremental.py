@@ -19,6 +19,14 @@ def test_hash_ignores_volatile_columns_and_order():
     assert row_hash_sql(["level", "built_on", "location_iso3"]) == row_hash_sql(["location_iso3", "level"])
 
 
+def test_hash_ignores_provenance_columns_after_sanitizing():
+    from visitwell_pipeline.sinks import sanitize_columns
+    import pandas as pd
+    stored = list(sanitize_columns(pd.DataFrame(columns=["COUNTRY_CODE", "_source", "_retrieved_at",
+                                                          "_file_sha256", "_file"])).columns)
+    assert hash_columns(stored) == ["country_code", "source"]
+
+
 def test_hash_sql_same_expression_for_target_alias():
     src, tgt = row_hash_sql(["a", "b"]), row_hash_sql(["a", "b"], "t")
     assert src.replace("`a`", "t.`a`").replace("`b`", "t.`b`") == tgt
