@@ -5,7 +5,7 @@
 <h1 align="center">PreZero</h1>
 
 <p align="center"><b>Stop the outbreak before patient zero.</b><br/>
-A travel health outlook for your exact destination and dates, built from public WHO data on Databricks.</p>
+A travel health outlook for your exact destination and dates, built from public reliable data source on Databricks.</p>
 
 <p align="center">
   <img alt="Databricks" src="https://img.shields.io/badge/Databricks-Lakeflow%20%7C%20Unity%20Catalog%20%7C%20SQL-FF3621?logo=databricks&logoColor=white">
